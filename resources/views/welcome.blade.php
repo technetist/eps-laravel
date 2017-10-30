@@ -97,6 +97,7 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
                 <form action="/test" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="submit" value="Pusher Test" name="btn" class="btn btn-primary">
                 </form>
             </div>
