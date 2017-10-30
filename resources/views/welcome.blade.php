@@ -1,23 +1,3 @@
-<?php
-    if(isset($_POST['btn']))
-    {
-        require __DIR__ . '/vendor/autoload.php';
-
-        $options = array(
-            'cluster' => 'eu',
-            'encrypted' => true
-        );
-        $pusher = new Pusher\Pusher(
-            'bd49390d7cfc438fb299',
-            '41e6d5fb6d7215e5ebc7',
-            '423392',
-            $options
-        );
-
-        $data['message'] = 'hello world';
-        $pusher->trigger('my-channel', 'my-event', $data);
-    }
-?>
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
