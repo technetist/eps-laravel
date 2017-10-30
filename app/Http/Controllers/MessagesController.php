@@ -12,6 +12,6 @@ class MessagesController extends Controller
         $message = 'hello world';
         broadcast(new MessageSent($message))->toOthers();
 
-        return redirect('home')->with('status', 'Message Sent!');
+        return redirect('/')->with('status', 'Message Sent!');
     }
 }
