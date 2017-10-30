@@ -26,9 +26,9 @@ class MessageSent
      *
      * @return void
      */
-    public function __construct(Message $message)
+    public function __construct()
     {
-        $this->message = $message;
+
     }
 
     /**
