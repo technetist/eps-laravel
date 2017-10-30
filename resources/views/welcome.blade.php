@@ -96,7 +96,7 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
-                <form action="" method="post">
+                <form action="/test" method="post">
                     <input type="submit" value="Pusher Test" name="btn" class="btn btn-primary">
                 </form>
             </div>
