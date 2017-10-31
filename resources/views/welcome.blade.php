@@ -91,7 +91,7 @@
                     </div>
                 @endif
                 <div class="title m-b-md">
-                    Laravel
+                    EPS
                 </div>
 
                 <div class="links">
