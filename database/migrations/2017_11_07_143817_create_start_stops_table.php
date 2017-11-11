@@ -15,6 +15,8 @@ class CreateStartStopsTable extends Migration
     {
         Schema::create('start_stops', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('parameter')->nullable();
+            $table->boolean('startstop');
             $table->timestamps();
         });
     }
