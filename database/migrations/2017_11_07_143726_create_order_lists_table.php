@@ -15,6 +15,11 @@ class CreateOrderListsTable extends Migration
     {
         Schema::create('order_lists', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('amount');
+            $table->string('machine');
+            $table->integer('orderID');
+            $table->string('product');
+            $table->integer('time');
             $table->timestamps();
         });
     }
