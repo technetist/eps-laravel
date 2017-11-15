@@ -108,7 +108,8 @@
                 <form action="/pusher/test" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="my-channel" value="private-my-channel">
-                    <input type="submit" value="Pusher Test" name="btn" class="btn btn-primary">
+                    <input type="hidden" name="socket_id" value="" id="socketId">
+                    <input type="submit" value="Pusher Private Test" name="btn" class="btn btn-primary">
                 </form>
                 <div class="container">
                     <div class="row">
@@ -137,19 +138,26 @@
                 cluster: 'eu',
                 encrypted: true
             });
+            pusher.connection.bind('connected', function() {
+                socketId = pusher.connection.socket_id;
+                var element = document.getElementById("socketId");
+                element.value = socketId;
+                element.form.submit();
+            });
+
 
             //Subscribe to the channel we specified in our Laravel Event
-            var channel = pusher.subscribe('private-my-channel');
+//            var channel = pusher.subscribe('private-my-channel');
 
             //Bind a function to a Event (the full Laravel class)
-            channel.bind('App\\Events\\MessageSent', addMessage);
+//            channel.bind('App\\Events\\MessageSent', addMessage);
 
-            function addMessage(data) {
+//            function addMessage(data) {
 //                var listItem = $("<li class='list-group-item'></li>");
 //                listItem.html(data.answer);
-                console.log(data);
+//                console.log(data);
 //                $('#messages').prepend(listItem);
-            }
+//            }
         </script>
     </body>
 </html>
