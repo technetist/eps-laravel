@@ -1043,12 +1043,19 @@ if (token) {
  */
 
 // import Echo from 'laravel-echo'
-
+//
 // window.Pusher = require('pusher-js');
-
+//
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
+//     key: 'bd49390d7cfc438fb299',
+//     cluster: 'eu',
+//     encrypted: true
+// });
+//
+// Echo.channel('my-channel')
+//     .listen('.my-event-answer', (e) => {
+//     console.log(e.answer);
 // });
 
 /***/ }),

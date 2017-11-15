@@ -15,6 +15,6 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('my-channel', function ($user) {
-    return true; // change this to your authentication logic
+Broadcast::channel('my-channel', function () {
+    return true;
 });

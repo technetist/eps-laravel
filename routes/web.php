@@ -19,3 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/test', 'MessagesController@pusher');
+Route::post('pusher/test', 'WebController@pusherAuth');
+Route::post('pusher/api', 'ApiController@pusherAuth');
