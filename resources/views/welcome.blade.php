@@ -142,7 +142,6 @@
                 socketId = pusher.connection.socket_id;
                 var element = document.getElementById("socketId");
                 element.value = socketId;
-                element.form.submit();
             });
 
 
