@@ -41,8 +41,4 @@ class LoginController extends Controller
     {
         return 'username';
     }
-
-    public function findForPassport($identifier) {
-        return $this->where('username', $identifier)->first();
-    }
 }
