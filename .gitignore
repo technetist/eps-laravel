@@ -5,12 +5,13 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vagrant
-/public/hot
 
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
-/public/storage
+public/js/*
+public/css/*
+public/storage/
 
 # Laravel 5 & Lumen specific
 public/storage
@@ -24,3 +25,5 @@ Homestead.json
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+
+.htaccess
