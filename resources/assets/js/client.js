@@ -1,6 +1,6 @@
 const PRIVATE_CHANNEL = 'ppc-game-communication-broadcast'
 var io = require('socket.io-client')
-var socket = io.connect('http://192.168.10.10:8000');
+var socket = io.connect('http://'+ app_ip +':8000');
 socket.on('connect', function () {
     console.log('CONNECT')
 
