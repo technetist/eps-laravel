@@ -29,5 +29,7 @@ Route::get('socketio', function () {
 });
 
 Route::get('test', function () {
-    return view('test');
+    return view('socketio');
 });
+
+Route::view('front', 'index');
