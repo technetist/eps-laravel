@@ -20,22 +20,29 @@ class SocketMessageEvent implements ShouldBroadcast
      * @return void
      */
 
-    public $data;
+    public $from;
+    public $to;
+    public $message;
 
     public function __construct()
     {
-        $this->data = array(
-            'power'=> '10'
-        );
+        $this->from = 'Bond';
+        $this->to = 'Bean';
+        $this->message = 'You don\'t say??';
+    }
+
+    public function broadcastOn()
+    {
+        return ['ppc-game-communication-broadcast'];
     }
 
     /**
-     * Get the channels the event should broadcast on.
+     * Get the broadcast event name.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return string
      */
-    public function broadcastOn()
+    public function broadcastAs()
     {
-        return ['test-channel'];
+        return 'messages.new';
     }
 }
