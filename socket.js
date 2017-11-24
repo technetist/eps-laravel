@@ -20,7 +20,7 @@ sub.on('subscribe', function (channel, count) {
 
 sub.on('connect', () => {
     console.log('Sup Homie');
-    socket.emit('here-is-your-id')
+    io.sockets.emit('here-is-your-id')
 })
 
 
