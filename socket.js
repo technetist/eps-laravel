@@ -41,6 +41,8 @@ io.sockets.on('connection', function (socket) {
 
     console.log('NEW CLIENT CONNECTED')
 
+    socket.emit('connect', this.socket)
+
     socket.on('subscribe-to-channel', function (data) {
         console.log('SUBSCRIBE TO CHANNEL', data)
 
