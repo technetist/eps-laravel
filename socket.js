@@ -21,7 +21,7 @@ sub.on('subscribe', function (channel, count) {
 sub.on('connect', () => {
     console.log('Sup Homie');
     socket.emit('here-is-your-id')
-}
+})
 
 
 // Handle messages from channels we're subscribed to
