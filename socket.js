@@ -36,7 +36,7 @@ sub.on('message', function (channel, payload) {
     // Send the data through to any client in the channel room (!)
     // (i.e. server room, usually being just the one user)
     io.sockets.in(channel).emit(payload.event, payload.data)
-    io.sockets.broadcast.emit('apple',{message: 'apples'});
+    io.sockets.emit('apple',{message: 'apples'});
 })
 
 /*
