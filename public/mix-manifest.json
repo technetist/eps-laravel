@@ -1,5 +1,6 @@
 {
-    "/js/socketscript.js": "/js/socketscript.js",
+    "/js/client.js": "/js/client.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/socket.io.js": "/js/socket.io.js"
 }

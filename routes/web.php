@@ -29,5 +29,9 @@ Route::get('socketio', function () {
 });
 
 Route::get('test', function () {
+    return view('socketio');
+});
+
+Route::get('test', function () {
     return view('test');
 });
