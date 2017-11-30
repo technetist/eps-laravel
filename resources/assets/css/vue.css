@@ -1,0 +1,101 @@
+body {
+    font-size: 16.5px;
+    line-height: 28px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0;
+    color: #a8a8a8;
+    width: 100%;
+}
+
+.fw-website-align-center .site {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fw-full .site, .fw-side-boxed .site {
+    position: relative;
+}
+
+.fw-side-boxed .site {
+    max-width: 1560px;
+}
+
+.fw-full .site, .fw-side-boxed .site {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.fw-header .fw-header-main {
+    width: 100%;
+    text-align: right;
+    position: relative;
+    z-index: 100;
+    background: #ebebeb;
+}
+
+#contact{
+    text-align: left;
+    width: 100%;
+}
+
+ul#contact{
+    list-style-type: none;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3, .h3 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -2px;
+    color: #1f1f1f;
+}
+
+.navbar{
+    background-color: #ebebeb;
+}
+
+
+
+.navbar-brand {
+    padding: 8px 15px 0 15px;
+
+}
+
+.logo {
+    height: 100%;
+}
+.navbar-nav.li.a {
+    padding-top: 16px;
+    padding-bottom: 12px;
+}
+
+.navbar-text {
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+#footer{
+    text-align: right;
+    background-color: #36589a;
+    color: white;
+    height: 100px;
+    width: 100%;
+    padding-top: 2%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.row.col-lg-12.ng-scope, .row.col-lg-11 {
+    margin-left: 5%;
+}
+
+
+

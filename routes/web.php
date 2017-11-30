@@ -12,8 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('vue_home');
+})->name('homepage');
 
 Auth::routes();
 
