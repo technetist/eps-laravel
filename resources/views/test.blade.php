@@ -5,13 +5,8 @@
 @stop
 
 @section('footer')
-    <script src="{{ asset('js/socket.io.js') }}"></script>
-    <script>
+    <script src="{{ mix('/js/app.js') }}"></script>
+    <script>var app_ip = '{{ env("MIX_APP_IP") }}';</script>
 
-        var socket = io('http://192.168.10.10:8000');
-        socket.on("test-channel:App\\Events\\SocketMessageEvent", function(message){
-
-            $('#power').text(parseInt($('#power').text()) + parseInt(message.data.power));
-        });
-    </script>
+    <script src="{{ mix('/js/client.js') }}"></script>
 @stop
