@@ -56,3 +56,7 @@ Route::get('/contact', function(){
     return view('contact');
 })->name('contact');
 
+Route::get('/query', function(){
+    $users=DB::table('stats')->where('status', 'active')->get();
+    dd($users);
+});
