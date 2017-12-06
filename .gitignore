@@ -5,6 +5,9 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vagrant
+Vagrantfile
+after.sh
+aliases
 
 # Laravel 4 specific
 bootstrap/compiled.php
