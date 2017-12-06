@@ -35,7 +35,7 @@
         </iframe>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-5" style="margin-left: 0px">
         <img src="{{ asset('images/contact_photo.jpg') }}" />
         <h3 style="text-align: left;">FH St. Pölten</h3>
         <p style="text-align: left;">University of Applied Sciences</p>

@@ -6,6 +6,12 @@ body {
     letter-spacing: 0;
     color: #a8a8a8;
     width: 100%;
+
+}
+
+
+.container{
+    margin-left:15px;
 }
 
 .fw-website-align-center .site {
@@ -60,13 +66,12 @@ h3, .h3 {
 
 .navbar{
     background-color: #ebebeb;
+    height: 20%;
 }
-
-
 
 .navbar-brand {
     padding: 8px 15px 0 15px;
-
+    height: 70px;
 }
 
 .logo {
@@ -90,11 +95,24 @@ h3, .h3 {
     width: 100%;
     padding-top: 2%;
     padding-left: 15px;
-    padding-right: 15px;
 }
 
-.row.col-lg-12.ng-scope, .row.col-lg-11 {
+.row.col-lg-12.ng-scope, .row.col-lg-11, .col-lg-5, .col-lg-6{
     margin-left: 5%;
+}
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
 }
 
 

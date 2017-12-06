@@ -11,23 +11,28 @@
         <div class="collapse navbar-collapse navHeaderCollapse">
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="">
-                        <i class="fa fa-dashboard"></i>  Play game
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                        <i class="fa fa-file-text"></i> Analyse
+                <li><a href="{{ route('play_game') }}">
+                        Play game
                     </a>
                 </li>
                 <li>
-                    <a href="">
-                        <i class="fa fa-puzzle-piece"></i>  Instructions
+                    <a href="{{ route('analyse') }}">
+                        Analyse
                     </a>
                 </li>
+                <li class="has-dropdown">
+                    <a href="{{ route('instructions') }}" class="dropdown-toggle" data-toggle="dropdown" >
+                         Instructions
+                    </a>
+                        <ul class="dropdown">
+                            <a href="{{ route('graph') }}">
+                                Graph
+                            </a>
+                        </ul>
+                </li>
                 <li>
-                    <a href="">
-                        <i class="fa fa-users"></i>  Contact
+                    <a href="{{ route('contact') }}">
+                         Contact
                     </a>
                 </li>
             </ul>
@@ -37,7 +42,7 @@
                 </li>
                 <li>
                     <a href="#" data-toggle="modal" data-target="#help">
-                        <span class="text-primary"><i class="fa fa-question"></i> Help</span>
+                        <span class="text-primary">Help</span>
                     </a>
                 </li>
             </ul>

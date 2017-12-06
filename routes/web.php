@@ -31,3 +31,24 @@ Route::get('socketio', function () {
 Route::get('test', function () {
     return view('test');
 });
+
+Route::get('/analyse', function(){
+   return view('analyse');
+})->name('analyse');
+
+Route::get('/graph', function(){
+    return view('graph');
+})->name('graph');
+
+Route::get('/play_game', function(){
+    return view('play_game');
+})->name('play_game');
+
+Route::get('/instructions', function(){
+    return view('instructions');
+})->name('instructions');
+
+Route::get('/contact', function(){
+    return view('contact');
+})->name('contact');
+
