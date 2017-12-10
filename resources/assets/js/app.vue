@@ -1,10 +1,9 @@
 <template>
-    <div id="app">
-        <line-chart :chart-data="lineChart.data" :width="lineChart.width" :height="lineChart.height"></line-chart>
-    </div>
+    <line-chart :chart-data="lineChart.data" :width="lineChart.width" :height="lineChart.height"></line-chart>
 </template>
 
 <script>
+    console.log("I'm getting rendered!");
     import LineChart from './components/LineChart.vue'
     export default {
         name: 'app',
@@ -40,10 +39,10 @@
                         { date: '29-Mar-12', close: 609.86 },
                         { date: '28-Mar-12', close: 617.62 },
                         { date: '27-Mar-12', close: 614.48 },
-                        { date: '26-Mar-12', close: 606.98 }
+                        { date: '26-Mar-12', close: 606.98 },
                     ],
                     width: 800,
-                    height: 600
+                    height: 600,
                 }
             }
         }
