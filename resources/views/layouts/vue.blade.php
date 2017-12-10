@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Vue page</title>
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
@@ -15,8 +16,6 @@
     @yield('content');
 </div>
 <br/>
-<div id="footer" class="row">
-    <p id="copyright">Copyright ©2017 Fh St.Pölten All Rights Reserved.</p>
-</div>
+@yield('footer');
 </body>
 </html>

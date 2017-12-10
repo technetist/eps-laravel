@@ -1,9 +1,10 @@
 <template>
-    <line-chart :chart-data="lineChart.data" :width="lineChart.width" :height="lineChart.height"></line-chart>
+    <div id="app">
+        <line-chart :chart-data="lineChart.data" :width="lineChart.width" :height="lineChart.height"></line-chart>
+    </div>
 </template>
 
 <script>
-    console.log("I'm getting rendered!");
     import LineChart from './components/LineChart.vue'
     export default {
         name: 'app',

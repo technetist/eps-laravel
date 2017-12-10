@@ -5,9 +5,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
-window.Vue = require('vue');
+var Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,9 +16,13 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/LineChart.vue'));
+import App from './App'
 
-const app = new Vue({
+new Vue({
     el: '#app',
-    template: '<LineChart/>',
-    components: { linechart }
+    template: '<App/>',
+    components: { App },
+    ready() {
+        alert('Rendered!');
+    }
 });
