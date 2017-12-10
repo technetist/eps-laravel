@@ -40,9 +40,7 @@ Route::get('/analyse', function(){
    return view('analyse');
 })->name('analyse');
 
-Route::get('/graph', function(){
-    return view('graph');
-})->name('graph');
+Route::get('/graph', 'GraphController@index')->name('graph');
 
 Route::get('/play_game', function(){
     return view('play_game');
