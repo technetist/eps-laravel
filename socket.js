@@ -64,7 +64,10 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('whoworkin', function () {
         console.log('I dunno')
-        socket.emit('theyworkin', {message: 'banana'})
+        socket.emit('theyworkin', {message: 'banana', number1: Math.floor((Math.random() * 2) + 0), number2: Math.floor((Math.random() * 2) + 0), number3: Math.floor((Math.random() * 2) + 0) })
+        console.log(data.number1)
+        console.log(data.number2)
+        console.log(data.number3)
     })
 
     socket.on('ping', function() {
