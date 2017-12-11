@@ -67,6 +67,10 @@ io.sockets.on('connection', function (socket) {
         socket.emit('theyworkin', {message: 'banana'})
     })
 
+    socket.on('ping', function() {
+        console.log('Receive "ping"');
+    })
+
     socket.on('disconnect', function () {
         console.log('DISCONNECT')
     })
