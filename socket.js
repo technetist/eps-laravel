@@ -69,7 +69,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('whoworkin', function () {
-        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: Mrandomized(2,0), number4: Mrandomized(2,0), number5: Mrandomized(2,0)})
+        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: randomized(2,0), number4: randomized(2,0), number5: randomized(2,0)})
     })
 
     socket.on('ping', function() {
