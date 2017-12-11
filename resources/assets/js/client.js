@@ -9,7 +9,7 @@ socket.on('connect', function () {
     })
 
     socket.on('messages.new', function (data) {
-        console.log('NEW PRIVATE MESSAGE', data)
+        console.log('NEW PRIVATE MESSAGE', data.status)
     })
 
     socket.on('disconnect', function () {
@@ -17,6 +17,10 @@ socket.on('connect', function () {
     })
 
     socket.emit('whoworkin')
+
+    socket.on('theyworkin', function () {
+        console.log('them');
+    })
 
     // Kick it off
     // Can be any channel. For private channels, Laravel should pass it upon page load (or given by another user).

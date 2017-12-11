@@ -2,6 +2,5 @@
     "/js/client.js": "/js/client.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/css/vue.css": "/css/vue.css",
-    "/js/socket.io.js": "/js/socket.io.js"
+    "/css/vue.css": "/css/vue.css"
 }
