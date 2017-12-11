@@ -10,6 +10,12 @@ var redis = require('redis')
 
 var sub = redis.createClient()
 
+function randomized(top, bottom) {
+    return function() {
+        return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
+    }
+}
+
 sub.on('error', function (error) {
     console.log('ERROR ' + error)
 })
@@ -63,7 +69,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('whoworkin', function () {
-        socket.emit('theyworkin', {message: 'banana', number1: Math.floor((Math.random() * 2) + 0), number2: Math.floor((Math.random() * 2) + 0), number3: Math.floor((Math.random() * 2) + 0) })
+        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: Mrandomized(2,0), number4: Mrandomized(2,0), number5: Mrandomized(2,0)})
     })
 
     socket.on('ping', function() {
