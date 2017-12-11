@@ -11,9 +11,7 @@ var redis = require('redis')
 var sub = redis.createClient()
 
 function randomized(top, bottom) {
-    return function() {
-        return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
-    }
+    return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
 }
 
 sub.on('error', function (error) {
