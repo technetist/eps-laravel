@@ -1,12 +1,12 @@
 <template>
-    <svg class="line-chart"></svg>
+    <svg class="servicelevel-chart"></svg>
 </template>
 
 <script>
     import BaseChart from 'vue-d3-basechart'
     import * as d3 from 'd3'
     export default BaseChart.extend({
-        name: 'line-chart',
+        name: 'servicelevel-chart',
         props: ['width', 'height'],
         methods: {
             renderChart () {
@@ -21,16 +21,17 @@
                 var width = this.width - margin.left - margin.right
                 var height = this.height - margin.top - margin.bottom
                 var parseTime = d3.timeParse('%d-%b-%y')
-                var x = d3.scaleTime()
+                var x = d3.scaleLinear()
                     .range([0, width])
-                    .domain(d3.extent(data, (d) => parseTime(d.date)))
+                    .domain([0, 1000])
+
                 var y = d3.scaleLinear()
                     .range([height, 0])
-                    .domain([0, d3.max(data, (d) => d.close)])
-                var xAxis = d3.axisBottom(x).ticks(5)
+                    .domain([0, 100])
+                var xAxis = d3.axisBottom(x).ticks(10)
                 var yAxis = d3.axisLeft(y).ticks(5)
                 var valueline = d3.line()
-                    .x((d) => x(parseTime(d.date)))
+                    .x((d) => x(d))
                     .y((d) => y(d.close))
                 var svg = d3.select(this.$el)
                     .attr('width', this.width)
@@ -73,6 +74,24 @@
                 g.append('g')
                     .attr('class', 'y-axis')
                     .call(yAxis)
+
+
+
+                // now add titles to the axes
+                svg.append("text")
+                    .attr("class", "x label")
+                    .attr("text-anchor", "end")
+                    .attr("x", width)
+                    .attr("y", height - 6)
+                    .text("Time (sec)");
+
+                svg.append("text")
+                    .attr("class", "y label")
+                    .attr("text-anchor", "end")
+                    .attr("y", 6)
+                    .attr("dy", ".75em")
+                    .attr("transform", "rotate(-90)")
+                    .text("Service level (%)");
             }
         },
         watch: {
