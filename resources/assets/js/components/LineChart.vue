@@ -46,7 +46,7 @@
                     .attr('d', valueline)
                 var tooltip = d3.select('body').append('div')
                     .attr('class', 'tooltip')
-                    .style('opacitiy', 0)
+                    .style('opacity', 0)
                 g.selectAll('circle')
                     .data(data)
                     .enter().append('circle')

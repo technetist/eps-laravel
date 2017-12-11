@@ -97,6 +97,11 @@ h3, .h3 {
     padding-left: 15px;
 }
 
+th{
+    background-color: #36589a;
+    color: white;
+}
+
 .row.col-lg-12.ng-scope, .row.col-lg-11, .col-lg-5, .col-lg-6{
     margin-left: 5%;
 }

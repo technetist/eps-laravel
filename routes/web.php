@@ -36,11 +36,8 @@ Route::get('test', function () {
     return view('test');
 });
 
-Route::get('/analyse', function(){
-   return view('analyse');
-})->name('analyse');
-
 Route::get('/graph', 'GraphController@index')->name('graph');
+Route::get('/analyse', 'AnalyseController@index')->name('analyse');
 
 Route::get('/play_game', function(){
     return view('play_game');
@@ -53,5 +50,7 @@ Route::get('/instructions', function(){
 Route::get('/contact', function(){
     return view('contact');
 })->name('contact');
+
+Route::resource('sessions', 'SessionController');
 
 
