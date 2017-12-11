@@ -63,6 +63,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('whoworkin', function () {
+        console.log('I dunno')
         socket.emit('theyworkin', {message: 'banana'})
     })
 
