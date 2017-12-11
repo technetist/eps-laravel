@@ -7,6 +7,8 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Support\Facades\DB;
+
 class SocketMessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -15,14 +17,11 @@ class SocketMessageEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public $from;
-    public $to;
-    public $message;
+    public $status;
     public function __construct()
     {
-        $this->from = 'Bond';
-        $this->to = 'Bean';
-        $this->message = 'You don\'t say??';
+        $active = DB::table('stats')->where('status','active');
+        $this->status = $active;
     }
     public function broadcastOn()
     {
