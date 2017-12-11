@@ -62,6 +62,10 @@ io.sockets.on('connection', function (socket) {
         socket.join(data.channel)
     })
 
+    socket.on('whoworkin', function () {
+        socket.emit('theyworkin', {message: 'banana'})
+    })
+
     socket.on('disconnect', function () {
         console.log('DISCONNECT')
     })
