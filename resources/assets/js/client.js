@@ -16,9 +16,7 @@ socket.on('connect', function () {
         console.log('disconnect')
     })
 
-    socket.emit('whoworkin', function () {
-        console.log('sup loser')
-    })
+    socket.emit('whoworkin')
 
     // Kick it off
     // Can be any channel. For private channels, Laravel should pass it upon page load (or given by another user).
