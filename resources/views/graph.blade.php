@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-3">
             <label>MRP</label>
             <input type="radio">
 
@@ -11,9 +11,21 @@
 
             <label>CONWIP</label>
             <input type="radio">
-            <hr>
+
+        </div>
+
+        <div class="col-lg-4">
+            <input role="button" class="btn btn-sm" type="submit" value="Start session">
+            <input role="button" class="btn btn-sm" type="submit" value="Stop session">
+            <input role="button" class="btn btn-sm" type="submit" value="Reset">
+            <input role="button" class="btn btn-sm" type="submit" value="Change parameters">
+        </div>
+
+        <div class="col-lg-1">
+            <h2>00:00</h2>
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col-lg-5">
         <h3 style="text-align: center">Inventory</h3>
