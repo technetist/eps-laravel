@@ -20,7 +20,7 @@ class SocketMessageEvent implements ShouldBroadcast
     public $status;
     public function __construct()
     {
-        $active = DB::table('stats')->where('status','active')->value('machine');
+        $active = DB::table('stats')->get();
         dd($active);
         $this->status = $active;
     }
