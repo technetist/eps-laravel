@@ -63,7 +63,6 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('whoworkin', function () {
-        console.log('I dunno')
         socket.emit('theyworkin', {message: 'banana', number1: Math.floor((Math.random() * 2) + 0), number2: Math.floor((Math.random() * 2) + 0), number3: Math.floor((Math.random() * 2) + 0) })
     })
 
