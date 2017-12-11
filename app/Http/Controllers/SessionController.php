@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\DB;
+
 class SessionController
 {
     public function destroy($id)

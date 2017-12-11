@@ -29,13 +29,11 @@
                     <th>Servicelevel</th>
                     <th>Leadtime</th>
                     <th></th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($sessions as $session)
                 <tr>
-                    @foreach($sessions as $session)
-
                         <td>{{$session->sessionName}}</td>
                         @foreach($inventories as $inventory)
                             @if($inventory->id == $session->id)
@@ -54,7 +52,6 @@
                         <td>{{ $session->timePerPiece_M4 }}</td>
                         <td>{{ $session->timePerPiece_M3 }}</td>
                         <td>{{ $session->timePerPiece_M2 }}</td>
-                        <td>{{ $session->timePerPiece_M5 }}</td>
                         <td>{{ $session->serviceLevel }}</td>
                         <td>{{ $session->leadtime }}</td>
                         <td class="table-action">
@@ -64,9 +61,8 @@
                                 <input role="button" class="btn btn-sm btn-danger table-action" type="submit" value="Delete">
                             </form>
                         </td>
-                    @endforeach
-
                 </tr>
+                @endforeach
                 </tbody>
 
             </table>
