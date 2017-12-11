@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Vue page</title>
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
