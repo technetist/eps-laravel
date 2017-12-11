@@ -15,13 +15,25 @@ var Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/LineChart.vue'));
-import App from './App'
+Vue.component('example-component', require('./components/InventoryChart.vue'));
+import App1 from './Inventory'
 
 new Vue({
-    el: '#app',
-    template: '<App/>',
-    components: { App },
+    el: '#app1',
+    template: '<App1/>',
+    components: { App1 },
+    ready() {
+        alert('Rendered!');
+    }
+});
+
+Vue.component('example-component', require('./components/ServicelevelChart.vue'));
+import App2 from './Servicelevel'
+
+new Vue({
+    el: '#app2',
+    template: '<App2/>',
+    components: { App2 },
     ready() {
         alert('Rendered!');
     }

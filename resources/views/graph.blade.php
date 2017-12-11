@@ -1,9 +1,38 @@
 @extends("layouts.vue")
 
 @section('content')
-    <div id="app">
+    <div class="row">
+        <div class="col-lg-12">
+            <label>MRP</label>
+            <input type="radio">
 
+            <label>KANBAN</label>
+            <input type="radio">
+
+            <label>CONWIP</label>
+            <input type="radio">
+            <hr>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-lg-5">
+        <h3 style="text-align: center">Inventory</h3>
+
+            <div id="app1">
+
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <h3 style="text-align: center">Service level</h3>
+
+            <div id="app2">
+
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @section('footer')
