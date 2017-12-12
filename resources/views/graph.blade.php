@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-3">
+        <div id="buttons" class="col-lg-3">
             <label>MRP</label>
-            <input type="radio">
+            <input type="radio" name="algorithm" id="mrp" >
 
             <label>KANBAN</label>
-            <input type="radio">
+            <input type="radio" name="algorithm" id="kanban">
 
             <label>CONWIP</label>
-            <input type="radio">
+            <input type="radio" name="algorithm" id="conwip">
 
         </div>
 

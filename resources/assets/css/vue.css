@@ -102,7 +102,7 @@ th{
     color: white;
 }
 
-.row.col-lg-12.ng-scope, .row.col-lg-11, .col-lg-11, .col-lg-5, .col-lg-6, .col-lg-3{
+.row.col-lg-12.ng-scope, .row.col-lg-11, .col-lg-11, .col-lg-5, .col-lg-6{
     margin-left: 5%;
 }
 
@@ -122,6 +122,10 @@ path {
 
 hr{
     color: #36589a;
+}
+
+#buttons{
+    margin-left: 5%;
 }
 
 
