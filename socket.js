@@ -10,6 +10,12 @@ var redis = require('redis')
 
 var sub = redis.createClient()
 
+var timerStart = 0;
+var index = 0;
+
+var timer = null;
+
+
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
 }
@@ -21,12 +27,6 @@ sub.on('error', function (error) {
 sub.on('subscribe', function (channel, count) {
     console.log('SUBSCRIBE', channel, count)
 })
-
-sub.on('connect', () => {
-    console.log('Sup Homie');
-    io.sockets.emit('here-is-your-id')
-})
-
 
 // Handle messages from channels we're subscribed to
 sub.on('message', function (channel, payload) {
@@ -40,7 +40,6 @@ sub.on('message', function (channel, payload) {
     // Send the data through to any client in the channel room (!)
     // (i.e. server room, usually being just the one user)
     io.sockets.in(channel).emit(payload.event, payload.data)
-    io.sockets.emit('apple',{message: 'apples'});
 })
 
 /*
@@ -66,12 +65,43 @@ io.sockets.on('connection', function (socket) {
         socket.join(data.channel)
     })
 
-    socket.on('whoworkin', function () {
-        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: randomized(2,0), number4: randomized(2,0), number5: randomized(2,0)})
+    socket.on('start', function () {
+
+        // index = 0;
+        if(timerStart >= 0){
+
+            console.log('already started fool!')
+        }else {
+            console.log("timer start... :(");
+            timerStart = 0;
+            timer = setInterval(function () {
+                timerStart++;
+                io.sockets.emit('timer', {time: timerStart});
+                /*
+
+                    if(timerStart === ol[index].time)
+                        io.sockets.emit('produce',{
+                                machine:ol[index].machine,
+                                product:ol[index].product,
+                                amount:ol[index].amount});
+                        index++
+                        }
+                */
+
+            }, 1000);
+        }
     })
 
-    socket.on('ping', function() {
-        console.log('Receive "ping"');
+    socket.on('reset', function () {
+        timerStart = 0;
+        //index = 0
+        clearInterval(timer)
+        io.sockets.emit('timer', { time: timerStart });
+    });
+
+
+    socket.on('whoworkin', function () {
+        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: randomized(2,0), number4: randomized(2,0), number5: randomized(2,0)})
     })
 
     socket.on('disconnect', function () {

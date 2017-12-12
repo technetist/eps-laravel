@@ -100,6 +100,6 @@ class SocketMessageEvent implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'messages.new';
+        return 'messages.getStatus';
     }
 }

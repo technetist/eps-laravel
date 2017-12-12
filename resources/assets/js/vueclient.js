@@ -2,17 +2,14 @@ const PRIVATE_CHANNEL = 'ppc-game-communication-broadcast'
 var io = require('socket.io-client')
 var socket = io.connect('http://'+ app_ip +':8000');
 
-var tRiGgErEd = false;
 
 socket.on('connect', function () {
     console.log('CONNECT')
 
-    if(!tRiGgErEd){
     document.getElementById("start").addEventListener("click", function () {
-        tRiGgErEd = true;
         socket.emit("start")
-        console.log("clicking!")
-    })}
+        console.log("start clicked!")
+    })
 
     document.getElementById("reset").addEventListener("click", function () {
         socket.emit("reset")
@@ -34,8 +31,3 @@ socket.on('connect', function () {
     socket.emit('subscribe-to-channel', {channel: PRIVATE_CHANNEL})
     console.log('SUBSCRIBED TO <' + PRIVATE_CHANNEL + '>');
 })
-//
-// $('#reset').click(function() {
-//     socket.emit('reset');
-//     console.log("clicking!");
-// });
