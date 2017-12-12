@@ -27,61 +27,61 @@ class SocketMessageEvent implements ShouldBroadcast
             if ($machine == 'machine1') {
                 switch ($state) {
                     case 'active':
-                        $status1 = 1;
+                        $status1 = 2;
                         break;
                     case 'non-active':
                         $status1 = 0;
                         break;
                     case 'idle':
-                        $status1 = 2;
+                        $status1 = 1;
                 }
             }
             if ($machine == 'machine2') {
                 switch ($state) {
                     case 'active':
-                        $status2 = 1;
+                        $status2 = 2;
                         break;
                     case 'non-active':
                         $status2 = 0;
                         break;
                     case 'idle':
-                        $status2 = 2;
+                        $status2 = 1;
                 }
             }
             if ($machine == 'machine3') {
                 switch ($state) {
                     case 'active':
-                        $status3 = 1;
+                        $status3 = 2;
                         break;
                     case 'non-active':
                         $status3 = 0;
                         break;
                     case 'idle':
-                        $status3 = 2;
+                        $status3 = 1;
                 }
             }
             if ($machine == 'machine4') {
                 switch ($state) {
                     case 'active':
-                        $status4 = 1;
+                        $status4 = 2;
                         break;
                     case 'non-active':
                         $status4 = 0;
                         break;
                     case 'idle':
-                        $status4 = 2;
+                        $status4 = 1;
                 }
             }
             if ($machine == 'machine5') {
                 switch ($state) {
                     case 'active':
-                        $status5 = 1;
+                        $status5 = 2;
                         break;
                     case 'non-active':
                         $status5 = 0;
                         break;
                     case 'idle':
-                        $status1 = 2;
+                        $status1 = 1;
                 }
             }
         }
