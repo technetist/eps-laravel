@@ -1,7 +1,9 @@
 @extends('layouts.socketio_master')
 
 @section('content')
-    <p id="power">0</p>
+    <div id="counter">0</div>
+    <button id="start">Start...</button>
+    <button id="reset">Reset!</button>
 @stop
 
 @section('footer')
