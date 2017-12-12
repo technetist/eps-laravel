@@ -10,7 +10,7 @@ var redis = require('redis')
 
 var sub = redis.createClient()
 
-var timerStart = 0;
+var timerStart = null;
 var index = 0;
 
 var timer = null;
@@ -93,7 +93,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('reset', function () {
-        timerStart = 0;
+        timerStart = null;
         //index = 0
         clearInterval(timer)
         io.sockets.emit('timer', { time: timerStart });
