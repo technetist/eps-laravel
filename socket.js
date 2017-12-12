@@ -93,7 +93,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('reset', function () {
-        timerStart = 0;
+        timerStart = null;
         //index = 0
         clearInterval(timer)
         io.sockets.emit('timer', { time: timerStart });
