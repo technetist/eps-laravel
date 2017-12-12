@@ -97,7 +97,12 @@ h3, .h3 {
     padding-left: 15px;
 }
 
-.row.col-lg-12.ng-scope, .row.col-lg-11, .col-lg-5, .col-lg-6{
+th{
+    background-color: #36589a;
+    color: white;
+}
+
+.row.col-lg-12.ng-scope, .row.col-lg-11, .col-lg-11, .col-lg-5, .col-lg-6{
     margin-left: 5%;
 }
 
@@ -113,6 +118,14 @@ path {
     stroke: grey;
     stroke-width: 1;
     shape-rendering: crispEdges;
+}
+
+hr{
+    color: #36589a;
+}
+
+#buttons{
+    margin-left: 5%;
 }
 
 
