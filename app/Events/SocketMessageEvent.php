@@ -20,8 +20,74 @@ class SocketMessageEvent implements ShouldBroadcast
     public $status;
     public function __construct()
     {
-        $active = DB::table('stats')->where('status','active')->value('machine');
-        $this->status = $active;
+        $activeMachines = DB::table('stats')->where('status','active')->get();
+        foreach ($activeMachines as $activeMachine) {
+            $machine = $activeMachine->machine;
+            $state = $activeMachine->status;
+            if ($machine == 'machine1') {
+                switch ($state) {
+                    case 'active':
+                        $status1 = 1;
+                        break;
+                    case 'non-active':
+                        $status1 = 0;
+                        break;
+                    case 'idle':
+                        $status1 = 2;
+                }
+            }
+            if ($machine == 'machine2') {
+                switch ($state) {
+                    case 'active':
+                        $status2 = 1;
+                        break;
+                    case 'non-active':
+                        $status2 = 0;
+                        break;
+                    case 'idle':
+                        $status2 = 2;
+                }
+            }
+            if ($machine == 'machine3') {
+                switch ($state) {
+                    case 'active':
+                        $status3 = 1;
+                        break;
+                    case 'non-active':
+                        $status3 = 0;
+                        break;
+                    case 'idle':
+                        $status3 = 2;
+                }
+            }
+            if ($machine == 'machine4') {
+                switch ($state) {
+                    case 'active':
+                        $status4 = 1;
+                        break;
+                    case 'non-active':
+                        $status4 = 0;
+                        break;
+                    case 'idle':
+                        $status4 = 2;
+                }
+            }
+            if ($machine == 'machine5') {
+                switch ($state) {
+                    case 'active':
+                        $status5 = 1;
+                        break;
+                    case 'non-active':
+                        $status5 = 0;
+                        break;
+                    case 'idle':
+                        $status1 = 2;
+                }
+            }
+        }
+        $status=array('number1' => $status1,'number2' => $status2,'number3' => $status3,'number4' => $status4,'number5' => $status5);
+
+        $this->status = $status;
     }
     public function broadcastOn()
     {
