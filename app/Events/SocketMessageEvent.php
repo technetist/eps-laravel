@@ -81,7 +81,7 @@ class SocketMessageEvent implements ShouldBroadcast
                         $status5 = 0;
                         break;
                     case 'idle':
-                        $status1 = 1;
+                        $status5 = 1;
                 }
             }
         }
