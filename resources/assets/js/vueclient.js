@@ -8,7 +8,12 @@ socket.on('connect', function () {
 
     document.getElementById("start").addEventListener("click", function () {
         socket.emit("start")
-        console.log("clicking!")
+        console.log("start clicked!")
+    })
+
+    document.getElementById("reset").addEventListener("click", function () {
+        socket.emit("reset")
+        console.log("reset clicked!")
     })
 
     socket.on('messages.getStatus', function (data) {
@@ -26,8 +31,3 @@ socket.on('connect', function () {
     socket.emit('subscribe-to-channel', {channel: PRIVATE_CHANNEL})
     console.log('SUBSCRIBED TO <' + PRIVATE_CHANNEL + '>');
 })
-//
-// $('#reset').click(function() {
-//     socket.emit('reset');
-//     console.log("clicking!");
-// });
