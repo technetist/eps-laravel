@@ -13,7 +13,7 @@ var sub = redis.createClient()
 var timerStart = null;
 var index = 0;
 
-var timer = null;
+var timer = 0;
 
 
 function randomized(top, bottom) {
@@ -68,10 +68,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('start', function () {
 
         // index = 0;
-        if(timerStart >= 0){
 
-            console.log('already started fool!')
-        }else {
             console.log("timer start... :(");
             timerStart = 0;
             timer = setInterval(function () {
@@ -89,11 +86,11 @@ io.sockets.on('connection', function (socket) {
                 */
 
             }, 1000);
-        }
+
     })
 
     socket.on('reset', function () {
-        timerStart = null;
+        timerStart = 0;
         //index = 0
         clearInterval(timer)
         io.sockets.emit('timer', { time: timerStart });
