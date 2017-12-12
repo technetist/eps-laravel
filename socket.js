@@ -10,7 +10,7 @@ var redis = require('redis')
 
 var sub = redis.createClient()
 
-var timerStart = 0;
+var timerStart = null;
 var index = 0;
 
 var timer = null;
