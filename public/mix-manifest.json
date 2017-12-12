@@ -1,6 +1,7 @@
 {
     "/js/chartapp.js": "/js/chartapp.js",
     "/css/app.css": "/css/app.css",
+    "/js/app.js": "/js/app.js",
     "/js/client.js": "/js/client.js",
     "/css/vue.css": "/css/vue.css"
 }
