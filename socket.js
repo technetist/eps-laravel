@@ -70,7 +70,12 @@ io.sockets.on('connection', function (socket) {
             console.log(activeMachines)
             console.log(activeMachines.length)
         })
-    })
+
+        socket.on('checkout', function (data) {
+            activeMachines.pop(data.name)
+            console.log(activeMachines)
+            console.log(activeMachines.length)
+        })
 
     socket.on('start', function () {
 
