@@ -51,6 +51,8 @@
     <div id="footer" class="row">
         <p id="copyright">Copyright ©2017 Fh St.P&ouml;lten All Rights Reserved.</p>
     </div>
+    <script>var app_ip = '{{ env("MIX_APP_IP") }}'</script>
     <script src="{{ mix('/js/chartapp.js') }}" type="text/javascript"></script>
     <script src="{{ mix('/js/vueclient.js') }}" type="text/javascript"></script>
+
 @endsection
