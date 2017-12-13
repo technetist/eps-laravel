@@ -76,6 +76,7 @@ io.sockets.on('connection', function (socket) {
             console.log(activeMachines)
             console.log(activeMachines.length)
         })
+    })
 
     socket.on('start', function () {
 
