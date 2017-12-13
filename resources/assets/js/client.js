@@ -32,8 +32,3 @@ socket.on('connect', function () {
     socket.emit('subscribe-to-channel', {channel: PRIVATE_CHANNEL})
     console.log('SUBSCRIBED TO <' + PRIVATE_CHANNEL + '>');
 })
-//
-// $('#reset').click(function() {
-//     socket.emit('reset');
-//     console.log("clicking!");
-// });
