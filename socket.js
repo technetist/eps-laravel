@@ -66,7 +66,7 @@ io.sockets.on('connection', function (socket) {
         socket.join(data.channel)
 
         socket.on('checkin', function (data) {
-            activeMachines.add(data.name)
+            activeMachines.push(data.name)
             console.log(activeMachines)
             console.log(activeMachines.length)
         })
