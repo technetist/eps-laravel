@@ -6,7 +6,7 @@
         <div id="filter" style="margin-left: 5%" class="col-lg-4">
             <form method="GET">
                 <input type="text" name="name">
-                <button class="btn btn-primary filter-lp" type="submit">Filter</button>
+                <button class="btn btn-primary filter-lp" type="submit">Search</button>
             </form>
         </div>
     </div><br/>
@@ -50,7 +50,7 @@
                 <tbody>
                 @foreach($sessions as $session)
                     <tr>
-                        <td>{{$session->sessionName}}</td>
+                        <td>{{ $session->sessionName }}</td>
                         <td>{{ $session->serviceLevel }}</td>
                         <td>{{ $session->leadtime }}</td>
                         @foreach($inventories as $inventory)
@@ -58,6 +58,9 @@
 
                                 <td>{{ $inventory->A0 + $inventory->B0 + $inventory->C0 + $inventory->D0
                                    + $inventory->D1 + $inventory->E0 + $inventory->E1 + $inventory->E2}}</td>
+
+                            @else
+                                <td></td>
                             @endif
                         @endforeach
 
