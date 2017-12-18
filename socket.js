@@ -15,6 +15,7 @@ var index = 0;
 
 var timer = 0;
 
+var activeMachines = []
 
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
@@ -63,6 +64,18 @@ io.sockets.on('connection', function (socket) {
         // way we can later pass our channel events right through to
         // the room instead of broadcasting them to every client.
         socket.join(data.channel)
+
+        socket.on('checkin', function (data) {
+            activeMachines.push(data.name)
+            console.log(activeMachines)
+            console.log(activeMachines.length)
+        })
+
+        socket.on('checkout', function (data) {
+            activeMachines.pop(data.name)
+            console.log(activeMachines)
+            console.log(activeMachines.length)
+        })
     })
 
     socket.on('start', function () {
