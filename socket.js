@@ -80,10 +80,10 @@ io.sockets.on('connection', function (socket) {
         })
     })
 
-    socket.on('ready', function () {
-        console.log("I'm ready!!")
-        io.sockets.emit('ready');
-    })
+    // socket.on('ready', function () {
+    //     console.log("I'm ready!!")
+    //     io.sockets.emit('ready');
+    // })
 
     socket.on('start', function () {
         console.log('preproduction...');
@@ -115,7 +115,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('stop', function () {
-        //pause timer
+        clearInterval(timer)
     });
 
     socket.on('reset', function () {
