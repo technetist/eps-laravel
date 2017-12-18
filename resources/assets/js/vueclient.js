@@ -81,6 +81,13 @@ socket.on('connect', function () {
 
     };
 
+    socket.on('ready', function(data) {
+        //how to trigger a modal
+        //how to use the ok and cancel button
+        //move timer start to here
+    });
+
+
     socket.emit('subscribe-to-channel', {channel: PRIVATE_CHANNEL})
     console.log('SUBSCRIBED TO <' + PRIVATE_CHANNEL + '>');
 
