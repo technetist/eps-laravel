@@ -65,6 +65,11 @@ io.sockets.on('connection', function (socket) {
         socket.join(data.channel)
     })
 
+    socket.on('ready', function () {
+        console.log("I'm ready!!")
+        io.sockets.emit('ready');
+    })
+
     socket.on('start', function () {
 
         // index = 0;
