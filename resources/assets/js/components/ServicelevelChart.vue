@@ -75,8 +75,6 @@
                     .attr('class', 'y-axis')
                     .call(yAxis)
 
-
-
                 // now add titles to the axes
                 svg.append("text")
                     .attr("class", "x label")
