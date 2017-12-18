@@ -95,15 +95,15 @@ io.sockets.on('connection', function (socket) {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
 
-            if (timerStart === ol[index].time) {
-                io.sockets.emit('produce', {
-                    machine: ol[index].machine,
-                    product: ol[index].product,
-                    amount: ol[index].amount
-                });
-                index++
-
-            }
+            // if (timerStart === ol[index].time) {
+            //     io.sockets.emit('produce', {
+            //         machine: ol[index].machine,
+            //         product: ol[index].product,
+            //         amount: ol[index].amount
+            //     });
+            //     index++
+            //
+            // }
 
         }, 1000);
 
