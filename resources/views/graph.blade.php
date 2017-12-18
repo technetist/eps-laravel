@@ -15,14 +15,14 @@
         </div>
 
         <div class="col-lg-4">
-            <input role="button" class="btn btn-sm" type="submit" value="Start session">
-            <input role="button" class="btn btn-sm" type="submit" value="Stop session">
-            <input role="button" class="btn btn-sm" type="submit" value="Reset">
-            <input role="button" class="btn btn-sm" type="submit" value="Change parameters">
+            <input role="button" id="start" class="btn btn-sm" type="submit" value="Start session">
+            <input role="button" id="stop" class="btn btn-sm" type="submit" value="Stop session">
+            <input role="button" id="reset" class="btn btn-sm" type="submit" value="Reset">
+            <input role="button" id="change_par" class="btn btn-sm" type="submit" value="Change parameters">
         </div>
 
         <div class="col-lg-1">
-            <h2>00:00</h2>
+            <h2 id="counter"></h2>
         </div>
     </div>
     <hr>
@@ -51,5 +51,8 @@
     <div id="footer" class="row">
         <p id="copyright">Copyright ©2017 Fh St.P&ouml;lten All Rights Reserved.</p>
     </div>
+    <script>var app_ip = '{{ env("MIX_APP_IP") }}'</script>
     <script src="{{ mix('/js/chartapp.js') }}" type="text/javascript"></script>
+    <script src="{{ mix('/js/vueclient.js') }}" type="text/javascript"></script>
+
 @endsection
