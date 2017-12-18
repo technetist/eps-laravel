@@ -15,7 +15,9 @@ var index = 0;
 
 var timer = 0;
 
-var activeMachines = []
+var activeMachines = [];
+
+var ol = [];
 
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
@@ -79,28 +81,37 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('start', function () {
+        console.log('preproduction...');
+        socket.emit('set');
+    });
 
-        // index = 0;
+    socket.on('ready', function () {
 
-            console.log("timer start... :(");
-            timerStart = 0;
-            timer = setInterval(function () {
-                timerStart++;
-                io.sockets.emit('timer', {time: timerStart});
-                /*
+        index = 0;
 
-                    if(timerStart === ol[index].time)
-                        io.sockets.emit('produce',{
-                                machine:ol[index].machine,
-                                product:ol[index].product,
-                                amount:ol[index].amount});
-                        index++
-                        }
-                */
+        console.log("timer start");
+        timerStart = 0;
+        timer = setInterval(function () {
+            timerStart++;
+            io.sockets.emit('timer', {time: timerStart});
 
-            }, 1000);
+            if (timerStart === ol[index].time) {
+                io.sockets.emit('produce', {
+                    machine: ol[index].machine,
+                    product: ol[index].product,
+                    amount: ol[index].amount
+                });
+                index++
+
+            }
+
+        }, 1000);
 
     })
+
+    socket.on('stop', function () {
+        //pause timer
+    });
 
     socket.on('reset', function () {
         timerStart = 0;
