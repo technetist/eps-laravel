@@ -12,6 +12,7 @@
             renderChart () {
                 // NOTE: This code is based on https://gist.github.com/d3noob/402dd382a51a4f6eea487f9a35566de0
                 var data = this.chartData
+                console.log('dataPoints', data)
                 var margin = {
                     top: 20,
                     right: 20,
@@ -52,13 +53,13 @@
                     .data(data)
                     .enter().append('circle')
                     .attr('r', 3.5)
-                    .attr('cx', (d) => x(parseTime(d.date)))
+                    .attr('cx', (d) => x(d.x))
                     .attr('cy', (d) => y(d.close))
                     .on('mouseover', (d) => {
                         tooltip.transition()
                             .duration(200)
                             .style('opacity', 0.9)
-                        tooltip.html(d.date + '<br/>' + d.close)
+                        tooltip.html(d.x + '<br/>' + d.close)
                             .style('left', d3.event.pageX + 'px')
                             .style('top', (d3.event.pageY - 34) + 'px')
                     })
@@ -89,7 +90,7 @@
                     .attr("y", 6)
                     .attr("dy", ".75em")
                     .attr("transform", "rotate(-90)")
-                    .text("Amount(pcs)");
+                    .text("Amount(products)");
             }
         },
         watch: {

@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-lg-4">
-            <input role="button" id="start" class="btn btn-sm" type="submit" value="Start session"  data-toggle="modal" data-target="#myModal">
+            <input role="button" id="start" class="btn btn-sm" type="submit" value="Start session">
             <input role="button" id="stop" class="btn btn-sm" type="submit" value="Stop session">
             <input role="button" id="reset" class="btn btn-sm" type="submit" value="Reset">
             <input role="button" id="change_par" class="btn btn-sm" type="submit" value="Change parameters">
@@ -72,6 +72,8 @@
         <p id="copyright">Copyright ©2017 Fh St.P&ouml;lten All Rights Reserved.</p>
     </div>
     <script>var app_ip = '{{ env("MIX_APP_IP") }}'</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="{{ mix('/js/chartapp.js') }}" type="text/javascript"></script>
     <script src="{{ mix('/js/vueclient.js') }}" type="text/javascript"></script>
 
