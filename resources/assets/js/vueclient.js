@@ -11,6 +11,12 @@ socket.on('connect', function () {
 
     })
 
+    document.getElementById("stop").addEventListener("click", function () {
+        document.getElementById("start").removeAttribute("disabled");
+        socket.emit("stop")
+        console.log("reset clicked!")
+    })
+
     document.getElementById("reset").addEventListener("click", function () {
         document.getElementById("start").removeAttribute("disabled");
         socket.emit("reset")
