@@ -86,10 +86,18 @@ io.sockets.on('connection', function (socket) {
     // })
 
     socket.on('start', function () {
-        socket.emit('first_modal');
         console.log('preproduction...');
-        socket.emit('set');
+        socket.emit('first_modal');
+
     });
+
+    socket.on('set', function () {
+        console.log('set...');
+        socket.emit('set');
+
+    });
+
+
 
     socket.on('ready', function () {
 

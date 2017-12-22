@@ -44,21 +44,78 @@
         </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h3 class="modal-title" id="exampleModalLabel">Initial inventory</h3>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="row">
+                        <div id="textfields" class="col-lg-11">
+                            <div class="row">
+                                <label>A0:</label>
+                                <input type="number" name="inventory" id="A0" >
+                            </div>
+                            <div class="row">
+                                <label>B0:</label>
+                                <input type="number" name="inventory" id="B0" >
+                            </div>
+                            <div class="row">
+                                <label>C0:</label>
+                                <input type="number" name="inventory" id="C0" >
+                            </div>
+                            <div class="row">
+                                <label>D0:</label>
+                                <input type="number" name="inventory" id="D0" >
+                            </div>
+                            <div class="row">
+                                <label>D1:</label>
+                                <input type="number" name="inventory" id="D1" >
+                            </div>
+                            <div class="row">
+                                <label>E0:</label>
+                                <input type="number" name="inventory" id="E0" >
+                            </div>
+                            <div class="row">
+                                <label>E1:</label>
+                                <input type="number" name="inventory" id="E1" >
+                            </div>
+                            <div class="row">
+                                <label>E2:</label>
+                                <input type="number" name="inventory" id="E2" >
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="modal1_savechanges">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="modal1_close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Ready??</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <div class="row">
+                                Please hand out the inventory:
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modal2_ok">Ok</button>
+                    <button type="button" class="btn btn-primary" id="modal2_cancel">Cancel</button>
                 </div>
             </div>
         </div>

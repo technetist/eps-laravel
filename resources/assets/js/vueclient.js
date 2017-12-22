@@ -8,7 +8,19 @@ socket.on('connect', function () {
         this.setAttribute("disabled", true)
         socket.emit("start")
         console.log("clicking!")
+        $('#Modal1').modal('show');
+    })
 
+    document.getElementById("modal1_savechanges").addEventListener("click", function () {
+        $('#Modal1').modal('hide');
+        socket.emit("set")
+        console.log("save changes clicked!")
+    })
+
+    document.getElementById("modal1_close").addEventListener("click", function () {
+        $('#Modal1').modal('hide');
+        document.getElementById("start").removeAttribute("disabled");
+        console.log("close clicked!")
     })
 
     document.getElementById("stop").addEventListener("click", function () {
@@ -40,19 +52,20 @@ socket.on('connect', function () {
         document.getElementById("counter").innerHTML = minutes2 + ':' + seconds2;
     });
 
-    socket.on('first_modal', function(data) {
-        console.log('started first_modal');
-        $('#myModal').modal('show');
-    });
-
     socket.on('set', function(data) {
         console.log("it's set!");
         //how to trigger a modal
-        document.getElementById('myModal').style.visibility = 'visible';
+        $('#Modal2').modal('show');
         //how to use the ok and cancel button
+        document.getElementById("modal2_ok").addEventListener("click", function (){
+            $('#Modal2').modal('hide');
+            socket.emit('ready');
+        })
 
-
-        //move timer start to here
+        document.getElementById("modal2_cancel").addEventListener("click", function (){
+            $('#Modal2').modal('hide');
+            document.getElementById("start").removeAttribute("disabled");
+        })
 
     });
 
