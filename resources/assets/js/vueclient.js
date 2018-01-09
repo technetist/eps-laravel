@@ -13,7 +13,6 @@ socket.on('connect', function () {
     document.getElementById("modal1_savechanges").addEventListener("click", function () {
         $('#Modal1').modal('hide');
         socket.emit("start")
-        socket.emit("set")
         console.log("save changes clicked!")
     })
 
