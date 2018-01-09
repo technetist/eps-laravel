@@ -53,7 +53,6 @@ Route::get('/contact', function(){
 
 Route::resource('sessions', 'SessionController');
 
-Route::get('/query', function(){
-    $users=DB::table('stats')->where('status', 'active')->get();
-    dd($users);
+Route::get('/getusers', function(){
+    return DB::table('users')->get();
 });
