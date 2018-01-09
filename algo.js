@@ -1,11 +1,18 @@
+//Ported by Andre Salmeri and Adrien Maranville
+
 class MRP {
 
     //This wont work for now. All Body and Database Requests need to be exchanged.
 
     calculateProductionOrder() {
 
+        var ssA0=0,ssB0=0,ssC0=0,ssD0=0,ssD1=0,ssE0=0,ssE1=0,ssE2=0;
+        var lsA0=8,lsB0=8,lsC0=8,lsD0=8,lsD1=8,lsE0=8,lsE1=8,lsE2=8;
+        var ltA0=120,ltB0=120,ltC0=120,ltD0=120,ltD1=120,ltE0=120,ltE1=120,ltE2=120;
+
+        let dummy = [[ssE0,lsE0,ltE0],[ssE1,lsE1,ltE1],[ssE2,lsE2,ltE2],[ssD0,lsD0,ltD0],[ssD1,lsD1,ltD1],[ssC0,lsC0,ltC0],[ssB0,lsB0,ltB0],[ssA0,lsA0,ltA0]];
         //Those are the ones from the Data-Chart where you can alter the parameters. :)
-        var MRP_Planning_Parameters = req.body;
+        var MRP_Planning_Parameters = dummy;
         //console.log(req.body);
 
         var CO = [[1, 191, 2], [0, 214, 1], [0, 227, 1], [1, 242, 2], [2, 282, 1], [0, 313, 1], [1, 314, 2], [1, 337, 2], [0, 349, 1], [1, 363, 2], [0, 390, 1], [0, 435, 1], [1, 443, 2], [0, 452, 1], [1, 476, 2], [1, 496, 2], [0, 533, 1], [1, 567, 2], [0, 569, 1], [1, 602, 2], [0, 624, 1], [2, 630, 1], [1, 632, 2], [0, 641, 1], [1, 712, 2], [0, 715, 1], [1, 729, 2], [2, 765, 1], [0, 792, 1], [1, 794, 2], [1, 815, 2], [0, 826, 1], [1, 838, 2], [0, 862, 1], [0, 903, 1], [1, 910, 2], [0, 919, 1], [1, 942, 2], [1, 963, 2], [0, 1000, 1], [1, 1034, 2], [0, 1036, 1], [1, 1070, 2], [0, 1092, 1], [2, 1098, 1], [1, 1099, 2], [0, 1109, 1], [1, 1154, 2], [0, 1158, 1], [1, 1193, 2], [0, 1216, 1], [0, 1229, 1], [1, 1244, 2], [2, 1284, 1], [0, 1315, 1], [1, 1316, 2], [1, 1339, 2], [0, 1351, 1], [1, 1365, 2], [0, 1392, 1], [0, 1437, 1], [1, 1445, 2], [0, 1454, 1], [1, 1478, 2], [1, 1498, 2], [0, 1535, 1], [1, 1569, 2], [0, 1571, 1], [1, 1604, 2], [0, 1626, 1], [2, 1632, 1], [1, 1632, 2], [0, 1643, 1], [1, 1714, 2], [0, 1717, 1], [1, 1731, 2], [2, 1767, 1], [0, 1794, 1], [1, 1796, 2], [1, 1817, 2], [0, 1828, 1], [1, 1840, 2], [0, 1864, 1], [0, 1905, 1], [1, 1912, 2], [0, 1921, 1], [1, 1944, 2], [1, 1965, 2], [0, 2002, 1], [1, 2036, 2], [0, 2038, 1], [1, 2072, 2], [0, 2094, 1], [2, 2100, 1], [1, 2101, 2], [0, 2111, 1], [1, 2156, 2]];
@@ -56,7 +63,7 @@ class MRP {
         var f_write_CO_in_GR_array = function () {
             for (var i = 0; i < CO.length; i++) {
                 GR[CO[i][0]][CO[i][1]] = CO[i][2];
-                //console.log(GR[CO[i][0]][CO[i][1]]); this is good
+                //console.log(GR[CO[i][0]][CO[i][1]]); //this is good
             }
         }
 
@@ -66,7 +73,7 @@ class MRP {
             for (var i = 1; i < planning_horizon; i++) {
 
                 NR[current_pos][i] = Math.max(GR[current_pos][i] - Inventory[current_pos][i - 1] + safetystock, 0); //this is not good.....
-                //console.log(NR[current_pos][i]);x
+                //console.log(NR[current_pos][i]);
                 Inventory[current_pos][i] = Math.max(Inventory[current_pos][i - 1] - GR[current_pos][i], safetystock);
             }
         }
@@ -127,7 +134,7 @@ class MRP {
         }
 
         var f_WriteProductionOrderstoConsole = function () {
-            //console.log("Material    Timeperiod    Quantity");
+            console.log("Material    Timeperiod    Quantity");
             for (var j = 1; j < planning_horizon; j++) {
                 for (var i = 0; i < numberofmaterials; i++) {
                     if (PO_rel[i][j] > 0) {
@@ -152,12 +159,12 @@ class MRP {
 
         // ATTENTION! -- DB connection for specific data!
         var f_push_to_db = function (products, seconds, quantity, machines) {
-            var db = req.db;
+            //var db = req.db;
 
-            var orderlist_collection = db.get('orderlist_collection');
-            var inventory_collection = db.get('inventory_collection');
-            inventory_collection.remove({});
-            orderlist_collection.remove({});
+            var orderlist_collection = {};//db.get('orderlist_collection');
+            var inventory_collection = {};//db.get('inventory_collection');
+            //inventory_collection.remove({});
+            //orderlist_collection.remove({});
             var data = [];
             for (i = 0; i < products.length; i++) {
                 data.push({
@@ -168,22 +175,30 @@ class MRP {
                     "amount": quantity[i].toString()
                 });
             }
-            orderlist_collection.insert(data);
+            //orderlist_collection.insert(data);
             var sendinventory =
                 {
-                    "E0": (PO_rel[0][0]).toString(),
-                    "E1": (PO_rel[1][0]).toString(),
-                    "E2": (PO_rel[2][0]).toString(),
-                    "D0": (PO_rel[3][0]).toString(),
-                    "D1": (PO_rel[4][0]).toString(),
-                    "C0": (PO_rel[5][0]).toString(),
-                    "B0": (PO_rel[6][0]).toString(),
-                    "A0": (PO_rel[7][0]).toString()
+                    "E0": (PO_rel[0][0]),//.toString(),
+                    "E1": (PO_rel[1][0]),//.toString(),
+                    "E2": (PO_rel[2][0]),//.toString(),
+                    "D0": (PO_rel[3][0]),//.toString(),
+                    "D1": (PO_rel[4][0]),//.toString(),
+                    "C0": (PO_rel[5][0]),//.toString(),
+                    "B0": (PO_rel[6][0]),//.toString(),
+                    "A0": (PO_rel[7][0]),//.toString()
                 };
-
+            console.log("Orderlist: ");
+            //console.dir(data);
+            for (var k = 0; k < 30; k++) {
+                console.log("index: "+k+ ":"+ JSON.stringify(data[k]));
+            }
+            //console.log(output);
             //HTTP Response! We may need to exchange this to be something like
             // return inventory_List or something
-            res.send(sendinventory);
+            //res.send(sendinventory);
+            //console.log("Notice me: "+ JSON.stringify(sendinventory));
+            return data;
+            /*
             inventory_collection.insert([
                 {
                     "E0": (PO_rel[0][0]).toString(),
@@ -195,6 +210,7 @@ class MRP {
                     "B0": (PO_rel[6][0]).toString(),
                     "A0": (PO_rel[7][0]).toString()
                 }]);
+            */
         }
 
         // ^^^^-------------FUNCTIONS-------------^^^^
@@ -212,7 +228,7 @@ class MRP {
 
         f_WriteProductionOrderstoConsole();
         f_push_to_db(productArray, secondesArray, quantityArray, machineArray);
-        //console.log("RMP CALCULATION DONE! ENJOY...");
+        //console.log("MRP CALCULATION DONE! ENJOY...");
 
     }
 
