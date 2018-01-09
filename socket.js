@@ -100,6 +100,11 @@ io.sockets.on('connection', function (socket) {
             case "machine1":
                 console.log(data.name + "finished preproduction");
                 m1 = true;
+                //delete the lower ones plx
+                m2 = true;
+                m3 = true;
+                m4 = true;
+                m5 = true;
                 break;
             case "machine2":
                 m2 = true;
@@ -114,7 +119,7 @@ io.sockets.on('connection', function (socket) {
                 m5 = true;
                 break;
             default:
-                console.log("SKCUS SAHMOT");
+                console.log("log in error");
 
         }
         console.log(data.name + "finished preproduction");
