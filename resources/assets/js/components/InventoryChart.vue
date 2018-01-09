@@ -81,9 +81,27 @@
                     .call(yAxis)
 
                 g.append("path")
-                    .data(data)
+                    .data(data1)
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline);
+
+                g.append("path")
+                    .data(data2)
+                    .attr("fill", "none")
+                    .attr("stroke", "red")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline);
+
+                g.append("path")
+                    .data(data3)
+                    .attr("fill", "none")
+                    .attr("stroke", "green")
                     .attr("stroke-linejoin", "round")
                     .attr("stroke-linecap", "round")
                     .attr("stroke-width", 1.5)

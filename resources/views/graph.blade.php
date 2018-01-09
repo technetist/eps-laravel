@@ -18,7 +18,7 @@
             <input role="button" id="start" class="btn btn-sm" type="submit" value="Start session">
             <input role="button" id="stop" class="btn btn-sm" type="submit" value="Stop session">
             <input role="button" id="reset" class="btn btn-sm" type="submit" value="Reset">
-            <input role="button" id="change_par" class="btn btn-sm" type="submit" value="Change parameters">
+            <a href="{{route('change_parameters')}}"><input role="button" id="change_par" class="btn btn-sm" type="submit" value="Change parameters"></a>
         </div>
 
         <div class="col-lg-1">
