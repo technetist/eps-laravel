@@ -28,7 +28,7 @@ var connection = mysql.createConnection({
     database : 'eps'
 });
 
-var algorithm = require('algo');
+var algo = require('./algo');
 
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
@@ -92,6 +92,14 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('start', function () {
+        var OL = algo.calculateProductionOrder();
+
+        for (var k = 0; k < 30; k++) {
+            console.log("index: " + k + ":" + JSON.stringify(OL[k]));
+        }
+        //console.log(out
+        console.log('calculating...');
+
         console.log('preproduction...');
         socket.emit('set');
     });
@@ -106,7 +114,7 @@ io.sockets.on('connection', function (socket) {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
 
-            // if (timerStart === ol[index].time) {
+            // if (timerStart === OL[index].time) {
             //     io.sockets.emit('produce', {
             //         machine: ol[index].machine,
             //         product: ol[index].product,
