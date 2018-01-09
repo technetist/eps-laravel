@@ -138,14 +138,14 @@ io.sockets.on('connection', function (socket) {
 
         console.log('preproduction...');
         if(preproduction.A0 > 0){
-            io.sockets.emit('preproduce', {machine: "machine4",type:"A0",amount:preproduction.A0});
+            io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
             console.log("m1 working");
             m1 = false;
         }else{
             m1 = true;
         }
         if(preproduction.B0 > 0){
-            io.sockets.emit('preproduce', {machine: "machine4",type:"B0",amount:preproduction.B0});
+            io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
             console.log("m2 working");
 
             m2 = false;
@@ -153,7 +153,7 @@ io.sockets.on('connection', function (socket) {
             m2 = true;
         }
         if(preproduction.C0 > 0){
-            io.sockets.emit('preproduce', {machine: "machine4",type:"C0",amount:preproduction.C0});
+            io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
             console.log("m3 working");
 
             m3 = false;
