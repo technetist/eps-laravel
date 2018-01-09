@@ -1,7 +1,8 @@
 {
     "/js/chartapp.js": "/js/chartapp.js",
-    "/css/app.css": "/css/app.css",
     "/js/vueclient.js": "/js/vueclient.js",
     "/js/client.js": "/js/client.js",
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
     "/css/vue.css": "/css/vue.css"
 }

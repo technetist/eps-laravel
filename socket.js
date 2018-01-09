@@ -138,43 +138,53 @@ io.sockets.on('connection', function (socket) {
 
         console.log('preproduction...');
         if(preproduction.A0 > 0){
-            socket.emit('preproduce',{type:"A0",amount:preproduction.A0});
+            io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
+            console.log("m1 working");
             m1 = false;
         }else{
             m1 = true;
         }
         if(preproduction.B0 > 0){
-            socket.emit('preproduce',{type:"B0",amount:preproduction.B0});
+            io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
+            console.log("m2 working");
+
             m2 = false;
         }else{
             m2 = true;
         }
         if(preproduction.C0 > 0){
-            socket.emit('preproduce',{type:"C0",amount:preproduction.C0});
+            io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
+            console.log("m3 working");
+
             m3 = false;
         }else{
             m3 = true;
         }
         if(preproduction.D0 > 0 || preproduction.D1 > 0){
+            console.log("m4 working");
+
             if(preproduction.D0 > 0) {
-                socket.emit('preproduce', {type: "D0", amount: preproduction.D0});
+                io.sockets.emit('preproduce', {machine: "machine4",type: "D0", amount: preproduction.D0});
+
             }
             if(preproduction.D1 > 0){
-                socket.emit('preproduce',{type:"D1",amount:preproduction.D1});
+                io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
             }
             m4 = false;
         }else{
             m4 = true;
         }
         if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
+            console.log("m5 working");
+
             if(preproduction.E0 > 0){
-                socket.emit('preproduce',{type:"E0",amount:preproduction.E0})
+                io.sockets.emit('preproduce', {machine: "machine5",type:"E0",amount:preproduction.E0})
             }
             if(preproduction.E1 > 0) {
-                socket.emit('preproduce', {type: "E1", amount: preproduction.E1})
+                io.sockets.emit('preproduce', {machine: "machine5",type: "E1", amount: preproduction.E1})
             }
             if(preproduction.E2 > 0){
-                socket.emit('preproduce',{type:"E2",amount:preproduction.E2})
+                io.sockets.emit('preproduce', {machine: "machine5",type:"E2",amount:preproduction.E2})
             }
             m5 = false;
         }else{
