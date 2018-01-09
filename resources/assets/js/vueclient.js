@@ -69,7 +69,6 @@ socket.on('connect', function () {
 
     });
 
-
     socket.emit('subscribe-to-channel', {channel: PRIVATE_CHANNEL})
     console.log('SUBSCRIBED TO <' + PRIVATE_CHANNEL + '>');
 

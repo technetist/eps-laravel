@@ -16,6 +16,8 @@
                 ServicelevelChart: {
                     data: [
                         { x:100, close: 35 },
+
+                        { x:5, close: 45 },
                     ],
                     width: 500,
                     height: 375,

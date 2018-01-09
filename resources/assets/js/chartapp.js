@@ -27,6 +27,14 @@ new Vue({
     }
 });
 
+import Trend from 'vuetrend'
+
+Vue.use(Trend)
+
+new Vue({
+    el: '#app',
+});
+
 Vue.component('example-component', require('./components/ServicelevelChart.vue'));
 import App2 from './Servicelevel'
 
