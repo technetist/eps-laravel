@@ -37,11 +37,37 @@ Route::get('test', function () {
 });
 
 Route::get('/graph', 'GraphController@index')->name('graph');
+Route::post('/graph/change_parameters/submit', 'GraphController@changeParameters')->name('submit_change_parameters');
 Route::get('/analyse', 'AnalyseController@index')->name('analyse');
 
 Route::get('/play_game', function(){
     return view('play_game');
 })->name('play_game');
+
+Route::get('/graph/change_parameters', function () {
+    return view('change_parameters');
+})->name('change_parameters');
+
+Route::get('cutting', function () {
+    return view('cutting');
+})->name('cutting');
+
+Route::get('surface_treatment', function () {
+    return view('surface_treatment');
+})->name('surface_treatment');
+
+Route::get('paint', function () {
+    return view('paint');
+})->name('paint');
+
+Route::get('assembly', function () {
+    return view('assembly');
+})->name('assembly');
+
+Route::get('final_assembly', function () {
+    return view('final_assembly');
+})->name('final_assembly');
+
 
 Route::get('/instructions', function(){
     return view('instructions');
@@ -50,6 +76,8 @@ Route::get('/instructions', function(){
 Route::get('/contact', function(){
     return view('contact');
 })->name('contact');
+
+
 
 Route::resource('sessions', 'SessionController');
 

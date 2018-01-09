@@ -21,18 +21,18 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
                          Instructions
-                    <b class="caret"></b></a>
+                    </a>
 
-                        <ul class="dropdown-menu">
-                            <li>sdfsad</li>
-                            {{--<a href="{{ route('graph') }}">--}}
-                                {{--Graph--}}
-                            {{--</a>--}}
-                            <li><a href="#">dsfafda</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('cutting') }}">cutting</a></li>
+                        <li><a href="{{ route('surface_treatment') }}">Surface treatment</a></li>
+                        <li><a href="{{ route('paint') }}">Paint</a></li>
+                        <li><a href="{{ route('assembly') }}">Assembly</a></li>
+                        <li><a href="{{ route('final_assembly') }}">Final assembly</a></li>
+                    </ul>
 
-                        </ul>
                 </li>
 
                 <li>

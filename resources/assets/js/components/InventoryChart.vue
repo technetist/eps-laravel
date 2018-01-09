@@ -12,6 +12,11 @@
             renderChart () {
                 // NOTE: This code is based on https://gist.github.com/d3noob/402dd382a51a4f6eea487f9a35566de0
                 var data = this.chartData
+                var data1 = [48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48];
+                var data2 = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40];
+                var data3 = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20];
+                var data = [];
+                console.log('dataPoints', data)
                 var margin = {
                     top: 20,
                     right: 20,
@@ -21,18 +26,18 @@
                 var width = this.width - margin.left - margin.right
                 var height = this.height - margin.top - margin.bottom
                 var parseTime = d3.timeParse('%d-%b-%y')
-                var x = d3.scaleLinear()
+                const x = d3.scaleLinear()
                     .range([0, width])
                     .domain([0, 1000])
-
-                var y = d3.scaleLinear()
+                const y = d3.scaleLinear()
                     .range([height, 0])
                     .domain([0, 100])
                 var xAxis = d3.axisBottom(x).ticks(10)
                 var yAxis = d3.axisLeft(y).ticks(5)
                 var valueline = d3.line()
-                    .x((d) => x(d))
+                    .x((d) => x(d.x))
                     .y((d) => y(d.close))
+
                 var svg = d3.select(this.$el)
                     .attr('width', this.width)
                     .attr('height', this.height)
@@ -51,14 +56,14 @@
                 g.selectAll('circle')
                     .data(data)
                     .enter().append('circle')
-                    .attr('r', 3.5)
-                    .attr('cx', (d) => x(parseTime(d.date)))
+                    .attr('r', 1.5)
+                    .attr('cx', (d) => x(d.x))
                     .attr('cy', (d) => y(d.close))
                     .on('mouseover', (d) => {
                         tooltip.transition()
                             .duration(200)
                             .style('opacity', 0.9)
-                        tooltip.html(d.date + '<br/>' + d.close)
+                        tooltip.html(d.x + ' seconds' + '<br/>' + d.close + ' pieces')
                             .style('left', d3.event.pageX + 'px')
                             .style('top', (d3.event.pageY - 34) + 'px')
                     })
@@ -75,6 +80,33 @@
                     .attr('class', 'y-axis')
                     .call(yAxis)
 
+                g.append("path")
+                    .data(data1)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline);
+
+                g.append("path")
+                    .data(data2)
+                    .attr("fill", "none")
+                    .attr("stroke", "red")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline);
+
+                g.append("path")
+                    .data(data3)
+                    .attr("fill", "none")
+                    .attr("stroke", "green")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline);
+
                 // now add titles to the axes
                 svg.append("text")
                     .attr("class", "x label")
@@ -89,7 +121,8 @@
                     .attr("y", 6)
                     .attr("dy", ".75em")
                     .attr("transform", "rotate(-90)")
-                    .text("Amount(pcs)");
+                    .text("Amount(products)");
+
             }
         },
         watch: {

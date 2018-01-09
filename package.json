@@ -30,6 +30,6 @@
     "pusher-js": "^4.2.1",
     "redis": "^2.8.0",
     "socket.io": "^2.0.4",
-    "vue-d3-basechart": "latest"
+    "vue-d3-basechart": "latest",
   }
 }
