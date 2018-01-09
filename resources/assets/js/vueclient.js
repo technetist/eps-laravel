@@ -7,12 +7,12 @@ socket.on('connect', function () {
     document.getElementById("start").addEventListener("click", function () {
         this.setAttribute("disabled", true)
         $('#Modal1').modal('show');
-        socket.emit("start")
         console.log("clicking!")
     })
 
     document.getElementById("modal1_savechanges").addEventListener("click", function () {
         $('#Modal1').modal('hide');
+        socket.emit("start")
         socket.emit("set")
         console.log("save changes clicked!")
     })
@@ -64,6 +64,7 @@ socket.on('connect', function () {
 
         document.getElementById("modal2_cancel").addEventListener("click", function (){
             $('#Modal2').modal('hide');
+            socket.emit('stop');
             document.getElementById("start").removeAttribute("disabled");
         })
 
