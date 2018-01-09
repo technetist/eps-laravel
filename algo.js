@@ -206,7 +206,7 @@ module.exports = {
                         "A0": (PO_rel[7][0]).toString()
                     }]);
                 */
-                return data;
+                return {preproduction: sendinventory, orderlist: data};
             }
 
             // ^^^^-------------FUNCTIONS-------------^^^^

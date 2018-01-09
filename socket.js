@@ -13,6 +13,10 @@ var sub = redis.createClient()
 var timerStart = null;
 var index = 0;
 
+//Preproduction Mashine State Monitoring
+var m1,m2,m3,m4,m5;
+
+
 var timer = 0;
 
 var activeMachines = [];
@@ -91,17 +95,93 @@ io.sockets.on('connection', function (socket) {
         })
     })
 
+    socket.on('finPreProd',function(data){
+        switch(data.name) {
+            case "machine1":
+                m1 = true;
+                break;
+            case "machine2":
+                m2 = true;
+                break;
+            case "machine3":
+                m3 = true;
+                break;
+            case "machine4":
+                m4 = true;
+                break;
+            case "machine5":
+                m5 = true;
+                break;
+            default:
+                console.log("SKCUS SAHMOT");
+
+        }
+        if(m1 && m2 && m3 && m4 && m5){
+            socket.emit("set");
+        }
+    })
+
     socket.on('start', function () {
-        var OL = algo.calculateProductionOrder();
+        var algoOutput = algo.calculateProductionOrder();
+
+        var OL = algoOutput.orderlist;
+        var preproduction = algoOutput.preproduction;
+
+        console.log(Object.keys(preproduction).length);
+        console.log(preproduction);
 
         for (var k = 0; k < 30; k++) {
             console.log("index: " + k + ":" + JSON.stringify(OL[k]));
         }
         //console.log(out
-        console.log('calculating...');
+
 
         console.log('preproduction...');
-        socket.emit('set');
+        if(preproduction.A0 > 0){
+            socket.emit('preproduce',{type:"A0",amount:preproduction.A0});
+            m1 = false;
+        }else{
+            m1 = true;
+        }
+        if(preproduction.B0 > 0){
+            socket.emit('preproduce',{type:"B0",amount:preproduction.B0});
+            m2 = false;
+        }else{
+            m2 = true;
+        }
+        if(preproduction.C0 > 0){
+            socket.emit('preproduce',{type:"C0",amount:preproduction.C0});
+            m3 = false;
+        }else{
+            m3 = true;
+        }
+        if(preproduction.D0 > 0 || preproduction.D1 > 0){
+            if(preproduction.D0 > 0) {
+                socket.emit('preproduce', {type: "D0", amount: preproduction.D0});
+            }
+            if(preproduction.D1 > 0){
+                socket.emit('preproduce',{type:"D1",amount:preproduction.D1});
+            }
+            m4 = false;
+        }else{
+            m4 = true;
+        }
+        if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
+            if(preproduction.E0 > 0){
+                socket.emit('preproduce',{type:"E0",amount:preproduction.E0})
+            }
+            if(preproduction.E1 > 0) {
+                socket.emit('preproduce', {type: "E1", amount: preproduction.E1})
+            }
+            if(preproduction.E2 > 0){
+                socket.emit('preproduce',{type:"E2",amount:preproduction.E2})
+            }
+            m5 = false;
+        }else{
+            m5 = true;
+        }
+
+        //socket.emit('set');
     });
 
     socket.on('ready', function () {
@@ -114,15 +194,15 @@ io.sockets.on('connection', function (socket) {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
 
-            // if (timerStart === OL[index].time) {
-            //     io.sockets.emit('produce', {
-            //         machine: ol[index].machine,
-            //         product: ol[index].product,
-            //         amount: ol[index].amount
-            //     });
-            //     index++
-            //
-            // }
+            if (timerStart === OL[index].time) {
+                io.sockets.emit('produce', {
+                    machine: OL[index].machine,
+                    product: OL[index].product,
+                    amount: OL[index].amount
+                });
+                index++
+
+            }
 
         }, 1000);
 
