@@ -98,6 +98,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('finPreProd',function(data){
         switch(data.name) {
             case "machine1":
+                console.log(data.name + "finished preproduction");
                 m1 = true;
                 break;
             case "machine2":
@@ -116,6 +117,8 @@ io.sockets.on('connection', function (socket) {
                 console.log("SKCUS SAHMOT");
 
         }
+        console.log(data.name + "finished preproduction");
+
         if(m1 && m2 && m3 && m4 && m5){
             socket.emit("set");
         }
