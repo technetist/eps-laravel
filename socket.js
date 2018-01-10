@@ -129,7 +129,7 @@ io.sockets.on('connection', function (socket) {
         if(m1 && m2 && m3 && m4 && m5){
             console.log("Hi111111!!111!!")
             console.log([m1, m2, m3, m4, m5]);
-            socket.emit("set");
+            io.sockets.emit("set");
         }
     })
 
