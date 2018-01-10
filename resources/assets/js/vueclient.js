@@ -7,7 +7,6 @@ socket.on('connect', function () {
     document.getElementById("start").addEventListener("click", function () {
         this.setAttribute("disabled", true)
         socket.emit("start")
-        $('#Modal1').modal('show');
         console.log("clicking!")
     })
 
