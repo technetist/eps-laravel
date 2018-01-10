@@ -224,7 +224,7 @@ io.sockets.on('connection', function (socket) {
             // console.log("NEXT ORDER IN " + OL[index].time - timerStart);
 
 
-            if (timerStart === OL[index].time) {
+            if (OL[index].time == timerStart) {
                 console.log(OL[index].machine + "started working on " + OL[index].amount + ' units of ' + OL[index].product);
                 io.sockets.emit('produce', {
                     machine: OL[index].machine,
