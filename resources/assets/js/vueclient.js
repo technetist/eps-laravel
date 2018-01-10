@@ -68,6 +68,7 @@ socket.on('connect', function () {
 
         document.getElementById("modal2_cancel").addEventListener("click", function (){
             $('#Modal2').modal('hide');
+            socket.emit('stop');
             document.getElementById("start").removeAttribute("disabled");
         })
 
