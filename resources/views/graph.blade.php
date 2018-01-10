@@ -62,35 +62,35 @@
                         <div id="textfields" class="col-lg-11">
                             <div class="row">
                                 <label>A0:</label>
-                                <input type="number" name="inventory" id="A0" >
+                                <p type="number" name="inventory" id="A0" >
                             </div>
                             <div class="row">
                                 <label>B0:</label>
-                                <input type="number" name="inventory" id="B0" >
+                                <p type="number" name="inventory" id="B0" >
                             </div>
                             <div class="row">
                                 <label>C0:</label>
-                                <input type="number" name="inventory" id="C0" >
+                                <p type="number" name="inventory" id="C0" >
                             </div>
                             <div class="row">
                                 <label>D0:</label>
-                                <input type="number" name="inventory" id="D0" >
+                                <p type="number" name="inventory" id="D0" >
                             </div>
                             <div class="row">
                                 <label>D1:</label>
-                                <input type="number" name="inventory" id="D1" >
+                                <p type="number" name="inventory" id="D1" >
                             </div>
                             <div class="row">
                                 <label>E0:</label>
-                                <input type="number" name="inventory" id="E0" >
+                                <p type="number" name="inventory" id="E0" >
                             </div>
                             <div class="row">
                                 <label>E1:</label>
-                                <input type="number" name="inventory" id="E1" >
+                                <p type="number" name="inventory" id="E1" >
                             </div>
                             <div class="row">
                                 <label>E2:</label>
-                                <input type="number" name="inventory" id="E2" >
+                                <p type="number" name="inventory" id="E2" >
                             </div>
                         </div>
                     </div>
