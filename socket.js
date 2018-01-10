@@ -220,6 +220,7 @@ io.sockets.on('connection', function (socket) {
         timer = setInterval(function () {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
+            console.log("NEXT ORDER: " + OL[index]);
 
             if (timerStart === OL[index].time) {
                 console.log(OL[index].machine + "started working on " + OL[index].amount + ' units of ' + OL[index].product);
