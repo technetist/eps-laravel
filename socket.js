@@ -133,6 +133,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('preproCalcFin', function () {
 
         console.log('preproduction...');
+        console.log(preproduction)
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
             console.log("m1 working");
@@ -191,8 +192,8 @@ io.sockets.on('connection', function (socket) {
     socket.on('start', function () {
         var algoOutput = algo.calculateProductionOrder();
 
-        var OL = algoOutput.orderlist;
-        var preproduction = algoOutput.preproduction;
+        OL = algoOutput.orderlist;
+        preproduction = algoOutput.preproduction;
 
         console.log(Object.keys(preproduction).length);
         console.log(preproduction);
