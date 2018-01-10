@@ -12,6 +12,8 @@ socket.on('connect', function () {
 
     socket.on('ready', function () {
         $('#Modal1').modal('show');
+        document.getElementById("modal1_savechanges").disabled = true;
+        setTimeout(function(){document.getElementById("modal1_savechanges").disabled = false;},2000);
     })
 
     document.getElementById("modal1_savechanges").addEventListener("click", function () {
