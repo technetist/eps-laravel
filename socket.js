@@ -21,8 +21,6 @@ var timer = 0;
 
 var activeMachines = [];
 
-var ol = [];
-
 var mysql = require('mysql')
 
 var connection = mysql.createConnection({
@@ -33,6 +31,9 @@ var connection = mysql.createConnection({
 });
 
 var algo = require('./algo');
+
+var preproduction = [];
+var OL = []
 
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
