@@ -205,10 +205,9 @@ io.sockets.on('connection', function (socket) {
             console.log("index: " + k + ":" + JSON.stringify(OL[k]));
         }
         //console.log(out
+        
 
-
-
-        socket.emit('ready', {values: preproduction});
+        socket.emit('ready', preproduction);
     });
 
     socket.on('go', function () {
