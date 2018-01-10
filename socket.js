@@ -129,20 +129,7 @@ io.sockets.on('connection', function (socket) {
         }
     })
 
-    socket.on('start', function () {
-        var algoOutput = algo.calculateProductionOrder();
-
-        var OL = algoOutput.orderlist;
-        var preproduction = algoOutput.preproduction;
-
-        console.log(Object.keys(preproduction).length);
-        console.log(preproduction);
-
-        for (var k = 0; k < 30; k++) {
-            console.log("index: " + k + ":" + JSON.stringify(OL[k]));
-        }
-        //console.log(out
-
+    socket.on('preproCalcFin', function () {
 
         console.log('preproduction...');
         if(preproduction.A0 > 0){
@@ -198,11 +185,28 @@ io.sockets.on('connection', function (socket) {
         }else{
             m5 = true;
         }
+    })
 
-        //socket.emit('set');
+    socket.on('start', function () {
+        var algoOutput = algo.calculateProductionOrder();
+
+        var OL = algoOutput.orderlist;
+        var preproduction = algoOutput.preproduction;
+
+        console.log(Object.keys(preproduction).length);
+        console.log(preproduction);
+
+        for (var k = 0; k < 30; k++) {
+            console.log("index: " + k + ":" + JSON.stringify(OL[k]));
+        }
+        //console.log(out
+
+
+
+        socket.emit('ready', {values: preproduction});
     });
 
-    socket.on('ready', function () {
+    socket.on('go', function () {
 
         index = 0;
 

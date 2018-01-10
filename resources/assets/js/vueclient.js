@@ -6,14 +6,18 @@ socket.on('connect', function () {
     console.log('CONNECT')
     document.getElementById("start").addEventListener("click", function () {
         this.setAttribute("disabled", true)
-        $('#Modal1').modal('show');
         socket.emit("start")
+        $('#Modal1').modal('show');
         console.log("clicking!")
+    })
+
+    socket.on('ready', function () {
+        $('#Modal1').modal('show');
     })
 
     document.getElementById("modal1_savechanges").addEventListener("click", function () {
         $('#Modal1').modal('hide');
-        socket.emit("set")
+        socket.emit("preproCalcFin")
         console.log("save changes clicked!")
     })
 
@@ -59,7 +63,7 @@ socket.on('connect', function () {
         //how to use the ok and cancel button
         document.getElementById("modal2_ok").addEventListener("click", function (){
             $('#Modal2').modal('hide');
-            socket.emit('ready');
+            socket.emit('go');
         })
 
         document.getElementById("modal2_cancel").addEventListener("click", function (){
