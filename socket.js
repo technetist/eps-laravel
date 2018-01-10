@@ -124,8 +124,11 @@ io.sockets.on('connection', function (socket) {
 
         }
         console.log(data.name + "finished preproduction");
+        console.log('m1' + m1 + "m2" + m2 + 'm3' + m3 + 'm4' + m4 + 'm5' + m5);
 
         if(m1 && m2 && m3 && m4 && m5){
+            console.log("Hi111111!!111!!")
+            console.log([m1, m2, m3, m4, m5]);
             socket.emit("set");
         }
     })
