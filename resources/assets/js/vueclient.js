@@ -10,7 +10,15 @@ socket.on('connect', function () {
         console.log("clicking!")
     })
 
-    socket.on('ready', function () {
+    socket.on('ready', function (data) {
+        document.getElementById('A0').innerHTML = data.A0;
+        document.getElementById('B0').innerHTML = data.B0;
+        document.getElementById('C0').innerHTML = data.C0;
+        document.getElementById('D0').innerHTML = data.D0;
+        document.getElementById('D1').innerHTML = data.D1;
+        document.getElementById('E0').innerHTML = data.E0;
+        document.getElementById('E1').innerHTML = data.E1;
+        document.getElementById('E2').innerHTML = data.E2;
         $('#Modal1').modal('show');
         document.getElementById("modal1_savechanges").disabled = true;
         setTimeout(function(){document.getElementById("modal1_savechanges").disabled = false;},2000);
