@@ -220,7 +220,7 @@ io.sockets.on('connection', function (socket) {
         timer = setInterval(function () {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
-            console.log(OL[index].time);
+            console.log(OL[index].time - timerStart);
             // console.log("NEXT ORDER IN " + OL[index].time - timerStart);
 
 
