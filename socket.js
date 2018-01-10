@@ -213,15 +213,16 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('go', function () {
         io.sockets.emit('running');
-        index = 0;
-
+        index = 0
         console.log("timer start");
+        console.log(OL);
         timerStart = 0;
         timer = setInterval(function () {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
 
             if (timerStart === OL[index].time) {
+                console.log(OL[index].machine + "started working on " + OL[index].amount + ' units of ' + OL[index].product);
                 io.sockets.emit('produce', {
                     machine: OL[index].machine,
                     product: OL[index].product,
