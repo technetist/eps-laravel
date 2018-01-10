@@ -212,7 +212,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('go', function () {
-
+        io.sockets.emit('running');
         index = 0;
 
         console.log("timer start");
