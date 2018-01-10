@@ -221,7 +221,7 @@ io.sockets.on('connection', function (socket) {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
             console.log(OL[index].time);
-            console.log("NEXT ORDER IN " + OL[index].time - timerStart);
+            // console.log("NEXT ORDER IN " + OL[index].time - timerStart);
 
 
             if (timerStart === OL[index].time) {
