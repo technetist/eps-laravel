@@ -5,6 +5,8 @@
 <div class="row">
 <div class="col-lg-11">
     {{ Form::open(['route' => 'submit_change_parameters'], method_field('post'))}}
+
+    {{ Form::hidden('session_id', $session_id) }}
     <input type="submit" value="submit"/><br/><br/>
     <div class="table-responsive">
         <table class="table table-responsive">
