@@ -21,15 +21,6 @@ var timer = 0;
 
 var activeMachines = [];
 
-var mysql = require('mysql')
-
-var connection = mysql.createConnection({
-    host     : '127.0.0.1',
-    user     : 'homestead',
-    password : 'secret',
-    database : 'eps'
-});
-
 var algo = require('./algo');
 
 var preproduction = [];
