@@ -16,6 +16,10 @@ var index = 0;
 //Preproduction Mashine State Monitoring
 var m1,m2,m3,m4,m5;
 
+var WIP = 0;
+var FGI = {E0: 0, E1: 0, E2: 0};
+var serviceLevel = 0;
+
 
 var timer = 0;
 
@@ -125,11 +129,11 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('preproCalcFin', function () {
-
         console.log('preproduction...');
         console.log(preproduction)
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
+            WIP += preproduction.A0;
             console.log("m1 working");
             m1 = false;
         }else{
@@ -137,6 +141,7 @@ io.sockets.on('connection', function (socket) {
         }
         if(preproduction.B0 > 0){
             io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
+            WIP += preproduction.B0;
             console.log("m2 working");
 
             m2 = false;
@@ -145,6 +150,7 @@ io.sockets.on('connection', function (socket) {
         }
         if(preproduction.C0 > 0){
             io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
+            WIP += preproduction.C0;
             console.log("m3 working");
 
             m3 = false;
@@ -156,10 +162,12 @@ io.sockets.on('connection', function (socket) {
 
             if(preproduction.D0 > 0) {
                 io.sockets.emit('preproduce', {machine: "machine4",type: "D0", amount: preproduction.D0});
+                WIP += preproduction.D0;
 
             }
             if(preproduction.D1 > 0){
                 io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
+                WIP += preproduction.D1;
             }
             m4 = false;
         }else{
@@ -170,12 +178,15 @@ io.sockets.on('connection', function (socket) {
 
             if(preproduction.E0 > 0){
                 io.sockets.emit('preproduce', {machine: "machine5",type:"E0",amount:preproduction.E0})
+                FGI.E0 += preproduction.E0;
             }
             if(preproduction.E1 > 0) {
                 io.sockets.emit('preproduce', {machine: "machine5",type: "E1", amount: preproduction.E1})
+                FGI.E1 += preproduction.E1;
             }
             if(preproduction.E2 > 0){
                 io.sockets.emit('preproduce', {machine: "machine5",type:"E2",amount:preproduction.E2})
+                FGI.E2 += preproduction.E2;
             }
             m5 = false;
         }else{
@@ -201,6 +212,20 @@ io.sockets.on('connection', function (socket) {
         socket.emit('ready', preproduction);
     });
 
+    socket.on("productionfinished", function(data) {
+        if(data.machine == "machine5"){
+            WIP -= data.amount;
+
+            if(data.product === 'E0'){
+                FGI.E0 += data.amount;
+            }else if(data.product === 'E1'){
+                FGI.E1 += data.amount;
+            }else if(data.product ===  'E2'){
+                FGI.E2 += data.amount;
+            }
+        }
+    });
+
     socket.on('go', function () {
         io.sockets.emit('running');
         index = 0
@@ -221,6 +246,7 @@ io.sockets.on('connection', function (socket) {
                     product: OL[index].product,
                     amount: OL[index].amount
                 });
+                WIP += OL[index].amount;
                 index++
 
             }
