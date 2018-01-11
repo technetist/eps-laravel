@@ -1,15 +1,22 @@
 const SERVER_PORT = 8000
 
+//node server imports
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 
+//socket io specific imports
 var io = require('socket.io').listen(server);
 var redis = require('redis')
-// var ioredis = require('socket.io-redis')
 
+//files we are importing from the project
+var algo = require('./algo');
+var db_manager = require('./database_manager');
+
+//redis creation
 var sub = redis.createClient()
 
+//variable declarations
 var timerStart = null;
 var index = 0;
 
@@ -25,11 +32,10 @@ var timer = 0;
 
 var activeMachines = [];
 
-var algo = require('./algo');
-
+//Variables for Gamestate (Preproduction Amounts, Orderlist and Customerlist)
 var preproduction = [];
 var OL = []
-
+var CL = []
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
 }
@@ -208,6 +214,7 @@ io.sockets.on('connection', function (socket) {
         }
         //console.log(out
         
+        CL = db_manager.getCostReq();
 
         socket.emit('ready', preproduction);
     });
@@ -229,6 +236,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('go', function () {
         io.sockets.emit('running');
         index = 0
+        CLindex = 0
         console.log("timer start");
         console.log(OL);
         timerStart = 0;
@@ -251,6 +259,30 @@ io.sockets.on('connection', function (socket) {
 
             }
 
+            if(CL[CLindex].time == timerStart){
+                if(CL[CLindex].product === 'E0'){
+                    if(FGI.E0 >= CL[CLindex].amount){
+                        FGI.E0 -= CL[CLindex].amount
+                    }else{
+                        //Lower Service Levels here
+                    }
+                }else if(CL[CLindex].product === 'E1') {
+                    if (FGI.E1 >= CL[CLindex].amount) {
+                        FGI.E1 -= CL[CLindex].amount
+                    } else {
+                        //Lower Service Levels here
+                    }
+                }else if(CL[CLindex].product === 'E2') {
+                    if (FGI.E2 >= CL[CLindex].amount) {
+                        FGI.E2 -= CL[CLindex].amount
+                    } else {
+                        //Lower Service Levels here
+                    }
+                }
+                console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
+                CLindex++;
+            }
+            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI})
         }, 1000);
 
     })
