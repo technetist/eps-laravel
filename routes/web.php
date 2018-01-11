@@ -38,7 +38,7 @@ Route::get('test', function () {
 
 Route::get('/graph', 'GraphController@index')->name('graph');
 Route::post('/graph/change_parameters/submit', 'GraphController@changeParameters')->name('submit_change_parameters');
-Route::get('/graph/change_parameters', 'GraphController@changeParametersView')->name('change_parameters');
+Route::get('/graph/change_parameters/{session_id}', 'GraphController@changeParametersView')->name('change_parameters');
 Route::get('/analyse', 'AnalyseController@index')->name('analyse');
 
 Route::get('/play_game', function(){
