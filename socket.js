@@ -20,13 +20,18 @@ var sub = redis.createClient()
 var timerStart = null;
 var index = 0;
 
-//Preproduction Mashine State Monitoring
+//Preproduction Machine State Monitoring
 var m1,m2,m3,m4,m5;
 
 var WIP = 0;
 var FGI = {E0: 0, E1: 0, E2: 0};
 var serviceLevel = 0;
 
+//general Machine State Monitoring
+// 0 = Offline
+// 1 = idle
+// 2 = working
+var mState = {m1:0,m2:0,m3:0,m4:0,m5:0};
 
 var timer = 0;
 
@@ -102,11 +107,6 @@ io.sockets.on('connection', function (socket) {
             case "machine1":
                 console.log(data.name + "finished preproduction");
                 m1 = true;
-                //delete the lower ones plx
-                m2 = true;
-                m3 = true;
-                m4 = true;
-                m5 = true;
                 break;
             case "machine2":
                 m2 = true;
@@ -124,6 +124,8 @@ io.sockets.on('connection', function (socket) {
                 console.log("log in error");
 
         }
+        mStateUpdater(data.name,'idle');
+        io.sockets.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
         console.log(data.name + "finished preproduction");
         console.log('m1' + m1 + "m2" + m2 + 'm3' + m3 + 'm4' + m4 + 'm5' + m5);
 
@@ -139,6 +141,7 @@ io.sockets.on('connection', function (socket) {
         console.log(preproduction)
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
+            mStateUpdater('machine1','work');
             WIP += preproduction.A0;
             console.log("m1 working");
             m1 = false;
@@ -147,6 +150,7 @@ io.sockets.on('connection', function (socket) {
         }
         if(preproduction.B0 > 0){
             io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
+            mStateUpdater('machine2','work');
             WIP += preproduction.B0;
             console.log("m2 working");
 
@@ -156,6 +160,7 @@ io.sockets.on('connection', function (socket) {
         }
         if(preproduction.C0 > 0){
             io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
+            mStateUpdater('machine3','work');
             WIP += preproduction.C0;
             console.log("m3 working");
 
@@ -175,6 +180,7 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
                 WIP += preproduction.D1;
             }
+            mStateUpdater('machine4','work');
             m4 = false;
         }else{
             m4 = true;
@@ -194,6 +200,7 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.emit('preproduce', {machine: "machine5",type:"E2",amount:preproduction.E2})
                 FGI.E2 += preproduction.E2;
             }
+            mStateUpdater('machine5','work');
             m5 = false;
         }else{
             m5 = true;
@@ -215,11 +222,12 @@ io.sockets.on('connection', function (socket) {
         //console.log(out
         
         CL = db_manager.getCostReq();
-
+        socket.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
         socket.emit('ready', preproduction);
     });
 
     socket.on("productionfinished", function(data) {
+        mStateUpdater(data.machine,'idle');
         if(data.machine == "machine5"){
             WIP -= data.amount;
 
@@ -254,6 +262,7 @@ io.sockets.on('connection', function (socket) {
                     product: OL[index].product,
                     amount: OL[index].amount
                 });
+                mStateUpdater(OL[index].machine,'work');
                 WIP += OL[index].amount;
                 index++
 
@@ -283,6 +292,8 @@ io.sockets.on('connection', function (socket) {
                 CLindex++;
             }
             io.sockets.emit('graphData', {WIP: WIP, FGI:FGI})
+            io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
+
         }, 1000);
 
     })
@@ -298,11 +309,6 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('timer', { time: timerStart });
     });
 
-
-    socket.on('whoworkin', function () {
-        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: randomized(2,0), number4: randomized(2,0), number5: randomized(2,0)})
-    })
-
     socket.on('disconnect', function () {
         console.log('DISCONNECT')
     })
@@ -314,7 +320,50 @@ server.listen(SERVER_PORT, function () {
     console.log('Listening to incoming client connections on port ' + SERVER_PORT)
 })
 
+//Helper Function for mStates
+function mStateUpdater(machine,type){
+    switch(machine){
+        case 'machine1':
+            if(type === 'work'){
+                mState.m1 = 2;
+            }else{
+                mState.m1 = 1;
+            }
+            break;
+        case 'machine2':
+            if(type === 'work'){
+                mState.m2 = 2;
+            }else{
+                mState.m2 = 1;
+            }
+            break;
+        case 'machine3':
+            if(type === 'work'){
+                mState.m3 = 2;
+            }else{
+                mState.m3 = 1;
+            }
+            break;
+        case 'machine4':
+            if(type === 'work'){
+                mState.m4 = 2;
+            }else{
+                mState.m4 = 1;
+            }
+            break;
+        case 'machine5':
+            if(type === 'work'){
+                mState.m5 = 2;
+            }else{
+                mState.m5 = 1;
+            }
+            break;
+        default:
+            console.log('failed to update machine state');
+            break;
 
+    }
+}
 
 //GET-REQUESTS
 app.get('/getstats', function (req, res) {
