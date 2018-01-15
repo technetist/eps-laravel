@@ -230,7 +230,7 @@ io.sockets.on('connection', function (socket) {
         mStateUpdater(data.machine,'idle');
         if(data.machine == "machine5"){
             WIP -= data.amount;
-
+            console.log(data.machine + " finished working")
             if(data.product === 'E0'){
                 FGI.E0 += data.amount;
             }else if(data.product === 'E1'){
