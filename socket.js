@@ -307,11 +307,11 @@ io.sockets.on('connection', function (socket) {
 
     //Maybe the emit stuff should happen on the frontend, so the tppInput is there when gameEnd is called
     socket.on('gameEnd', function() {
-        //Notify Tablets that game has ended.
+        //Notify Tablets that game has ended. THis should maybe happen on the Frontend!
         io.sockets.emit('gamefinish');
         //store stuff in database_manager
         if(tppInput){
-
+            //Put data in database! :)
         }else{
             console.log('Could not access time per piece for machines');
         }
