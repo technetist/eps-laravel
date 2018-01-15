@@ -33,6 +33,8 @@ var serviceLevel = 0;
 // 2 = working
 var mState = {m1:0,m2:0,m3:0,m4:0,m5:0};
 
+var tpp = {m1:0,m2:0,m3:0,m4:0,m5:0};
+var tppInput = false;
 var timer = 0;
 
 var activeMachines = [];
@@ -254,7 +256,7 @@ io.sockets.on('connection', function (socket) {
             console.log(OL[index].time - timerStart);
             // console.log("NEXT ORDER IN " + OL[index].time - timerStart);
 
-
+            //This compares the orderList time with the Timer Time
             if (OL[index].time == timerStart) {
                 console.log(OL[index].machine + "started working on " + OL[index].amount + ' units of ' + OL[index].product);
                 io.sockets.emit('produce', {
@@ -268,6 +270,7 @@ io.sockets.on('connection', function (socket) {
 
             }
 
+            //This compares the CustomerList Time with the Timer Time
             if(CL[CLindex].time == timerStart){
                 if(CL[CLindex].product === 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
@@ -289,6 +292,10 @@ io.sockets.on('connection', function (socket) {
                     }
                 }
                 console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
+                if(CLindex == CL.length){
+                    //This is the last customer withdraw, game can End here?
+                    io.sockets.emit('customerEnd');
+                }
                 CLindex++;
             }
             io.sockets.emit('graphData', {WIP: WIP, FGI:FGI})
@@ -298,6 +305,40 @@ io.sockets.on('connection', function (socket) {
 
     })
 
+    //Maybe the emit stuff should happen on the frontend, so the tppInput is there when gameEnd is called
+    socket.on('gameEnd', function() {
+        //Notify Tablets that game has ended. THis should maybe happen on the Frontend!
+        io.sockets.emit('gamefinish');
+        //store stuff in database_manager
+        if(tppInput){
+            //Put data in database! :)
+        }else{
+            console.log('Could not access time per piece for machines');
+        }
+    })
+    socket.on('tpp', function(data){
+        switch(data.name){
+            case 'machine1':
+                tpp.m1 = data.timePerPiece;
+                break;
+            case 'machine2':
+                tpp.m2 = data.timePerPiece;
+                break;
+            case 'machine3':
+                tpp.m3 = data.timePerPiece;
+                break;
+            case 'machine4':
+                tpp.m4 = data.timePerPiece;
+                break;
+            case 'machine5':
+                tpp.m5 = data.timePerPiece;
+                break;
+            default:
+                console.log('Error saving Time per Piece Value :(');
+                break;
+        }
+        tppInput = true;
+    })
     socket.on('stop', function () {
         clearInterval(timer)
     });
