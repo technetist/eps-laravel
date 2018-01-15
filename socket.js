@@ -299,7 +299,7 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('stop', function () {
-        //pause timer
+        clearInterval(timer)
     });
 
     socket.on('reset', function () {
