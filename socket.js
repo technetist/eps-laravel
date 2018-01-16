@@ -434,7 +434,7 @@ io.sockets.on('connection', function (socket) {
                         }else if(OL[index].product == 'D1'){
                             WIP.D1_pre += OL[index].amount;
                         }
-                        C0_post -= OL[index].amount;
+                        WIP.C0_post -= OL[index].amount;
                         break;
                     case 'machine5':
                         if(OL[index].product == 'E0'){
