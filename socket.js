@@ -19,11 +19,19 @@ var sub = redis.createClient()
 //variable declarations
 var timerStart = null;
 var index = 0;
+var totalWIP = 0;
 
 //Preproduction Machine State Monitoring
 var m1,m2,m3,m4,m5;
 
-var WIP = 0;
+var WIP = {A0_pre:0,A0_while:0,A0_post:0,
+           B0_pre:0,B0_while:0,B0_post:0,
+           C0_pre:0,C0_while:0,C0_post:0,
+           D0_pre:0,D0_while:0,D0_post:0,
+           D1_pre:0,D1_while:0,D1_post:0,
+           E0_pre:0,E0_while:0,
+           E1_pre:0,E1_while:0,
+           E2_pre:0,E2_while:0};
 var FGI = {E0: 0, E1: 0, E2: 0};
 var serviceLevel = 0;
 
@@ -150,7 +158,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
             mStateUpdater('machine1','work');
-            WIP += preproduction.A0;
+            WIP.A0_post += preproduction.A0;
             console.log("m1 working");
             m1 = false;
         }else{
@@ -159,7 +167,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.B0 > 0){
             io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
             mStateUpdater('machine2','work');
-            WIP += preproduction.B0;
+            WIP.B0_post += preproduction.B0;
             console.log("m2 working");
 
             m2 = false;
@@ -169,7 +177,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.C0 > 0){
             io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
             mStateUpdater('machine3','work');
-            WIP += preproduction.C0;
+            WIP.C0_post += preproduction.C0;
             console.log("m3 working");
 
             m3 = false;
@@ -181,12 +189,12 @@ io.sockets.on('connection', function (socket) {
 
             if(preproduction.D0 > 0) {
                 io.sockets.emit('preproduce', {machine: "machine4",type: "D0", amount: preproduction.D0});
-                WIP += preproduction.D0;
+                WIP.D0_post += preproduction.D0;
 
             }
             if(preproduction.D1 > 0){
                 io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
-                WIP += preproduction.D1;
+                WIP.D1_post += preproduction.D1;
             }
             mStateUpdater('machine4','work');
             m4 = false;
@@ -216,6 +224,50 @@ io.sockets.on('connection', function (socket) {
         }
     })
 
+    //When the machine starts working on something, this socket call will be triggered
+    socket.on('productionStarted', function(data){
+        var machine = data.machine;
+        var amount = data.amount;
+        var product = data.product;
+
+        switch(machine){
+            case 'machine1':
+                WIP.A0_pre -= amount;
+                WIP.A0_while += amount;
+                break;
+            case 'machine2':
+                WIP.B0_pre -= amount;
+                WIP.B0_while += amount;
+                break;
+            case 'machine3':
+                WIP.C0_pre -= amount;
+                WIP.C0_while += amount;
+                break;
+            case 'machine4':
+                if(product == 'D0'){
+                    WIP.D0_pre -= amount;
+                    WIP.D0_while += amount;
+                }else if(product == 'D1'){
+                    WIP.D1_pre -= amount;
+                    WIP.D1_while += amount;
+                }
+                break;
+            case 'machine5':
+                if(product == 'E0'){
+                    WIP.E0_pre -= amount;
+                    WIP.E0_while += amount;
+                }else if(product == 'E1'){
+                    WIP.E1_pre -= amount;
+                    WIP.E1_while += amount;
+                }else if(product == 'E2'){
+                    WIP.E2_pre -= amount;
+                    WIP.E2_while += amount;
+
+                }
+                break;
+        }
+    });
+
     socket.on('start', function () {
         var parameters = db_manager.getParameters();
 
@@ -239,6 +291,41 @@ io.sockets.on('connection', function (socket) {
     socket.on("productionfinished", function(data) {
         mStateUpdater(data.machine,'idle');
         console.log(data.machine + " finished working")
+        switch(data.machine){
+            case 'machine1':
+                WIP.A0_while -= data.amount;
+                WIP.A0_post += data.amount;
+                break;
+            case 'machine2':
+                WIP.B0_while -= data.amount;
+                WIP.B0_post += data.amount;
+                break;
+            case 'machine3':
+                WIP.C0_while -= data.amount;
+                WIP.C0_post += data.amount;
+                break;
+            case 'machine4':
+                if(data.product == 'D0'){
+                    WIP.D0_while -= data.amount;
+                    WIP.D0_post += data.amount;
+                }else if(data.product == 'D1'){
+                    WIP.D1_while -= data.amount;
+                    WIP.D1_post += data.amount;
+                }
+                break;
+
+            case 'machine5':
+                if(data.product == 'E0'){
+                    WIP.E0_while -= data.amount;
+                    FGI.E0 += data.amount;
+                }else if(data.product == 'E1'){
+                    WIP.E1_while -= data.amount;
+                    FGI.E1 += data.amount;
+                }else if(data.product ==  'E2'){
+                    WIP.E2_while -= data.amount;
+                    FGI.E2 += data.amount;
+                }
+                break;
         if(data.machine == "machine5"){
             WIP -= data.amount;
             if(data.product === 'E0'){
@@ -285,8 +372,40 @@ io.sockets.on('connection', function (socket) {
                     amount: OL[index].amount
                 });
                 mStateUpdater(OL[index].machine,'work');
-                
-                WIP += OL[index].amount;
+
+                switch(OL[index].machine){
+                    case 'machine1':
+                        break;
+                    case 'machine2':
+                        break;
+                    case 'machine3':
+                        WIP.C0_pre += OL[index].amount;
+                        WIP.B0_post -= OL[index].amount;
+                        break;
+                    case 'machine4':
+                        if(OL[index].product == 'D0'){
+                            WIP.D0_pre += OL[index].amount;
+                        }else if(OL[index].product == 'D1'){
+                            WIP.D1_pre += OL[index].amount;
+                        }
+                        C0_post -= OL[index].amount;
+                        break;
+                    case 'machine5':
+                        if(OL[index].product == 'E0'){
+                            WIP.E0_pre += OL[index].amount;
+                            WIP.D1_post -= OL[index].amount;
+                        }else if(OL[index].product == 'E1'){
+                            WIP.E1_pre += OL[index].amount;
+                            WIP.D1_post -= OL[index].amount;
+                        }else if(OL[index].product == 'E2'){
+                            WIP.E2_pre += OL[index].amount;
+                            WIP.D1_post -= OL[index].amount;
+                        }
+                        break;
+                    default:
+                        console.log('LOL.. something went wrong. sorry');
+                        break;
+                }                
                 console.log("OL index amount: " + OL[index].amount);
                 index++
 
@@ -321,17 +440,23 @@ io.sockets.on('connection', function (socket) {
                 }
                 console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
                 if(CLindex == CL.length){
-                    //This is the last customer withdraw, game can End here?
+                    //This is the last customer withdraw, game can End here, maybe?
                     io.sockets.emit('customerEnd');
                 }
                 CLindex++;
                 serviceLevel = (pos_withdrawls/tot_withdrawls)*100;
             }
+
+
+            //ESX6 
+            for(var k in WIP){
+                totalWIP += WIP[k];
+            }
             console.log("WIP: " + WIP);
-            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI, time:timerStart, serviceLevel})
+            io.sockets.emit('graphData', {WIP: totalWIP, FGI:FGI, time:timerStart, serviceLevel})
 
             io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
-            console.log("The WIP is: " + WIP);
+            console.log("The WIP is: " + totalWIP);
 
         }, 1000);
 
