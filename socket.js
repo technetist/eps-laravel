@@ -291,7 +291,7 @@ io.sockets.on('connection', function (socket) {
     socket.on("productionfinished", function(data) {
         mStateUpdater(data.machine,'idle');
         console.log(data.machine + " finished working")
-        switch(data.machine){
+        switch(data.machine) {
             case 'machine1':
                 WIP.A0_while -= data.amount;
                 WIP.A0_post += data.amount;
@@ -305,27 +305,28 @@ io.sockets.on('connection', function (socket) {
                 WIP.C0_post += data.amount;
                 break;
             case 'machine4':
-                if(data.product == 'D0'){
+                if (data.product == 'D0') {
                     WIP.D0_while -= data.amount;
                     WIP.D0_post += data.amount;
-                }else if(data.product == 'D1'){
+                } else if (data.product == 'D1') {
                     WIP.D1_while -= data.amount;
                     WIP.D1_post += data.amount;
                 }
                 break;
 
             case 'machine5':
-                if(data.product == 'E0'){
+                if (data.product == 'E0') {
                     WIP.E0_while -= data.amount;
                     FGI.E0 += data.amount;
-                }else if(data.product == 'E1'){
+                } else if (data.product == 'E1') {
                     WIP.E1_while -= data.amount;
                     FGI.E1 += data.amount;
-                }else if(data.product ==  'E2'){
+                } else if (data.product == 'E2') {
                     WIP.E2_while -= data.amount;
                     FGI.E2 += data.amount;
                 }
                 break;
+        }
         if(data.machine == "machine5"){
             WIP -= data.amount;
             if(data.product === 'E0'){
