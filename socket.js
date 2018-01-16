@@ -20,7 +20,7 @@ var sub = redis.createClient()
 var timerStart = null;
 var index = 0;
 var totalWIP = 0;
-
+var globalTpp, globalTppAmount, globaltppTimeTpp;
 //Preproduction Machine State Monitoring
 var m1,m2,m3,m4,m5;
 
@@ -476,24 +476,35 @@ io.sockets.on('connection', function (socket) {
     socket.on('tpp', function(data){
         switch(data.name){
             case 'machine1':
-                tpp.m1 = data.timePerPiece;
+                tpp.m1 = data.tppAmount / data.tppTime;
+                globaltppAmount += data.tppAmount;
+                globaltppTime += data.ttpTime;
                 break;
             case 'machine2':
-                tpp.m2 = data.timePerPiece;
+                tpp.m2 = data.tppAmount / data.tppTime;
+                globaltppAmount += data.tppAmount;
+                globaltppTime += data.ttpTime;
                 break;
             case 'machine3':
-                tpp.m3 = data.timePerPiece;
+                tpp.m3 = data.tppAmount / data.tppTime;
+                globaltppAmount += data.tppAmount;
+                globaltppTime += data.ttpTime;
                 break;
             case 'machine4':
-                tpp.m4 = data.timePerPiece;
+                tpp.m4 = data.tppAmount / data.tppTime;
+                globaltppAmount += data.tppAmount;
+                globaltppTime += data.ttpTime;
                 break;
             case 'machine5':
-                tpp.m5 = data.timePerPiece;
+                tpp.m5 = data.tppAmount / data.tppTime;
+                globaltppAmount += data.tppAmount;
+                globaltppTime += data.ttpTime;
                 break;
             default:
                 console.log('Error saving Time per Piece Value :(');
                 break;
         }
+        globalTpp = globaltppAmount / globaltppTime;
         tppInput = true;
     })
     socket.on('stop', function () {
