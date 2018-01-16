@@ -211,7 +211,9 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('start', function () {
-        var algoOutput = algo.calculateProductionOrder();
+        var parameters = db_manager.getParameters();
+
+        var algoOutput = algo.calculateProductionOrder(parameters);
 
         OL = algoOutput.orderlist;
         preproduction = algoOutput.preproduction;
@@ -266,6 +268,7 @@ io.sockets.on('connection', function (socket) {
                     amount: OL[index].amount
                 });
                 mStateUpdater(OL[index].machine,'work');
+                
                 WIP += OL[index].amount;
                 console.log("OL index amount: " + OL[index].amount);
                 index++
@@ -273,6 +276,7 @@ io.sockets.on('connection', function (socket) {
             }
 
             //This compares the CustomerList Time with the Timer Time
+            ////Implement Waiting List!!!
             if(CL[CLindex].time == timerStart){
                 if(CL[CLindex].product === 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
