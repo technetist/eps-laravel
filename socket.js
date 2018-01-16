@@ -300,7 +300,7 @@ io.sockets.on('connection', function (socket) {
             }
             io.sockets.emit('graphData', {WIP: WIP, FGI:FGI})
             io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
-
+            console.log("The WIP is: " + WIP);
         }, 1000);
 
     })
