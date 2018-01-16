@@ -179,6 +179,7 @@ io.sockets.on('connection', function (socket) {
         }else{
             m4 = true;
         }
+     
         if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
             console.log("m5 working");
 
@@ -198,6 +199,8 @@ io.sockets.on('connection', function (socket) {
         }else{
             m5 = true;
         }
+
+        io.sockets.emit("set");
     })
 
     socket.on('start', function () {
@@ -255,6 +258,7 @@ io.sockets.on('connection', function (socket) {
                     amount: OL[index].amount
                 });
                 WIP += OL[index].amount;
+                console.log("OL index amount: " + OL[index].amount);
                 index++
 
             }
@@ -281,8 +285,10 @@ io.sockets.on('connection', function (socket) {
                 }
                 console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
                 CLindex++;
+
             }
-            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI})
+            console.log("WIP: " + WIP);
+            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI, time:timerStart})
         }, 1000);
 
     })

@@ -12,10 +12,6 @@
             renderChart () {
                 // NOTE: This code is based on https://gist.github.com/d3noob/402dd382a51a4f6eea487f9a35566de0
                 var data = this.chartData
-                var data1 = [48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48];
-                var data2 = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40];
-                var data3 = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20];
-                var data = [];
                 console.log('dataPoints', data)
                 var margin = {
                     top: 20,
@@ -105,7 +101,7 @@
                     .attr("transform", "rotate(-90)")
                     .text("Amount(products)");
 
-            }
+            },
         },
         watch: {
             width: 'renderChart',
