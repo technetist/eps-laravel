@@ -1,9 +1,6 @@
 <template>
     <div id="app1">
         <inventory-chart :chart-data="InventoryChart.data" :width="InventoryChart.width" :height="InventoryChart.height">
-            <g style="transform: translate(0, 10px)">
-                <path :d="line" />
-            </g>
         </inventory-chart>
     </div>
 </template>
@@ -27,7 +24,6 @@
                 }
             }
         },
-
 
     };
 </script>

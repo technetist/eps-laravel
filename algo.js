@@ -4,11 +4,11 @@
     //This wont work for now. All Body and Database Requests need to be exchanged.
 
 module.exports = {
-        calculateProductionOrder: function () {
+        calculateProductionOrder: function (p) {
 
-            var ssA0 = 0, ssB0 = 0, ssC0 = 0, ssD0 = 0, ssD1 = 0, ssE0 = 0, ssE1 = 0, ssE2 = 0;
-            var lsA0 = 8, lsB0 = 8, lsC0 = 8, lsD0 = 8, lsD1 = 8, lsE0 = 8, lsE1 = 8, lsE2 = 8;
-            var ltA0 = 120, ltB0 = 120, ltC0 = 120, ltD0 = 120, ltD1 = 120, ltE0 = 120, ltE1 = 120, ltE2 = 120;
+            var ssA0 = p.ssA0, ssB0 = p.ssB0, ssC0 = p.ssC0, ssD0 = p.ssD0, ssD1 = p.ssD1, ssE0 = p.ssE0, ssE1 = p.ssE1, ssE2 = p.ssE2;
+            var lsA0 = p.lsA0, lsB0 = p.lsB0, lsC0 = p.lsC0, lsD0 = p.lsD0, lsD1 = p.lsD1, lsE0 = p.lsE0, lsE1 = p.lsE1, lsE2 = p.lsE2;
+            var ltA0 = p.ltA0, ltB0 = p.ltB0, ltC0 = p.ltC0, ltD0 = p.ltD0, ltD1 = p.ltD1, ltE0 = p.ltE0, ltE1 = p.ltE1, ltE2 = p.ltE2;
 
             let dummy = [[ssE0, lsE0, ltE0], [ssE1, lsE1, ltE1], [ssE2, lsE2, ltE2], [ssD0, lsD0, ltD0], [ssD1, lsD1, ltD1], [ssC0, lsC0, ltC0], [ssB0, lsB0, ltB0], [ssA0, lsA0, ltA0]];
             //Those are the ones from the Data-Chart where you can alter the parameters. :)

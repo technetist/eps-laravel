@@ -193,6 +193,7 @@ io.sockets.on('connection', function (socket) {
         }else{
             m4 = true;
         }
+     
         if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
             console.log("m5 working");
 
@@ -216,7 +217,9 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on('start', function () {
-        var algoOutput = algo.calculateProductionOrder();
+        var parameters = db_manager.getParameters();
+
+        var algoOutput = algo.calculateProductionOrder(parameters);
 
         OL = algoOutput.orderlist;
         preproduction = algoOutput.preproduction;
@@ -282,13 +285,16 @@ io.sockets.on('connection', function (socket) {
                     amount: OL[index].amount
                 });
                 mStateUpdater(OL[index].machine,'work');
+                
                 WIP += OL[index].amount;
+                console.log("OL index amount: " + OL[index].amount);
                 index++
 
             }
             //// Counters of service levels, but not for waiting orders
             //// Keep track of orders that are on time
             //This compares the CustomerList Time with the Timer Time
+            ////Implement Waiting List!!!
             if(CL[CLindex].time == timerStart){
                 tot_withdrawls++;
                 if(CL[CLindex].product === 'E0'){
@@ -321,9 +327,12 @@ io.sockets.on('connection', function (socket) {
                 CLindex++;
                 serviceLevel = (pos_withdrawls/tot_withdrawls)*100;
             }
-            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI, serviceLevel})
+            console.log("WIP: " + WIP);
+            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI, time:timerStart, serviceLevel})
+
             io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
             console.log("The WIP is: " + WIP);
+
         }, 1000);
 
     })
