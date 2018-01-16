@@ -208,8 +208,6 @@ io.sockets.on('connection', function (socket) {
         }else{
             m5 = true;
         }
-
-        io.sockets.emit("set");
     })
 
     socket.on('start', function () {
