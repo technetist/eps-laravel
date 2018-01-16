@@ -268,26 +268,30 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('start', function () {
+    socket.on('start', function(){
         var parameters = db_manager.getParameters();
+        var algoOutput = [];
 
-        console.log(parameters);
 
-        var algoOutput = algo.calculateProductionOrder(parameters);
+        setTimeout(function() {
+            console.log("Socket.js ssA0:" + parameters.ssA0);
+            algoOutput = algo.calculateProductionOrder(parameters);
 
-        OL = algoOutput.orderlist;
-        preproduction = algoOutput.preproduction;
+            OL = algoOutput.orderlist;
+            preproduction = algoOutput.preproduction;
 
-        console.log(Object.keys(preproduction).length);
-        console.log(preproduction);
+            console.log(Object.keys(preproduction).length);
+            console.log(preproduction);
 
-        for (var k = 0; k < 30; k++) {
-            console.log("index: " + k + ":" + JSON.stringify(OL[k]));
-        }
-        
-        CL = db_manager.getCostReq();
-        socket.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
-        socket.emit('ready', preproduction);
+            for (var k = 0; k < 30; k++) {
+                console.log("index: " + k + ":" + JSON.stringify(OL[k]));
+            }
+
+            CL = db_manager.getCostReq();
+            socket.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
+            socket.emit('ready', preproduction);
+        },5000);
+
     });
 
     socket.on("productionfinished", function(data) {

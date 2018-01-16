@@ -44,23 +44,33 @@ module.exports = {
     },
 
     getParameters: function () {
-        var parameters;
-        connection.query('SELECT MRPparameter_1,'+
-            'MRPparameter_2, MRPparameter_3, MRPparameter_4, MRPparameter_5,'+ 
-            'MRPparameter_6,MRPparameter_7,MRPparameter_8,MRPparameter_9,'+
-            'MRPparameter_10,MRPparameter_11,MRPparameter_11,MRPparameter_12'+
+        var parameters = [];
+        connection.query('SELECT *'+ /*+
+            '' +
+            'MRPparameters_0, MRPparameters_1,'+
+            'MRPparameters_2, MRPparameters_3, MRPparameters_4, MRPparameters_5,'+
+            'MRPparameters_6,MRPparameters_7,MRPparameters_8,MRPparameters_9,'+
+            'MRPparameters_10,MRPparameters_11,MRPparameters_11,MRPparameters_12'+
+            'MRPparameters_13,MRPparameters_14,MRPparameters_15,MRPparameters_16'+
+            'MRPparameters_17,MRPparameters_18,MRPparameters_19,MRPparameters_20'+
+            'MRPparameters_21,MRPparameters_22,MRPparameters_23'+ */
             'FROM sessions', function(err, rows, fields) {
-            if(err) throw err
-            var i = rows.length;
-            parameters={ssA0: rows[i].MRPparameter_1, ssB0: rows[i].MRPparameter_2, ssC0: rows[i].MRPparameter_3, 
-                        ssD0: rows[i].MRPparameter_4, ssD1: rows[i].MRPparameter_5, ssE0: rows[i].MRPparameter_6,
-                        ssE1: rows[i].MRPparameter_7, ssE2: rows[i].MRPparameter_8, lsA0: rows[i].MRPparameter_9,
-                        lsB0: rows[i].MRPparameter_10,lsC0: rows[i].MRPparameter_11,lsD0: rows[i].MRPparameter_12,
-                        lsD1: rows[i].MRPparameter_13,lsE0: rows[i].MRPparameter_14,lsE1: rows[i].MRPparameter_15,
-                        lsE2: rows[i].MRPparameter_16,ltA0: rows[i].MRPparameter_17,ltB0: rows[i].MRPparameter_18,
-                        ltC0: rows[i].MRPparameter_19,ltD0: rows[i].MRPparameter_20,ltD1: rows[i].MRPparameter_21,
-                        ltE0: rows[i].MRPparameter_22,ltE1: rows[i].MRPparameter_23,ltE2: rows[i].MRPparameter_24}
-            })
+            if (err) throw err
+            var i = rows.length-1;
+            console.log("Latest row in DB is: " + rows.length);
+            console.log('ssA0: ' + rows[i].MRPparameters_1);
+            parameters.push({
+                ssA0: rows[i].MRPparameters_0, ssB0: rows[i].MRPparameters_1, ssC0: rows[i].MRPparameters_2,
+                ssD0: rows[i].MRPparameters_3, ssD1: rows[i].MRPparameters_4, ssE0: rows[i].MRPparameters_5,
+                ssE1: rows[i].MRPparameters_6, ssE2: rows[i].MRPparameters_7, lsA0: rows[i].MRPparameters_8,
+                lsB0: rows[i].MRPparameters_9, lsC0: rows[i].MRPparameters_10, lsD0: rows[i].MRPparameters_11,
+                lsD1: rows[i].MRPparameters_12, lsE0: rows[i].MRPparameters_13, lsE1: rows[i].MRPparameters_14,
+                lsE2: rows[i].MRPparameters_15, ltA0: rows[i].MRPparameters_16, ltB0: rows[i].MRPparameters_17,
+                ltC0: rows[i].MRPparameters_18, ltD0: rows[i].MRPparameters_19, ltD1: rows[i].MRPparameters_20,
+                ltE0: rows[i].MRPparameters_21, ltE1: rows[i].MRPparameters_22, ltE2: rows[i].MRPparameters_23
+            });
+
+        })
         return parameters;
     },
 
