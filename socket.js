@@ -93,6 +93,7 @@ function resetParams() {
     CL = []
     queue = []
 
+    io.sockets.emit('appReset');
 
 }
 
