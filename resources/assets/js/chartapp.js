@@ -8,26 +8,26 @@
 // require('./bootstrap');
 
 var Vue = require('vue');
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/InventoryChart.vue'));
+Vue.component('InventoryChart', require('./components/InventoryChart.vue'));
 import App1 from './Inventory'
 
-new Vue({
+var app1 = new Vue({
     el: '#app1',
     template: '<App1/>',
     components: { App1 },
     ready() {
         alert('Rendered!');
     }
+
 });
 
-Vue.component('example-component', require('./components/ServicelevelChart.vue'));
+Vue.component('ServicelevelChart', require('./components/ServicelevelChart.vue'));
 import App2 from './Servicelevel'
 
 new Vue({

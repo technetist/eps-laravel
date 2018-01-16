@@ -187,6 +187,7 @@ io.sockets.on('connection', function (socket) {
         }else{
             m4 = true;
         }
+     
         if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
             console.log("m5 working");
 
@@ -207,6 +208,8 @@ io.sockets.on('connection', function (socket) {
         }else{
             m5 = true;
         }
+
+        io.sockets.emit("set");
     })
 
     socket.on('start', function () {
@@ -266,6 +269,7 @@ io.sockets.on('connection', function (socket) {
                 });
                 mStateUpdater(OL[index].machine,'work');
                 WIP += OL[index].amount;
+                console.log("OL index amount: " + OL[index].amount);
                 index++
 
             }
@@ -297,10 +301,14 @@ io.sockets.on('connection', function (socket) {
                     io.sockets.emit('customerEnd');
                 }
                 CLindex++;
+
             }
-            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI})
+
+            console.log("WIP: " + WIP);
+            io.sockets.emit('graphData', {WIP: WIP, FGI:FGI, time:timerStart})
             io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
             console.log("The WIP is: " + WIP);
+
         }, 1000);
 
     })
