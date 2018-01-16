@@ -271,6 +271,8 @@ io.sockets.on('connection', function (socket) {
     socket.on('start', function () {
         var parameters = db_manager.getParameters();
 
+        console.log(parameters);
+
         var algoOutput = algo.calculateProductionOrder(parameters);
 
         OL = algoOutput.orderlist;
