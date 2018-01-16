@@ -35,6 +35,9 @@ var WIP = {A0_pre:0,A0_while:0,A0_post:0,
 var FGI = {E0: 0, E1: 0, E2: 0};
 var serviceLevel = 0;
 
+var tot_withdrawls = 0;
+var pos_withdrawls = 0;
+
 //general Machine State Monitoring
 // 0 = Offline
 // 1 = idle
@@ -51,6 +54,9 @@ var activeMachines = [];
 var preproduction = [];
 var OL = []
 var CL = []
+var queue = []
+
+
 function randomized(top, bottom) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
 }
@@ -276,7 +282,6 @@ io.sockets.on('connection', function (socket) {
         for (var k = 0; k < 30; k++) {
             console.log("index: " + k + ":" + JSON.stringify(OL[k]));
         }
-        //console.log(out
         
         CL = db_manager.getCostReq();
         socket.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
@@ -321,6 +326,27 @@ io.sockets.on('connection', function (socket) {
                     FGI.E2 += data.amount;
                 }
                 break;
+        if(data.machine == "machine5"){
+            WIP -= data.amount;
+            if(data.product === 'E0'){
+                FGI.E0 += data.amount;
+                if(queue[0].amount <= FGI.E0 && queue[0].product === 'E0') {
+                    FGI.E0 -= queue[0].amount
+                    queue.shift()
+                }
+            }else if(data.product === 'E1'){
+                FGI.E1 += data.amount;
+                if(queue[0].amount <= FGI.E1 && queue[0].product === 'E1') {
+                    FGI.E1 -= queue[0].amount
+                    queue.shift()
+                }
+            }else if(data.product ===  'E2'){
+                FGI.E2 += data.amount;
+                if(queue[0].amount <= FGI.E2 && queue[0].product === 'E2') {
+                    FGI.E2 -= queue[0].amount
+                    queue.shift()
+                }
+            }
         }
     });
 
@@ -384,27 +410,32 @@ io.sockets.on('connection', function (socket) {
                 index++
 
             }
-
+            //// Counters of service levels, but not for waiting orders
+            //// Keep track of orders that are on time
             //This compares the CustomerList Time with the Timer Time
             ////Implement Waiting List!!!
             if(CL[CLindex].time == timerStart){
+                tot_withdrawls++;
                 if(CL[CLindex].product === 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
                         FGI.E0 -= CL[CLindex].amount
+                        pos_withdrawls++;
                     }else{
-                        //Lower Service Levels here
+                        queue.push(CL[CLindex]);
                     }
                 }else if(CL[CLindex].product === 'E1') {
                     if (FGI.E1 >= CL[CLindex].amount) {
                         FGI.E1 -= CL[CLindex].amount
+                        pos_withdrawls++;
                     } else {
-                        //Lower Service Levels here
+                        queue.push(CL[CLindex]);
                     }
                 }else if(CL[CLindex].product === 'E2') {
                     if (FGI.E2 >= CL[CLindex].amount) {
                         FGI.E2 -= CL[CLindex].amount
+                        pos_withdrawls++;
                     } else {
-                        //Lower Service Levels here
+                        queue.push(CL[CLindex]);
                     }
                 }
                 console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
@@ -413,14 +444,17 @@ io.sockets.on('connection', function (socket) {
                     io.sockets.emit('customerEnd');
                 }
                 CLindex++;
-
+                serviceLevel = (pos_withdrawls/tot_withdrawls)*100;
             }
+
 
             //ESX6 
             for(var k in WIP){
                 totalWIP += WIP[k];
             }
-            io.sockets.emit('graphData', {WIP: totalWIP, FGI:FGI, time:timerStart})
+            console.log("WIP: " + WIP);
+            io.sockets.emit('graphData', {WIP: totalWIP, FGI:FGI, time:timerStart, serviceLevel})
+
             io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
             console.log("The WIP is: " + totalWIP);
 
