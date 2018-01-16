@@ -20,14 +20,21 @@ var sub = redis.createClient()
 var timerStart = null;
 var index = 0;
 
-//Preproduction Mashine State Monitoring
+//Preproduction Machine State Monitoring
 var m1,m2,m3,m4,m5;
 
 var WIP = 0;
 var FGI = {E0: 0, E1: 0, E2: 0};
 var serviceLevel = 0;
 
+//general Machine State Monitoring
+// 0 = Offline
+// 1 = idle
+// 2 = working
+var mState = {m1:0,m2:0,m3:0,m4:0,m5:0};
 
+var tpp = {m1:0,m2:0,m3:0,m4:0,m5:0};
+var tppInput = false;
 var timer = 0;
 
 var activeMachines = [];
@@ -102,11 +109,6 @@ io.sockets.on('connection', function (socket) {
             case "machine1":
                 console.log(data.name + "finished preproduction");
                 m1 = true;
-                //delete the lower ones plx
-                m2 = true;
-                m3 = true;
-                m4 = true;
-                m5 = true;
                 break;
             case "machine2":
                 m2 = true;
@@ -124,6 +126,8 @@ io.sockets.on('connection', function (socket) {
                 console.log("log in error");
 
         }
+        mStateUpdater(data.name,'idle');
+        io.sockets.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
         console.log(data.name + "finished preproduction");
         console.log('m1' + m1 + "m2" + m2 + 'm3' + m3 + 'm4' + m4 + 'm5' + m5);
 
@@ -139,6 +143,7 @@ io.sockets.on('connection', function (socket) {
         console.log(preproduction)
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
+            mStateUpdater('machine1','work');
             WIP += preproduction.A0;
             console.log("m1 working");
             m1 = false;
@@ -147,6 +152,7 @@ io.sockets.on('connection', function (socket) {
         }
         if(preproduction.B0 > 0){
             io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
+            mStateUpdater('machine2','work');
             WIP += preproduction.B0;
             console.log("m2 working");
 
@@ -156,6 +162,7 @@ io.sockets.on('connection', function (socket) {
         }
         if(preproduction.C0 > 0){
             io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
+            mStateUpdater('machine3','work');
             WIP += preproduction.C0;
             console.log("m3 working");
 
@@ -175,6 +182,7 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
                 WIP += preproduction.D1;
             }
+            mStateUpdater('machine4','work');
             m4 = false;
         }else{
             m4 = true;
@@ -195,6 +203,7 @@ io.sockets.on('connection', function (socket) {
                 io.sockets.emit('preproduce', {machine: "machine5",type:"E2",amount:preproduction.E2})
                 FGI.E2 += preproduction.E2;
             }
+            mStateUpdater('machine5','work');
             m5 = false;
         }else{
             m5 = true;
@@ -218,14 +227,15 @@ io.sockets.on('connection', function (socket) {
         //console.log(out
         
         CL = db_manager.getCostReq();
-
+        socket.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
         socket.emit('ready', preproduction);
     });
 
     socket.on("productionfinished", function(data) {
+        mStateUpdater(data.machine,'idle');
+        console.log(data.machine + " finished working")
         if(data.machine == "machine5"){
             WIP -= data.amount;
-
             if(data.product === 'E0'){
                 FGI.E0 += data.amount;
             }else if(data.product === 'E1'){
@@ -249,7 +259,7 @@ io.sockets.on('connection', function (socket) {
             console.log(OL[index].time - timerStart);
             // console.log("NEXT ORDER IN " + OL[index].time - timerStart);
 
-
+            //This compares the orderList time with the Timer Time
             if (OL[index].time == timerStart) {
                 console.log(OL[index].machine + "started working on " + OL[index].amount + ' units of ' + OL[index].product);
                 io.sockets.emit('produce', {
@@ -257,12 +267,14 @@ io.sockets.on('connection', function (socket) {
                     product: OL[index].product,
                     amount: OL[index].amount
                 });
+                mStateUpdater(OL[index].machine,'work');
                 WIP += OL[index].amount;
                 console.log("OL index amount: " + OL[index].amount);
                 index++
 
             }
 
+            //This compares the CustomerList Time with the Timer Time
             if(CL[CLindex].time == timerStart){
                 if(CL[CLindex].product === 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
@@ -284,17 +296,59 @@ io.sockets.on('connection', function (socket) {
                     }
                 }
                 console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
+                if(CLindex == CL.length){
+                    //This is the last customer withdraw, game can End here?
+                    io.sockets.emit('customerEnd');
+                }
                 CLindex++;
 
             }
+
             console.log("WIP: " + WIP);
             io.sockets.emit('graphData', {WIP: WIP, FGI:FGI, time:timerStart})
+            io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
+            console.log("The WIP is: " + WIP);
+
         }, 1000);
 
     })
 
+    //Maybe the emit stuff should happen on the frontend, so the tppInput is there when gameEnd is called
+    socket.on('gameEnd', function() {
+        //Notify Tablets that game has ended. THis should maybe happen on the Frontend!
+        io.sockets.emit('gamefinish');
+        //store stuff in database_manager
+        if(tppInput){
+            //Put data in database! :)
+        }else{
+            console.log('Could not access time per piece for machines');
+        }
+    })
+    socket.on('tpp', function(data){
+        switch(data.name){
+            case 'machine1':
+                tpp.m1 = data.timePerPiece;
+                break;
+            case 'machine2':
+                tpp.m2 = data.timePerPiece;
+                break;
+            case 'machine3':
+                tpp.m3 = data.timePerPiece;
+                break;
+            case 'machine4':
+                tpp.m4 = data.timePerPiece;
+                break;
+            case 'machine5':
+                tpp.m5 = data.timePerPiece;
+                break;
+            default:
+                console.log('Error saving Time per Piece Value :(');
+                break;
+        }
+        tppInput = true;
+    })
     socket.on('stop', function () {
-        //pause timer
+        clearInterval(timer)
     });
 
     socket.on('reset', function () {
@@ -303,11 +357,6 @@ io.sockets.on('connection', function (socket) {
         clearInterval(timer)
         io.sockets.emit('timer', { time: timerStart });
     });
-
-
-    socket.on('whoworkin', function () {
-        socket.emit('theyworkin', {message: 'banana', number1: randomized(2,0), number2: randomized(2,0), number3: randomized(2,0), number4: randomized(2,0), number5: randomized(2,0)})
-    })
 
     socket.on('disconnect', function () {
         console.log('DISCONNECT')
@@ -320,7 +369,50 @@ server.listen(SERVER_PORT, function () {
     console.log('Listening to incoming client connections on port ' + SERVER_PORT)
 })
 
+//Helper Function for mStates
+function mStateUpdater(machine,type){
+    switch(machine){
+        case 'machine1':
+            if(type === 'work'){
+                mState.m1 = 2;
+            }else{
+                mState.m1 = 1;
+            }
+            break;
+        case 'machine2':
+            if(type === 'work'){
+                mState.m2 = 2;
+            }else{
+                mState.m2 = 1;
+            }
+            break;
+        case 'machine3':
+            if(type === 'work'){
+                mState.m3 = 2;
+            }else{
+                mState.m3 = 1;
+            }
+            break;
+        case 'machine4':
+            if(type === 'work'){
+                mState.m4 = 2;
+            }else{
+                mState.m4 = 1;
+            }
+            break;
+        case 'machine5':
+            if(type === 'work'){
+                mState.m5 = 2;
+            }else{
+                mState.m5 = 1;
+            }
+            break;
+        default:
+            console.log('failed to update machine state');
+            break;
 
+    }
+}
 
 //GET-REQUESTS
 app.get('/getstats', function (req, res) {
