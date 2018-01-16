@@ -28,7 +28,7 @@
     <hr>
     <div class="row">
         <div class="col-lg-5">
-        <h3 style="text-align: center">Inventory</h3>
+            <h3 style="text-align: center">Inventory</h3>
 
             {{--<div id="app1">--}}
 
@@ -110,6 +110,34 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="modal2_ok">Ok</button>
                     <button type="button" class="btn btn-primary" id="modal2_cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="StopModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Do you want to save the session?</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <div class="row">
+                                <label>session name:</label>
+                                <input type="text" id="session_name">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modal3_save">Save</button>
+                    <button type="button" class="btn btn-primary" id="modal3_resume">Resume</button>
+                    <button type="button" class="btn btn-primary" id="modal3_cancel">Cancel</button>
                 </div>
             </div>
         </div>

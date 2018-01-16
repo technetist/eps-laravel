@@ -240,7 +240,7 @@ io.sockets.on('connection', function (socket) {
         }else{
             m4 = true;
         }
-     
+        preproduction.E0 = 2;
         if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
             console.log("m5 working");
 
@@ -261,6 +261,8 @@ io.sockets.on('connection', function (socket) {
         }else{
             m5 = true;
         }
+
+        io.sockets.emit('set');
     })
 
     //When the machine starts working on something, this socket call will be triggered
@@ -499,7 +501,7 @@ io.sockets.on('connection', function (socket) {
                 totalWIP += WIP[k];
             }
             console.log("WIP: " + WIP);
-            io.sockets.emit('graphData', {WIP: totalWIP, FGI:FGI, time:timerStart, serviceLevel})
+            io.sockets.emit('graphData', {WIP: totalWIP, FGI:FGI, time:timerStart, servicelevel:serviceLevel})
 
             io.sockets.emit('mStatus', {number1: mState.m1, number2: mState.m2, number3: mState.m3, number4: mState.m4, number5: mState.m5})
             console.log("The WIP is: " + totalWIP);
@@ -509,11 +511,25 @@ io.sockets.on('connection', function (socket) {
     })
 
     //Maybe the emit stuff should happen on the frontend, so the tppInput is there when gameEnd is called
-    socket.on('gameEnd', function() {
+    socket.on('gameEnd', function(data) {
         //Notify Tablets that game has ended. THis should maybe happen on the Frontend!
         io.sockets.emit('gamefinish');
         //store stuff in database_manager
+        var session_name = data.session_name;
+        var inventory = FGI + WIP;
+        var average_inv = inventory / 5;
+        var average_FGI = FGI / 5;
+        var average_WIP = WIP / 5;
+        var average_array = {FGI: average_FGI, INV: average_inv, WIP: average_WIP};
+        var utilisation_m1 = WIP.A0_post + WIP.A0_pre + WIP.A0_while;
+        var utilisation_m2 = WIP.B0_post + WIP.B0_pre + WIP.B0_while;
+        var utilisation_m3 = WIP.C0_post + WIP.C0_pre + WIP.C0_while;
+        var utilisation_m4 = WIP.D0_post + WIP.D0_pre + WIP.D0_while + WIP.D1_post + WIP.D1_pre + WIP.D1_while;
+        var utilisation_m5 = WIP.E0_pre + WIP.E0_while + WIP.E1_pre + WIP.E1_while + WIP.E2_pre + WIP.E2_while
+        var utilisation_array = {m1: utilisation_m1 , m2: utilisation_m2 , m3: utilisation_m3, m4: utilisation_m4 , m5: utilisation_m5 };
+        var planning_algorithm = data.planning_algorithm;
         if(tppInput){
+            db_manager.pushSession(utilisation_array , timerStart, average_array, null, planning_algorithm, serviceLevel, session_name, globalTpp, tpp)
             //Put data in database! :)
         }else{
             console.log('Could not access time per piece for machines');

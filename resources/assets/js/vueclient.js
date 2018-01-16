@@ -5,12 +5,26 @@ var socket = io.connect('http://'+ app_ip +':8000');
 var global_line;
 var global_groups;
 var global_paths;
+var planning_algorithm;
 
 socket.on('connect', function () {
     console.log('CONNECT')
     makeGraph();
     document.getElementById("start").addEventListener("click", function () {
         this.setAttribute("disabled", true)
+
+        if(document.getElementById("mrp").checked){
+            planning_algorithm = "MRP";
+        }
+
+        if(document.getElementById("kanban").checked){
+            planning_algorithm = "Kanban";
+        }
+
+        if(document.getElementById("conwip").checked){
+            planning_algorithm = "Conwip";
+        }
+
         socket.emit("start")
         console.log("clicking!")
     })
@@ -43,7 +57,8 @@ socket.on('connect', function () {
 
     document.getElementById("stop").addEventListener("click", function () {
         document.getElementById("start").removeAttribute("disabled");
-        socket.emit("stop")
+        socket.emit("stopPressed")
+        $('#StopModal').modal('show');
         console.log("stop clicked!")
     })
 
@@ -51,6 +66,22 @@ socket.on('connect', function () {
         document.getElementById("start").removeAttribute("disabled");
         socket.emit("reset")
         console.log("reset clicked!")
+    })
+
+    document.getElementById("modal3_save").addEventListener("click", function (){
+        var session_name = document.getElementById('session_name');
+        socket.emit("gameEnd", {session_name: document.getElementById('session_name'),
+            planning_algorithm: planning_algorithm});
+        $('#StopModal').modal('hide');
+    })
+
+    document.getElementById("modal3_resume").addEventListener("click", function (){
+        $('#StopModal').modal('hide');
+    })
+
+    document.getElementById("modal3_cancel").addEventListener("click", function (){
+        $('#StopModal').modal('hide');
+        socket.emit('stop');
     })
 
     socket.on('messages.getStatus', function (data) {
@@ -87,6 +118,7 @@ socket.on('connect', function () {
         })
 
     });
+
 
     socket.on('graphData', function (algodata) {
         var WIP = algodata.WIP;

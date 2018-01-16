@@ -28,15 +28,24 @@ module.exports = {
     },
 
     pushSession: function (utiliaztion_array,
-                         total_time,
-                         mrp_perameters_array,
-                         averages_array, lead_time,
-                         planning_algorithm,
-                         service_level,
-                         session_name,
-                         time_per_piece,
-                         time_per_piece_per_machine_array) {
-        connection.query('INSERT INTO sessions () VALUES ()', function (err, rows, fields) {
+                           total_time,
+                           averages_array, lead_time,
+                           planning_algorithm,
+                           service_level,
+                           session_name,
+                           time_per_piece,
+                           time_per_piece_per_machine_array) {
+        connection.query('UPDATE sessions SET averageFgi' + averages_array.FGI +', averageInv' + averages_array.INV +
+            ', averageWip' + averages_array.WIP +' average_utilisation' + averages_array[3] +
+            ', planningAlgoritm' + planning_algorithm + ', serviceLevel' + service_level +
+            ', sessionName' + session_name + ', timePerPiece' + time_per_piece +
+            ', timePerPiece_M1' + time_per_piece_per_machine_array.m1 + ', timePerPiece_M2' + time_per_piece_per_machine_array.m2 +
+            ', timePerPiece_M3' + time_per_piece_per_machine_array.m3 + ', timePerPiece_M4' + time_per_piece_per_machine_array.m4 +
+            ', timePerPiece_M5' + time_per_piece_per_machine_array.m5 +
+            ', utilisation_M1' + utiliaztion_array.m1 + ', utilisation_M2' + utiliaztion_array.m2 +
+            ', utilisation_M3' + utiliaztion_array.m3 + ', utilisation_M4' + utiliaztion_array.m4 +
+            ', utilisation_M5' + utiliaztion_array.m5 + ', updated_at' + Date.now() +
+            + ', total_time =' + total_time + ' WHERE id = max(id)', function (err, rows, fields) {
             if (err) throw err
 
             console.log(rows)
