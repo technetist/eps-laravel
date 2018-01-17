@@ -54,6 +54,7 @@ var activeMachines = [];
 var preproduction = [];
 var OL = []
 var CL = []
+var CLindex = 0
 var queue = []
 
 var lastOrder = false
@@ -312,7 +313,6 @@ io.sockets.on('connection', function (socket) {
         var parameters = db_manager.getParameters();
         var algoOutput = [];
         CL = db_manager.getCostReq();
-        console.log("Customer List is: " + CL)
 
         setTimeout(function() {
             console.log("Socket.js ssA0:" + parameters.ssA0);
@@ -463,6 +463,7 @@ io.sockets.on('connection', function (socket) {
             //// Keep track of orders that are on time
             //This compares the CustomerList Time with the Timer Time
             ////Implement Waiting List!!!
+            console.log(CL[CLindex].time);
             if(CL[CLindex].time == timerStart){
                 tot_withdrawls++;
                 if(CL[CLindex].product == 'E0'){

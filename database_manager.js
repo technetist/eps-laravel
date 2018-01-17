@@ -86,7 +86,6 @@ module.exports = {
             for(var i = 0; i < rows.length; i++){
 
                 costReqArray.push({time: rows[i].time,amount: rows[i].amount,product: rows[i].product});
-                console.log("Cost req list from db: "+costReqArray[i])
             }
         })
 
