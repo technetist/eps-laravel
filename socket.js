@@ -84,7 +84,6 @@ function resetParams() {
     tppInput = false;
     clearInterval(timer)
     timer = 0;
-    io.sockets.emit('timer', { time: timerStart });
 
     activeMachines = [];
 
@@ -93,6 +92,7 @@ function resetParams() {
     OL = []
     CL = []
     queue = []
+    CLindex = 0
 
     io.sockets.emit('appReset');
 
