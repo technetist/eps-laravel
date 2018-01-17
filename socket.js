@@ -469,6 +469,7 @@ io.sockets.on('connection', function (socket) {
                         pos_withdrawls++;
                     }else{
                         queue.push(CL[CLindex]);
+                        console.log("queue : " + queue);
                     }
                 }else if(CL[CLindex].product === 'E1') {
                     if (FGI.E1 >= CL[CLindex].amount) {
@@ -476,6 +477,7 @@ io.sockets.on('connection', function (socket) {
                         pos_withdrawls++;
                     } else {
                         queue.push(CL[CLindex]);
+                        console.log("queue : " + queue);
                     }
                 }else if(CL[CLindex].product === 'E2') {
                     if (FGI.E2 >= CL[CLindex].amount) {
@@ -483,6 +485,7 @@ io.sockets.on('connection', function (socket) {
                         pos_withdrawls++;
                     } else {
                         queue.push(CL[CLindex]);
+                        console.log("queue : " + queue);
                     }
                 }
                 console.log("Customer withdrew " + CL[CLindex].amount + " Units of " + CL[CLindex].product);
