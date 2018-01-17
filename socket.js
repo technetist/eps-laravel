@@ -377,18 +377,18 @@ io.sockets.on('connection', function (socket) {
         }
         //
         if(data.machine == "machine5"){
-            if(data.product === 'E0'){
-                if(queue[0].amount <= FGI.E0 && queue[0].product === 'E0') {
+            if(data.product == 'E0'){
+                if(queue[0].amount <= FGI.E0 && queue[0].product == 'E0') {
                     FGI.E0 = parseFloat(FGI.E0 - queue[0].amount);
                     queue.shift()
                 }
-            }else if(data.product === 'E1'){
-                if(queue[0].amount <= FGI.E1 && queue[0].product === 'E1') {
+            }else if(data.product == 'E1'){
+                if(queue[0].amount <= FGI.E1 && queue[0].product == 'E1') {
                     FGI.E1 = parseFloat(FGI.E1 - queue[0].amount);
                     queue.shift()
                 }
-            }else if(data.product ===  'E2'){
-                if(queue[0].amount <= FGI.E2 && queue[0].product === 'E2') {
+            }else if(data.product == 'E2'){
+                if(queue[0].amount <= FGI.E2 && queue[0].product == 'E2') {
                     FGI.E2 = parseFloat(FGI.E2 - queue[0].amount);
                     queue.shift()
                 }
@@ -465,7 +465,7 @@ io.sockets.on('connection', function (socket) {
             ////Implement Waiting List!!!
             if(CL[CLindex].time == timerStart){
                 tot_withdrawls++;
-                if(CL[CLindex].product === 'E0'){
+                if(CL[CLindex].product == 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
                         FGI.E0 = parseFloat(FGI.E0 - CL[CLindex].amount);
                         pos_withdrawls++;
@@ -473,7 +473,7 @@ io.sockets.on('connection', function (socket) {
                         queue.push(CL[CLindex]);
                         console.log("queue : " + queue);
                     }
-                }else if(CL[CLindex].product === 'E1') {
+                }else if(CL[CLindex].product == 'E1') {
                     if (FGI.E1 >= CL[CLindex].amount) {
                         FGI.E1 = parseFloat(FGI.E1 - CL[CLindex].amount);
                         pos_withdrawls++;
@@ -481,7 +481,7 @@ io.sockets.on('connection', function (socket) {
                         queue.push(CL[CLindex]);
                         console.log("queue : " + queue);
                     }
-                }else if(CL[CLindex].product === 'E2') {
+                }else if(CL[CLindex].product == 'E2') {
                     if (FGI.E2 >= CL[CLindex].amount) {
                         FGI.E2 = parseFloat(FGI.E2 - CL[CLindex].amount)
                         pos_withdrawls++;
@@ -584,35 +584,35 @@ server.listen(SERVER_PORT, function () {
 function mStateUpdater(machine,type){
     switch(machine){
         case 'machine1':
-            if(type === 'work'){
+            if(type == 'work'){
                 mState.m1 = 2;
             }else{
                 mState.m1 = 1;
             }
             break;
         case 'machine2':
-            if(type === 'work'){
+            if(type == 'work'){
                 mState.m2 = 2;
             }else{
                 mState.m2 = 1;
             }
             break;
         case 'machine3':
-            if(type === 'work'){
+            if(type == 'work'){
                 mState.m3 = 2;
             }else{
                 mState.m3 = 1;
             }
             break;
         case 'machine4':
-            if(type === 'work'){
+            if(type == 'work'){
                 mState.m4 = 2;
             }else{
                 mState.m4 = 1;
             }
             break;
         case 'machine5':
-            if(type === 'work'){
+            if(type == 'work'){
                 mState.m5 = 2;
             }else{
                 mState.m5 = 1;
