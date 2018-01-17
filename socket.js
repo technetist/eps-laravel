@@ -312,6 +312,7 @@ io.sockets.on('connection', function (socket) {
         var parameters = db_manager.getParameters();
         var algoOutput = [];
         CL = db_manager.getCostReq();
+        console.log("Customer List is: " + CL)
 
         setTimeout(function() {
             console.log("Socket.js ssA0:" + parameters.ssA0);
