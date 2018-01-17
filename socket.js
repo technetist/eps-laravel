@@ -463,8 +463,9 @@ io.sockets.on('connection', function (socket) {
             //// Keep track of orders that are on time
             //This compares the CustomerList Time with the Timer Time
             ////Implement Waiting List!!!
-            console.log(CL[CLindex].time);
+            console.log("Cl time is: "+CL[CLindex].time);
             if(CL[CLindex].time == timerStart){
+                console.log("Cl time inside is: "+CL[CLindex].time);
                 tot_withdrawls++;
                 if(CL[CLindex].product == 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
