@@ -327,6 +327,7 @@ io.sockets.on('connection', function (socket) {
 
             for (var k = 0; k < 30; k++) {
                 console.log("index: " + k + ":" + JSON.stringify(OL[k]));
+                console.log("CL LOOOOOOP: " + JSON.stringify(CL[k]));
             }
 
             socket.emit('mStatus',{number1:mState.m1,number2:mState.m2,number3:mState.m3,number4:mState.m4,number5:mState.m5});
