@@ -315,6 +315,7 @@ io.sockets.on('connection', function (socket) {
 
         setTimeout(function() {
             console.log("Socket.js ssA0:" + parameters.ssA0);
+            console.log("Customer List is: " + CL)
             algoOutput = algo.calculateProductionOrder(parameters);
 
             OL = algoOutput.orderlist;
