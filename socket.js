@@ -46,7 +46,7 @@ var mState = {m1:0,m2:0,m3:0,m4:0,m5:0};
 
 var tpp = {m1:0,m2:0,m3:0,m4:0,m5:0};
 var tppInput = false;
-var timer = 0;
+var timer = null;
 
 var activeMachines = [];
 
@@ -83,7 +83,7 @@ function resetParams() {
     tpp = {m1:0,m2:0,m3:0,m4:0,m5:0};
     tppInput = false;
     clearInterval(timer)
-    timer = 0;
+    timer = null;
 
     activeMachines = [];
 
