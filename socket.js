@@ -376,21 +376,23 @@ io.sockets.on('connection', function (socket) {
                 break;
         }
         //
-        if(data.machine == "machine5"){
-            if(data.product == 'E0'){
-                if(queue[0].amount <= FGI.E0 && queue[0].product == 'E0') {
-                    FGI.E0 = parseFloat(FGI.E0 - queue[0].amount);
-                    queue.shift()
-                }
-            }else if(data.product == 'E1'){
-                if(queue[0].amount <= FGI.E1 && queue[0].product == 'E1') {
-                    FGI.E1 = parseFloat(FGI.E1 - queue[0].amount);
-                    queue.shift()
-                }
-            }else if(data.product == 'E2'){
-                if(queue[0].amount <= FGI.E2 && queue[0].product == 'E2') {
-                    FGI.E2 = parseFloat(FGI.E2 - queue[0].amount);
-                    queue.shift()
+        if(queue.length > 0) {
+            if (data.machine == "machine5") {
+                if (data.product == 'E0') {
+                    if (queue[0].amount <= FGI.E0 && queue[0].product == 'E0') {
+                        FGI.E0 = parseFloat(FGI.E0 - queue[0].amount);
+                        queue.shift()
+                    }
+                } else if (data.product == 'E1') {
+                    if (queue[0].amount <= FGI.E1 && queue[0].product == 'E1') {
+                        FGI.E1 = parseFloat(FGI.E1 - queue[0].amount);
+                        queue.shift()
+                    }
+                } else if (data.product == 'E2') {
+                    if (queue[0].amount <= FGI.E2 && queue[0].product == 'E2') {
+                        FGI.E2 = parseFloat(FGI.E2 - queue[0].amount);
+                        queue.shift()
+                    }
                 }
             }
         }
