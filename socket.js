@@ -504,7 +504,7 @@ io.sockets.on('connection', function (socket) {
                 serviceLevel = (pos_withdrawls/tot_withdrawls)*100;
             }
 
-
+            totalWIP = 0
             //ESX6 
             for(var k in WIP){
                 totalWIP = parseFloat(totalWIP + WIP[k]);
