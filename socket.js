@@ -405,6 +405,7 @@ io.sockets.on('connection', function (socket) {
         console.log("timer start");
         console.log(OL);
         timerStart = 0;
+        clearInterval(timer)
         timer = setInterval(function () {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
