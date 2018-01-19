@@ -34,15 +34,17 @@
 
             {{--</div>--}}
 
-            <div class="graph"></div>
+            <div id="inventory_graph" style="margin-bottom: 10px"></div>
+
         </div>
 
         <div class="col-lg-5">
             <h3 style="text-align: center">Service level</h3>
 
-            <div id="app2">
+            {{--<div id="app2">--}}
 
-            </div>
+            {{--</div>--}}
+            <div id="servicelevel_graph" style="margin-bottom: 10px"></div>
         </div>
     </div>
 
@@ -129,6 +131,7 @@
                             <div class="row">
                                 <label>session name:</label>
                                 <input type="text" id="session_name">
+                                <p style="color: red;" id="error_text"></p>
                             </div>
                         </div>
                     </div>
@@ -157,6 +160,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="{{ mix('/js/chartapp.js') }}" type="text/javascript"></script>
     <script src="{{ mix('/js/vueclient.js') }}" type="text/javascript"></script>
 

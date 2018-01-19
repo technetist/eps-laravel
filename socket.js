@@ -520,19 +520,26 @@ io.sockets.on('connection', function (socket) {
         var average_inv = inventory / 5;
         var average_FGI = FGI / 5;
         var average_WIP = WIP / 5;
-        var average_array = {FGI: average_FGI, INV: average_inv, WIP: average_WIP};
         var utilisation_m1 = WIP.A0_post + WIP.A0_pre + WIP.A0_while;
         var utilisation_m2 = WIP.B0_post + WIP.B0_pre + WIP.B0_while;
         var utilisation_m3 = WIP.C0_post + WIP.C0_pre + WIP.C0_while;
         var utilisation_m4 = WIP.D0_post + WIP.D0_pre + WIP.D0_while + WIP.D1_post + WIP.D1_pre + WIP.D1_while;
-        var utilisation_m5 = WIP.E0_pre + WIP.E0_while + WIP.E1_pre + WIP.E1_while + WIP.E2_pre + WIP.E2_while
+        var utilisation_m5 = WIP.E0_pre + WIP.E0_while + WIP.E1_pre + WIP.E1_while + WIP.E2_pre + WIP.E2_while;
+        var total_utilisation = utilisation_m1 + utilisation_m2 + utilisation_m3 + utilisation_m4 + utilisation_m5;
+        var average_utilisation = total_utilisation / 5;
         var utilisation_array = {m1: utilisation_m1 , m2: utilisation_m2 , m3: utilisation_m3, m4: utilisation_m4 , m5: utilisation_m5 };
+        var average_array = {FGI: average_FGI, INV: average_inv, WIP: average_WIP, average_utilisation: average_utilisation};
         var planning_algorithm = data.planning_algorithm;
+        globalTpp = 5;
+        session_name = "djfakljdfsk";
+
         if(tppInput){
             db_manager.pushSession(utilisation_array , timerStart, average_array, null, planning_algorithm, serviceLevel, session_name, globalTpp, tpp)
             //Put data in database! :)
         }else{
             console.log('Could not access time per piece for machines');
+            console.log('session name: ' + session_name);
+            db_manager.pushSession(utilisation_array , timerStart, average_array, null, planning_algorithm, serviceLevel, session_name, globalTpp, tpp)
         }
     })
 
