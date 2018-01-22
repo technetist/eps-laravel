@@ -518,14 +518,20 @@ io.sockets.on('connection', function (socket) {
                 serviceLevel = (pos_withdrawls/tot_withdrawls)*100;
             }
 
-            totalWIP = 0
-            console.log("Total WIP beofre: " + totalWIP);
-            //ESX6 
-            for(var k in WIP){
-                totalWIP = parseFloat(totalWIP + WIP[k]);
-                console.log("k = " + k);
-            }
-            console.log("WIP: " + totalWIP);
+            // totalWIP = 0
+            // console.log("Total WIP beofre: " + totalWIP);
+            // //ESX6
+            // for(var k in WIP){
+            //     totalWIP = parseFloat(totalWIP + WIP[k]);
+            //     console.log("k = " + k);
+            // }
+            // console.log("WIP: " + totalWIP);
+
+            totalWIP = parseFloat(WIP.A0_post + WIP.A0_while + WIP.A0_pre)
+            totalWIP += parseFloat(WIP.B0_post + WIP.B0_while + WIP.B0_pre)
+            totalWIP += parseFloat(WIP.C0_post + WIP.C0_while + WIP.C0_pre)
+            totalWIP += parseFloat(WIP.D0_post + WIP.D0_while + WIP.D0_pre) + parseFloat(WIP.D1_post + WIP.D1_while + WIP.D1_pre)
+            totalWIP += parseFloat(WIP.E0_while + WIP.E0_pre) + parseFloat(WIP.E1_while + WIP.E1_pre) + parseFloat(WIP.E2_while + WIP.E2_pre)
 
             io.sockets.emit('graphData', {WIP: parseFloat(totalWIP), FGI:FGI, time:timerStart, servicelevel:serviceLevel})
 
