@@ -478,7 +478,6 @@ io.sockets.on('connection', function (socket) {
                             // WIP.E2_pre = parseFloat(WIP.E2_pre + OL[index].amount);
                             // WIP.D1_post = parseFloat(WIP.D1_post - OL[index].amount);
                         }
-                        totalWIP -= OL[index].amount;
                         break;
                     default:
                         console.log('LOL.. something went wrong. sorry, not sorry. ');
