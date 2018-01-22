@@ -559,10 +559,11 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('gamefinish');
         //store stuff in database_manager
         var session_name = data.session_name;
-        var inventory = FGI + WIP;
+        var inventory = FGI.E0 + FGI.E1 + FGI.E2 + totalWIP;
+        var totalFGI = inventory - totalWIP;
         var average_inv = inventory / 5;
-        var average_FGI = FGI / 5;
-        var average_WIP = WIP / 5;
+        var average_FGI = totalFGI / 5;
+        var average_WIP = totalWIP / 5;
         var utilisation_m1 = WIP.A0_post + WIP.A0_pre + WIP.A0_while;
         var utilisation_m2 = WIP.B0_post + WIP.B0_pre + WIP.B0_while;
         var utilisation_m3 = WIP.C0_post + WIP.C0_pre + WIP.C0_while;
@@ -574,15 +575,11 @@ io.sockets.on('connection', function (socket) {
         var average_array = {FGI: average_FGI, INV: average_inv, WIP: average_WIP, average_utilisation: average_utilisation};
         var planning_algorithm = data.planning_algorithm;
         globalTpp = 5;
-        session_name = "djfakljdfsk";
 
         if(tppInput){
+            globalTpp = (tpp.m1 + tpp.m2 + tpp.m3 + tpp.m4 + tpp.m5) / 5;
             db_manager.pushSession(utilisation_array , timerStart, average_array, null, planning_algorithm, serviceLevel, session_name, globalTpp, tpp)
             //Put data in database! :)
-        }else{
-            console.log('Could not access time per piece for machines');
-            console.log('session name: ' + session_name);
-            db_manager.pushSession(utilisation_array , timerStart, average_array, null, planning_algorithm, serviceLevel, session_name, globalTpp, tpp)
         }
     })
 
