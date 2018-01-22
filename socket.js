@@ -275,17 +275,17 @@ io.sockets.on('connection', function (socket) {
             case 'machine1':
                 WIP.A0_pre = parseFloat(WIP.A0_pre - amount);
                 WIP.A0_while = parseFloat(WIP.A0_while + amount);
-                console.log('WIP.A0_while = '.WIP.A0_while)
+                console.log('WIP.A0_while = '+WIP.A0_while)
                 break;
             case 'machine2':
                 WIP.B0_pre = parseFloat(WIP.B0_pre - amount);
                 WIP.B0_while = parseFloat(WIP.B0_while + amount);
-                console.log('WIP.B0_while = '.WIP.B0_while)
+                console.log('WIP.B0_while = '+WIP.B0_while)
                 break;
             case 'machine3':
                 WIP.C0_pre = parseFloat(WIP.C0_pre - amount);
                 WIP.C0_while = parseFloat(WIP.C0_while + amount);
-                console.log('WIP.C0_while = '.WIP.C0_while)
+                console.log('WIP.C0_while = '+WIP.C0_while)
                 break;
             case 'machine4':
                 if(product == 'D0'){
