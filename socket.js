@@ -528,10 +528,10 @@ io.sockets.on('connection', function (socket) {
             // }
             // console.log("WIP: " + totalWIP);
 
-            totalWIP = parseFloat(WIP.A0_post);
-            totalWIP += parseFloat(WIP.B0_post);
-            totalWIP += parseFloat(WIP.C0_post);
-            totalWIP += parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
+            totalWIP = parseFloat(WIP.A0_post + WIP.B0_post + WIP.C0_post + WIP.D0_post + WIP.D1_post);
+            //totalWIP = parseFloat(totalWIP + WIP.B0_post);
+            //totalWIP += parseFloat(WIP.C0_post);
+            //totalWIP += parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
             // totalWIP += parseFloat(WIP.E0_while + WIP.E0_pre) + parseFloat(WIP.E1_while + WIP.E1_pre) + parseFloat(WIP.E2_while + WIP.E2_pre)
 
             io.sockets.emit('graphData', {WIP: parseFloat(totalWIP), FGI:FGI, time:timerStart, servicelevel:serviceLevel})
