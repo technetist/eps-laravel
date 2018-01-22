@@ -343,38 +343,39 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on("productionfinished", function(data) {
+        var amount = parseFloat(data.amount)
         mStateUpdater(data.machine,'idle');
         console.log(data.machine + " finished working")
         switch(data.machine) {
             case 'machine1':
-                WIP.A0_while = parseFloat(WIP.A0_while - data.amount);
-                WIP.A0_post = parseFloat(WIP.A0_post + data.amount);
+                WIP.A0_while = parseFloat(WIP.A0_while - amount);
+                WIP.A0_post = parseFloat(WIP.A0_post + amount);
                 console.log('WIP.A0_post = '+WIP.A0_post)
-                console.log("amount under A0 = "+data.amount);
+                console.log("amount under A0 = "+amount);
                 break;
             case 'machine2':
-                WIP.B0_while = parseFloat(WIP.B0_while - data.amount);
-                WIP.B0_post = parseFloat(WIP.B0_post + data.amount);
+                WIP.B0_while = parseFloat(WIP.B0_while - amount);
+                WIP.B0_post = parseFloat(WIP.B0_post + amount);
                 console.log('WIP.B0_post = '+WIP.B0_post)
-                console.log("amount under B0 = "+data.amount);
+                console.log("amount under B0 = "+ amount);
                 break;
             case 'machine3':
-                WIP.C0_while = parseFloat(WIP.C0_while - data.amount);
-                WIP.C0_post = parseFloat(WIP.C0_post + data.amount);
+                WIP.C0_while = parseFloat(WIP.C0_while - amount);
+                WIP.C0_post = parseFloat(WIP.C0_post + amount);
                 console.log('WIP.C0_post = '+WIP.C0_post)
-                console.log("amount under C0 = "+data.amount);
+                console.log("amount under C0 = "+ amount);
                 break;
             case 'machine4':
                 if (data.product == 'D0') {
-                    WIP.D0_while = parseFloat(WIP.D0_while - data.amount);
-                    WIP.D0_post = parseFloat(WIP.D0_post + data.amount);
+                    WIP.D0_while = parseFloat(WIP.D0_while - amount);
+                    WIP.D0_post = parseFloat(WIP.D0_post + amount);
                     console.log('WIP.D0_post = '+WIP.D0_post)
-                    console.log("amount under D0 = "+data.amount);
+                    console.log("amount under D0 = "+ amount);
                 } else if (data.product == 'D1') {
-                    WIP.D1_while = parseFloat(WIP.D1_while - data.amount);
-                    WIP.D1_post = parseFloat(WIP.D1_post + data.amount);
+                    WIP.D1_while = parseFloat(WIP.D1_while - amount);
+                    WIP.D1_post = parseFloat(WIP.D1_post + amount);
                     console.log('WIP.D1_post = '+WIP.D1_post)
-                    console.log("amount under D1 = "+data.amount);
+                    console.log("amount under D1 = "+ amount);
                 }
                 break;
 
