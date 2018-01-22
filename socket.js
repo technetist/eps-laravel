@@ -425,8 +425,6 @@ io.sockets.on('connection', function (socket) {
         timer = setInterval(function () {
             timerStart++;
             io.sockets.emit('timer', {time: timerStart});
-            console.log(OL[index].time - timerStart);
-            // console.log("NEXT ORDER IN " + OL[index].time - timerStart);
 
             //This compares the orderList time with the Timer Time
             if (OL[index].time == timerStart) {
@@ -444,7 +442,7 @@ io.sockets.on('connection', function (socket) {
                         break;
                     case 'machine2':
                         WIP.B0_pre = parseFloat(WIP.B0_pre + OL[index].amount);
-                        WIP.A0_post = parseFloat(WIP.A0_post + OL[index].amount);
+                        WIP.A0_post = parseFloat(WIP.A0_post - OL[index].amount);
                         break;
                     case 'machine3':
                         WIP.C0_pre = parseFloat(WIP.C0_pre + OL[index].amount);
@@ -521,11 +519,13 @@ io.sockets.on('connection', function (socket) {
             }
 
             totalWIP = 0
+            console.log("Total WIP beofre: " + totalWIP);
             //ESX6 
             for(var k in WIP){
                 totalWIP = parseFloat(totalWIP + WIP[k]);
+                console.log("k = " + k);
             }
-            console.log("WIP: " + WIP);
+            console.log("WIP: " + totalWIP);
 
             io.sockets.emit('graphData', {WIP: parseFloat(totalWIP), FGI:FGI, time:timerStart, servicelevel:serviceLevel})
 
