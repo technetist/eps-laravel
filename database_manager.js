@@ -38,7 +38,7 @@ module.exports = {
 
         var query = 'UPDATE sessions SET averageFgi =' + averages_array.FGI +', averageInv =' + averages_array.INV +
         ', averageWip=' + averages_array.WIP +', average_utilisation=' + averages_array.average_utilisation +
-        ', serviceLevel=' + service_level + ', planningAlgoritm=' + planning_algorithm +
+        ', planningAlgoritm="' + planning_algorithm + '", serviceLevel=' + service_level +
         ', sessionName="' + session_name + '", timePerPiece=' + time_per_piece +
         ', timePerPiece_M1=' + time_per_piece_per_machine_array.m1 + ', timePerPiece_M2=' + time_per_piece_per_machine_array.m2 +
         ', timePerPiece_M3=' + time_per_piece_per_machine_array.m3 + ', timePerPiece_M4=' + time_per_piece_per_machine_array.m4 +
