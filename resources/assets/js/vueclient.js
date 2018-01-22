@@ -2,12 +2,6 @@ const PRIVATE_CHANNEL = 'ppc-game-communication-broadcast'
 var io = require('socket.io-client')
 var Vue = require('vue');
 var socket = io.connect('http://'+ app_ip +':8000');
-var global_Inventory_line;
-var global_ServiceLevel_line;
-var global_Inventory_groups;
-var global_ServiceLevel_groups;
-var global_Inventory_paths;
-var global_ServiceLevel_paths;
 var planning_algorithm;
 var WIP_dataPoints = [];
 var FGI_dataPoints = [];
@@ -67,6 +61,7 @@ socket.on('connect', function () {
         $('#Modal1').modal('hide');
         document.getElementById("start").removeAttribute("disabled");
         console.log("close clicked!")
+        resetVariables();
     })
 
     document.getElementById("stop").addEventListener("click", function () {
@@ -80,6 +75,7 @@ socket.on('connect', function () {
         document.getElementById("start").removeAttribute("disabled");
         socket.emit("reset")
         console.log("reset clicked!")
+        resetVariables();
     })
 
     document.getElementById("modal3_save").addEventListener("click", function (){
@@ -95,7 +91,8 @@ socket.on('connect', function () {
 
     document.getElementById("modal3_cancel").addEventListener("click", function (){
         $('#StopModal').modal('hide');
-        socket.emit('stop');
+        socket.emit("reset")
+        resetVariables();
     })
 
     socket.on('messages.getStatus', function (data) {
@@ -129,11 +126,12 @@ socket.on('connect', function () {
             $('#Modal2').modal('hide');
             socket.emit('stop');
             document.getElementById("start").removeAttribute("disabled");
+            resetVariables();
         })
 
     });
 
-
+    //Here is the data passed that the graphs use
     socket.on('graphData', function (algodata) {
         var WIP = algodata.WIP;
         var E0 = algodata.FGI.E0;
@@ -258,6 +256,7 @@ socket.on('connect', function () {
         inventory_chart.render();
     }
 
+    //this is the method where the data is translated to actual points in the graph
     function addInventoryData(data) {
         if(data.name == "WIP"){
             WIP_dataPoints.push({x: data.x, y: data.y});
@@ -285,152 +284,7 @@ socket.on('connect', function () {
         }
     }
 
-
-
-
-
-    // function makeInventoryGraph() {
-    //     var limit = 60,
-    //         duration = 750,
-    //         now = new Date(Date.now() - duration)
-    //
-    //     var width = 500,
-    //         height = 400
-    //
-    //     global_Inventory_groups = {
-    //         WIP: {
-    //             value: 0,
-    //             color: 'orange',
-    //             data: []
-    //         },
-    //         FGI: {
-    //             value: 0,
-    //             color: 'green',
-    //             data: []
-    //         },
-    //
-    //         E0: {
-    //             value: 0,
-    //             color: 'grey',
-    //             data: []
-    //         },
-    //
-    //         E1: {
-    //             value: 0,
-    //             color: 'blue',
-    //             data: []
-    //         },
-    //
-    //         E2: {
-    //             value: 0,
-    //             color: 'black',
-    //             data: []
-    //         }
-    //     }
-    //
-    //     var x = d3.scale.linear()
-    //         .range([0, width])
-    //         .domain([0, 1000])
-    //
-    //     var y = d3.scale.linear()
-    //         .domain([0, 100])
-    //         .range([height, 0])
-    //
-    //     global_Inventory_line = d3.svg.line()
-    //         .interpolate('basis')
-    //         .x(function(d) {
-    //             return x(d)
-    //         })
-    //         .y(function(d, i) {
-    //             return y(i)
-    //         })
-    //
-    //     var svg = d3.select('.inventory_graph').append('svg')
-    //         .attr('class', 'chart')
-    //         .attr('width', width)
-    //         .attr('height', height + 50)
-    //
-    //     var x_axis = svg.append('g')
-    //         .attr('class', 'x-axis')
-    //         .attr('transform', 'translate(0,' + height + ')')
-    //         .call(x.axis = d3.svg.axis().scale(x).orient('bottom'))
-    //         .append("text")
-    //         .attr("fill", "#000")
-    //         .attr("x", 6)
-    //         .attr("dx", "0.71em")
-    //         .attr("text-anchor", "begin")
-    //         .attr("margin-bottom", 5)
-    //         .text("Time (s)");
-    //
-    //     var y_axis = svg.append('g')
-    //         .attr('class', 'y-axis')
-    //         .call(y.axis = d3.svg.axis().scale(y).orient('left'))
-    //         .append("text")
-    //         .attr("fill", "#000")
-    //         .attr("transform", "rotate(-90)")
-    //         .attr("y", 6)
-    //         .attr("dy", "0.71em")
-    //         .attr("text-anchor", "end")
-    //         .text("Amount (pcs)");
-    //
-    //
-    //     global_Inventory_paths = svg.append('g')
-    //
-    //     for (var name in global_Inventory_groups) {
-    //         var group = global_Inventory_groups[name]
-    //         group.path = global_Inventory_paths.append('path')
-    //             .data([group.data])
-    //             .attr('class', name + ' group')
-    //             .style('stroke', group.color)
-    //     }
-    //     console.log(global_Inventory_groups);
-    // }
-    //
-    // function inventoryTick(WIP, E0, E1, E2, FGI, time) {
-    //
-    //     // Add new values
-    //     for (var name in global_Inventory_groups) {
-    //
-    //         if (name === "WIP") {
-    //             console.log('WIP: ' + WIP);
-    //             var group = global_Inventory_groups[name]
-    //             group.data.push(time, WIP)
-    //             group.path.attr('d', global_Inventory_line)
-    //         }
-    //
-    //         if (name === "FGI") {
-    //             console.log('FGI: ' + FGI);
-    //             var group = global_Inventory_groups[name];
-    //             group.data.push(FGI, time);
-    //             group.path.attr('d', global_Inventory_line)
-    //         }
-    //
-    //         if (name === "E0") {
-    //             console.log('E0: ' + E0)
-    //             var group = global_Inventory_groups[name]
-    //             group.data.push(E0, time)
-    //             group.path.attr('d', global_Inventory_line)
-    //         }
-    //
-    //         if (name === "E1") {
-    //             console.log('E1:' + E1)
-    //             var group = global_Inventory_groups[name]
-    //             group.data.push(E1, time);
-    //             group.path.attr('d', global_Inventory_line)
-    //         }
-    //
-    //         if (name === "E2") {
-    //             console.log('E2: ' + E2)
-    //             var group = global_Inventory_groups[name]
-    //             group.data.push(E2, time)
-    //             group.path.attr('d', global_Inventory_line)
-    //         }
-    //
-    //         //group.data.push(group.value) // Real values arrive at irregular intervals
-    //     }
-    // }
-
-
+    //Here is the servicelevel graph made
     function makeServiceLevelGraph() {
         servicelevel_chart = new CanvasJS.Chart("servicelevel_graph", {
             title: {
@@ -473,6 +327,8 @@ socket.on('connect', function () {
             }]
 
         });
+
+        servicelevel_chart.render();
     }
 
 
@@ -481,126 +337,17 @@ socket.on('connect', function () {
             servicelevel_chart.render();
     }
 
-
-    //
-    // function makeServiceLevelGraph() {
-    //     var limit = 60,
-    //         duration = 750,
-    //         now = new Date(Date.now() - duration)
-    //
-    //     var width = 500,
-    //         height = 400
-    //
-    //     global_ServiceLevel_groups = {
-    //         ServiceLevel: {
-    //             value: 0,
-    //             color: 'blue',
-    //             data: []
-    //         },
-    //     }
-    //
-    //     var x = d3.scale.linear()
-    //         .range([0, width])
-    //         .domain([0, 1000])
-    //
-    //     var y = d3.scale.linear()
-    //         .domain([0, 100])
-    //         .range([height, 0])
-    //
-    //     global_ServiceLevel_line = d3.svg.line()
-    //         .interpolate('interpolate')
-    //         .x(function(d) {
-    //             return x(d.x)
-    //         })
-    //         .y(function(d) {
-    //             return y(d.y)
-    //         })
-    //
-    //     var svg = d3.select('.servicelevel_graph').append('svg')
-    //         .attr('class', 'chart')
-    //         .attr('width', width)
-    //         .attr('height', height + 50)
-    //
-    //     var x_axis = svg.append('g')
-    //         .attr('class', 'x-axis')
-    //         .attr('transform', 'translate(0,' + height + ')')
-    //         .call(x.axis = d3.svg.axis().scale(x).orient('bottom'))
-    //         .append("text")
-    //         .attr("fill", "#000")
-    //         .attr("x", 6)
-    //         .attr("dx", "0.71em")
-    //         .attr("margin-bottom", 5)
-    //         .attr("text-anchor", "begin")
-    //         .text("Time (s)");
-    //
-    //
-    //     var y_axis = svg.append('g')
-    //         .attr('class', 'y-axis')
-    //         .call(y.axis = d3.svg.axis().scale(y).orient('left'))
-    //         .append("text")
-    //         .attr("fill", "#000")
-    //         .attr("transform", "rotate(-90)")
-    //         .attr("y", 6)
-    //         .attr("dy", "0.71em")
-    //         .attr("text-anchor", "end")
-    //         .text("Servicelevel(%)");
-    //
-    //
-    //
-    //     global_ServiceLevel_paths = svg.append('g')
-    //
-    //     for (var name in global_ServiceLevel_groups) {
-    //         var group = global_ServiceLevel_groups[name]
-    //         group.path = global_ServiceLevel_paths.append('path')
-    //             .data([group.data])
-    //             .attr('class', name + ' group')
-    //             .style('stroke', group.color)
-    //     }
-    //     console.log(global_ServiceLevel_groups);
-    // }
-    //
-    //
-    // function serviceLevelTick(ServiceLevel, time) {
-    //
-    //     // Add new values
-    //     for (var name in global_ServiceLevel_groups) {
-    //
-    //         if (name === "ServiceLevel") {
-    //             console.log('ServiceLevel: ' + ServiceLevel);
-    //             var group = global_ServiceLevel_groups[name]
-    //             group.data = [
-    //                 {x: ServiceLevel.x, y: ServiceLevel.y},
-    //             ]
-    //             group.path.attr('d', global_ServiceLevel_line)
-    //
-    //         }
-    //
-    //         //group.data.push(group.value) // Real values arrive at irregular intervals
-    //     }
-    // }
-
-        // // Shift domain
-        // x.domain([now - (limit - 2) * duration, now - duration])
-        //
-        // // Slide x-axis left
-        // axis.transition()
-        //     .duration(duration)
-        //     .ease('linear')
-        //     .call(x.axis)
-        //
-        // // Slide paths left
-        // global_paths.attr('transform', null)
-        //     .transition()
-        //     .duration(duration)
-        //     .ease('linear')
-        //     .attr('transform', 'translate(' + x(now - (limit - 1) * duration) + ')')
-        //     .each('end', tick)
-
-        // // Remove oldest data point from each group
-        // for (var name in groups) {
-        //     var group = groups[name]
-        //     group.data.shift()
-        // }
+    function resetVariables(){
+        planning_algorithm = "";
+        WIP_dataPoints = [];
+        FGI_dataPoints = [];
+        E0_dataPoints = [];
+        E1_dataPoints = [];
+        E2_dataPoints = [];
+        ServiceLevel_datapoints = [];
+        makeInventoryGraph();
+        makeServiceLevelGraph();
+    }
 
 
     socket.emit('subscribe-to-channel', {channel: PRIVATE_CHANNEL})
