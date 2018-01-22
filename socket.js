@@ -449,7 +449,7 @@ io.sockets.on('connection', function (socket) {
                 switch(OL[index].machine){
                     case 'machine1':
                         // WIP.A0_pre = parseFloat(WIP.A0_pre + OL[index].amount);
-                        totalWIP += OL[index].amount;
+                        totalWIP = parseFloat(totalWIP + OL[index].amount);
                         break;
                     case 'machine2':
                         // WIP.B0_pre = parseFloat(WIP.B0_pre + OL[index].amount);
