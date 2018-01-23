@@ -219,7 +219,7 @@ socket.on('connect', function () {
                     title: "Time",
                     suffix: "(s)"
                 },
-                axisY2: {
+                axisY: {
                     title: "Amount",
                     suffix: "(pcs)"
                 },
@@ -238,7 +238,7 @@ socket.on('connect', function () {
 
                 data: [{
                     type: "line",
-                    axisYType: "secondary",
+                    axisYType: "primary",
                     name: "WIP",
                     showInLegend: true,
                     markerSize: 0,
@@ -247,7 +247,7 @@ socket.on('connect', function () {
 
                 {
                     type: "line",
-                    axisYType: "secondary",
+                    axisYType: "primary",
                     name: "FGI",
                     showInLegend: true,
                     markerSize: 0,
@@ -256,7 +256,7 @@ socket.on('connect', function () {
 
                 {
                     type: "line",
-                    axisYType: "secondary",
+                    axisYType: "primary",
                     name: "E0",
                     showInLegend: true,
                     markerSize: 0,
@@ -266,7 +266,7 @@ socket.on('connect', function () {
 
                 {
                     type: "line",
-                    axisYType: "secondary",
+                    axisYType: "primary",
                     name: "E1",
                     showInLegend: true,
                     markerSize: 0,
@@ -275,7 +275,7 @@ socket.on('connect', function () {
 
                     {
                     type: "line",
-                    axisYType: "secondary",
+                    axisYType: "primary",
                     name: "E2",
                     showInLegend: true,
                     markerSize: 0,
@@ -321,6 +321,7 @@ socket.on('connect', function () {
             title: {
                 text: "Servicelevel Chart"
             },
+
             ServiceLevel: [{
                 type: "line",
                 dataPoints: ServiceLevel_datapoints
@@ -331,7 +332,7 @@ socket.on('connect', function () {
                 suffix: "(s)"
             },
 
-            axisY2: {
+            axisY: {
                 title: "Servicelevel",
                 suffix: "%"
             },
@@ -350,7 +351,7 @@ socket.on('connect', function () {
 
             data: [{
                 type: "line",
-                axisYType: "secondary",
+                axisYType: "primary",
                 name: "Servicelevel",
                 showInLegend: true,
                 markerSize: 0,

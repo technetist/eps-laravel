@@ -28,23 +28,21 @@
     <hr>
     <div class="row">
         <div class="col-lg-5">
-            <h3 style="text-align: center">Inventory</h3>
 
             {{--<div id="app1">--}}
 
             {{--</div>--}}
 
-            <div id="inventory_graph" style="width: 100%; margin-bottom: 10px"></div>
+            <div id="inventory_graph" style="height: 400px; width: 500px; margin-bottom: 10px"></div>
 
         </div>
 
         <div class="col-lg-5">
-            <h3 style="text-align: center">Service level</h3>
 
             {{--<div id="app2">--}}
 
             {{--</div>--}}
-            <div id="servicelevel_graph" style="width: 100%; margin-bottom: 10px"></div>
+            <div id="servicelevel_graph" style="height: 400px; width: 500px; margin-bottom: 10px"></div>
         </div>
     </div>
 
