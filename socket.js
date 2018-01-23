@@ -208,7 +208,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
             mStateUpdater('machine1','work');
-            WIP.A0_post = parseFloat(WIP.A0_post) + parseFloat(preproduction.A0);
+            WIP.A0_post = parseFloat(preproduction.A0);
             console.log("m1 working");
             m1 = false;
         }else{
@@ -217,7 +217,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.B0 > 0){
             io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
             mStateUpdater('machine2','work');
-            WIP.B0_post = parseFloat(WIP.B0_post) + parseFloat(preproduction.B0);
+            WIP.B0_post = parseFloat(preproduction.B0);
             console.log("m2 working");
 
             m2 = false;
@@ -227,7 +227,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.C0 > 0){
             io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
             mStateUpdater('machine3','work');
-            WIP.C0_post = parseFloat(WIP.C0_post) + parseFloat(preproduction.C0);
+            WIP.C0_post = parseFloat(preproduction.C0);
             console.log("m3 working");
 
             m3 = false;
@@ -239,12 +239,12 @@ io.sockets.on('connection', function (socket) {
 
             if(preproduction.D0 > 0) {
                 io.sockets.emit('preproduce', {machine: "machine4",type: "D0", amount: preproduction.D0});
-                WIP.D0_post = parseFloat(WIP.D0_post) + parseFloat(preproduction.D0);
+                WIP.D0_post = parseFloat(preproduction.D0);
 
             }
             if(preproduction.D1 > 0){
                 io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
-                WIP.D1_post = parseFloat(WIP.D1_post) + parseFloat(preproduction.D1);
+                WIP.D1_post = parseFloat(preproduction.D1);
             }
             mStateUpdater('machine4','work');
             m4 = false;
@@ -256,15 +256,15 @@ io.sockets.on('connection', function (socket) {
 
             if(preproduction.E0 > 0){
                 io.sockets.emit('preproduce', {machine: "machine5",type:"E0",amount:preproduction.E0})
-                FGI.E0 = parseFloat(FGI.E0) + parseFloat(preproduction.E0);
+                FGI.E0 = parseFloat(preproduction.E0);
             }
             if(preproduction.E1 > 0) {
                 io.sockets.emit('preproduce', {machine: "machine5",type: "E1", amount: preproduction.E1})
-                FGI.E1 = parseFloat(FGI.E1) + parseFloat(preproduction.E1);
+                FGI.E1 = parseFloat(preproduction.E1);
             }
             if(preproduction.E2 > 0){
                 io.sockets.emit('preproduce', {machine: "machine5",type:"E2",amount:preproduction.E2})
-                FGI.E2 = parseFloat(FGI.E2) + parseFloat(preproduction.E2);
+                FGI.E2 = parseFloat(preproduction.E2);
             }
             mStateUpdater('machine5','work');
             m5 = false;
@@ -494,10 +494,11 @@ io.sockets.on('connection', function (socket) {
             console.log("Cl time is: "+CL[CLindex].time);
 
             //ESX6
-            for(var k in WIP){
-                totalWIP = parseFloat(totalWIP) + parseFloat(WIP[k]);
-                console.log("k = " + k);
-            }
+            // for(var k in WIP){
+            //     totalWIP = parseFloat(totalWIP) + parseFloat(WIP[k]);
+            // }
+            totalWIP = parseFloat(WIP.A0_post) + parseFloat(WIP.B0_post) + parseFloat(WIP.C0_post) + parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
+
 
             if(CL[CLindex].time == timerStart){
                 console.log("Cl time inside is: "+CL[CLindex].time);
@@ -543,7 +544,6 @@ io.sockets.on('connection', function (socket) {
 
             console.log("WIP: " + totalWIP);
 
-            // totalWIP = parseFloat(WIP.A0_post) + parseFloat(WIP.B0_post) + parseFloat(WIP.C0_post) + parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
             // totalWIP = parseFloat(totalWIP) + parseFloat(WIP.B0_post);
             // totalWIP += parseFloat(WIP.C0_post);
             // totalWIP += parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
