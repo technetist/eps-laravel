@@ -96,7 +96,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-11">
-                        If you press save changes, then all the machines have to produce the above inventory
+                        If you press save changes, then all the machines have to preproduce the inventory above
                     </div>
                 </div>
                 <div class="modal-footer">
