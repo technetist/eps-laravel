@@ -391,7 +391,7 @@ io.sockets.on('connection', function (socket) {
             case 'machine5':
                 if (data.product == 'E0') {
                     // WIP.E0_while = parseFloat(WIP.E0_while) - parseFloat(data.amount);
-                    FGI.E0 = parseFloat(FGI.E0) + parseFloat(data.amount;
+                    FGI.E0 = parseFloat(FGI.E0) + parseFloat(data.amount);
                 } else if (data.product == 'E1') {
                     // WIP.E1_while = parseFloat(WIP.E1_while) - parseFloat(data.amount);
                     FGI.E1 = parseFloat(FGI.E1) + parseFloat(data.amount);
