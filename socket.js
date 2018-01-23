@@ -208,7 +208,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.A0 > 0){
             io.sockets.emit('preproduce', {machine: "machine1",type:"A0",amount:preproduction.A0});
             mStateUpdater('machine1','work');
-            // WIP.A0_post = parseFloat(WIP.A0_post) + parseFloat(preproduction.A0);
+            WIP.A0_post = parseFloat(WIP.A0_post) + parseFloat(preproduction.A0);
             console.log("m1 working");
             m1 = false;
         }else{
@@ -217,7 +217,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.B0 > 0){
             io.sockets.emit('preproduce', {machine: "machine2",type:"B0",amount:preproduction.B0});
             mStateUpdater('machine2','work');
-            // WIP.B0_post = parseFloat(WIP.B0_post) + parseFloat(preproduction.B0);
+            WIP.B0_post = parseFloat(WIP.B0_post) + parseFloat(preproduction.B0);
             console.log("m2 working");
 
             m2 = false;
@@ -227,7 +227,7 @@ io.sockets.on('connection', function (socket) {
         if(preproduction.C0 > 0){
             io.sockets.emit('preproduce', {machine: "machine3",type:"C0",amount:preproduction.C0});
             mStateUpdater('machine3','work');
-            // WIP.C0_post = parseFloat(WIP.C0_post) + parseFloat(preproduction.C0);
+            WIP.C0_post = parseFloat(WIP.C0_post) + parseFloat(preproduction.C0);
             console.log("m3 working");
 
             m3 = false;
@@ -239,12 +239,12 @@ io.sockets.on('connection', function (socket) {
 
             if(preproduction.D0 > 0) {
                 io.sockets.emit('preproduce', {machine: "machine4",type: "D0", amount: preproduction.D0});
-                // WIP.D0_post = parseFloat(WIP.D0_post) + parseFloat(preproduction.D0);
+                WIP.D0_post = parseFloat(WIP.D0_post) + parseFloat(preproduction.D0);
 
             }
             if(preproduction.D1 > 0){
                 io.sockets.emit('preproduce', {machine: "machine4",type:"D1",amount:preproduction.D1});
-                // WIP.D1_post = parseFloat(WIP.D1_post) + parseFloat(preproduction.D1);
+                WIP.D1_post = parseFloat(WIP.D1_post) + parseFloat(preproduction.D1);
             }
             mStateUpdater('machine4','work');
             m4 = false;
@@ -282,42 +282,42 @@ io.sockets.on('connection', function (socket) {
 
         switch(machine){
             case 'machine1':
-                // WIP.A0_pre = parseFloat(WIP.A0_pre) - parseFloat(amount);
-                // WIP.A0_while = parseFloat(WIP.A0_while) + parseFloat(amount);
-                // console.log('WIP.A0_while = '+WIP.A0_while)
-                // console.log('amount under A0 = '+data.amount)
+                WIP.A0_pre = parseFloat(WIP.A0_pre) - parseFloat(amount);
+                WIP.A0_while = parseFloat(WIP.A0_while) + parseFloat(amount);
+                console.log('WIP.A0_while = '+WIP.A0_while)
+                console.log('amount under A0 = '+data.amount)
                 break;
             case 'machine2':
-                // WIP.B0_pre = parseFloat(WIP.B0_pre) - parseFloat(amount);
-                // WIP.B0_while = parseFloat(WIP.B0_while) + parseFloat(amount);
-                // console.log('WIP.B0_while = '+WIP.B0_while)
-                // console.log('amount under B0 = '+data.amount)
+                WIP.B0_pre = parseFloat(WIP.B0_pre) - parseFloat(amount);
+                WIP.B0_while = parseFloat(WIP.B0_while) + parseFloat(amount);
+                console.log('WIP.B0_while = '+WIP.B0_while)
+                console.log('amount under B0 = '+data.amount)
                 break;
             case 'machine3':
-                // WIP.C0_pre = parseFloat(WIP.C0_pre) - parseFloat(amount);
-                // WIP.C0_while = parseFloat(WIP.C0_while) + parseFloat(amount);
-                // console.log('WIP.C0_while = '+WIP.C0_while)
-                // console.log('amount under C0 = '+data.amount)
+                WIP.C0_pre = parseFloat(WIP.C0_pre) - parseFloat(amount);
+                WIP.C0_while = parseFloat(WIP.C0_while) + parseFloat(amount);
+                console.log('WIP.C0_while = '+WIP.C0_while)
+                console.log('amount under C0 = '+data.amount)
                 break;
             case 'machine4':
                 if(product == 'D0'){
-                    // WIP.D0_pre = parseFloat(WIP.D0_pre) - parseFloat(amount);
-                    // WIP.D0_while = parseFloat(WIP.D0_while) + parseFloat(amount);
+                    WIP.D0_pre = parseFloat(WIP.D0_pre) - parseFloat(amount);
+                    WIP.D0_while = parseFloat(WIP.D0_while) + parseFloat(amount);
                 }else if(product == 'D1'){
-                    // WIP.D1_pre = parseFloat(WIP.D1_pre) - parseFloat(amount);
-                    // WIP.D1_while = parseFloat(WIP.D1_while) + parseFloat(amount);
+                    WIP.D1_pre = parseFloat(WIP.D1_pre) - parseFloat(amount);
+                    WIP.D1_while = parseFloat(WIP.D1_while) + parseFloat(amount);
                 }
                 break;
             case 'machine5':
                 if(product == 'E0'){
-                    // WIP.E0_pre = parseFloat(WIP.E0_pre) - parseFloat(amount);
-                    // WIP.E0_while = parseFloat(WIP.E0_while0) + parseFloat(amount);
+                    WIP.E0_pre = parseFloat(WIP.E0_pre) - parseFloat(amount);
+                    WIP.E0_while = parseFloat(WIP.E0_while0) + parseFloat(amount);
                 }else if(product == 'E1'){
-                    // WIP.E1_pre = parseFloat(WIP.E1_pre) - parseFloat(amount);
-                    // WIP.E1_while = parseFloat(WIP.E1_while) + parseFloat(amount);
+                    WIP.E1_pre = parseFloat(WIP.E1_pre) - parseFloat(amount);
+                    WIP.E1_while = parseFloat(WIP.E1_while) + parseFloat(amount);
                 }else if(product == 'E2'){
-                    // WIP.E2_pre = parseFloat(WIP.E2_pre) - parseFloat(amount);
-                    // WIP.E2_while = parseFloat(WIP.E2_while) + parseFloat(amount);
+                    WIP.E2_pre = parseFloat(WIP.E2_pre) - parseFloat(amount);
+                    WIP.E2_while = parseFloat(WIP.E2_while) + parseFloat(amount);
 
                 }
                 break;
@@ -357,46 +357,46 @@ io.sockets.on('connection', function (socket) {
         console.log(data.machine + " finished working")
         switch(data.machine) {
             case 'machine1':
-                // WIP.A0_while = parseFloat(WIP.A0_while) - amount;
-                // WIP.A0_post = parseFloat(WIP.A0_post) + amount;
-                // console.log('WIP.A0_post = '+WIP.A0_post)
-                // console.log("amount under A0 = "+amount);
+                WIP.A0_while = parseFloat(WIP.A0_while) - amount;
+                WIP.A0_post = parseFloat(WIP.A0_post) + amount;
+                console.log('WIP.A0_post = '+WIP.A0_post)
+                console.log("amount under A0 = "+amount);
                 break;
             case 'machine2':
-                // WIP.B0_while = parseFloat(WIP.B0_while) - amount;
-                // WIP.B0_post = parseFloat(WIP.B0_post) + amount;
-                // console.log('WIP.B0_post = '+WIP.B0_post)
-                // console.log("amount under B0 = "+ amount);
+                WIP.B0_while = parseFloat(WIP.B0_while) - amount;
+                WIP.B0_post = parseFloat(WIP.B0_post) + amount;
+                console.log('WIP.B0_post = '+WIP.B0_post)
+                console.log("amount under B0 = "+ amount);
                 break;
             case 'machine3':
-                // WIP.C0_while = parseFloat(WIP.C0_while) - amount;
-                // WIP.C0_post = parseFloat(WIP.C0_post) + amount;
-                // console.log('WIP.C0_post = '+WIP.C0_post)
-                // console.log("amount under C0 = "+ amount);
+                WIP.C0_while = parseFloat(WIP.C0_while) - amount;
+                WIP.C0_post = parseFloat(WIP.C0_post) + amount;
+                console.log('WIP.C0_post = '+WIP.C0_post)
+                console.log("amount under C0 = "+ amount);
                 break;
             case 'machine4':
                 if (data.product == 'D0') {
-                    // WIP.D0_while = parseFloat(WIP.D0_while) - amount;
-                    // WIP.D0_post = parseFloat(WIP.D0_post) + amount;
-                    // console.log('WIP.D0_post = '+WIP.D0_post)
-                    // console.log("amount under D0 = "+ amount);
+                    WIP.D0_while = parseFloat(WIP.D0_while) - amount;
+                    WIP.D0_post = parseFloat(WIP.D0_post) + amount;
+                    console.log('WIP.D0_post = '+WIP.D0_post)
+                    console.log("amount under D0 = "+ amount);
                 } else if (data.product == 'D1') {
-                    // WIP.D1_while = parseFloat(WIP.D1_while) - amount;
-                    // WIP.D1_post = parseFloat(WIP.D1_post) + amount;
-                    // console.log('WIP.D1_post = '+WIP.D1_post)
-                    // console.log("amount under D1 = "+ amount);
+                    WIP.D1_while = parseFloat(WIP.D1_while) - amount;
+                    WIP.D1_post = parseFloat(WIP.D1_post) + amount;
+                    console.log('WIP.D1_post = '+WIP.D1_post)
+                    console.log("amount under D1 = "+ amount);
                 }
                 break;
 
             case 'machine5':
                 if (data.product == 'E0') {
-                    // WIP.E0_while = parseFloat(WIP.E0_while) - parseFloat(data.amount);
+                    WIP.E0_while = parseFloat(WIP.E0_while) - parseFloat(data.amount);
                     FGI.E0 = parseFloat(FGI.E0) + parseFloat(data.amount);
                 } else if (data.product == 'E1') {
-                    // WIP.E1_while = parseFloat(WIP.E1_while) - parseFloat(data.amount);
+                    WIP.E1_while = parseFloat(WIP.E1_while) - parseFloat(data.amount);
                     FGI.E1 = parseFloat(FGI.E1) + parseFloat(data.amount);
                 } else if (data.product == 'E2') {
-                    // WIP.E2_while = parseFloat(WIP.E2_while) - parseFloat(data.amount);
+                    WIP.E2_while = parseFloat(WIP.E2_while) - parseFloat(data.amount);
                     FGI.E2 = parseFloat(FGI.E2) + parseFloat(data.amount);
                 }
                 break;
@@ -448,35 +448,35 @@ io.sockets.on('connection', function (socket) {
 
                 switch(OL[index].machine){
                     case 'machine1':
-                        // WIP.A0_pre = parseFloat(WIP.A0_pre) + parseFloat(OL[index].amount);
-                        totalWIP = parseFloat(totalWIP) + parseFloat(OL[index].amount);
+                        WIP.A0_pre = parseFloat(WIP.A0_pre) + parseFloat(OL[index].amount);
+                        // totalWIP = parseFloat(totalWIP) + parseFloat(OL[index].amount);
                         break;
                     case 'machine2':
-                        // WIP.B0_pre = parseFloat(WIP.B0_pre) + parseFloat(OL[index].amount);
-                        // WIP.A0_post = parseFloat(WIP.A0_post) - parseFloat(OL[index].amount);
+                        WIP.B0_pre = parseFloat(WIP.B0_pre) + parseFloat(OL[index].amount);
+                        WIP.A0_post = parseFloat(WIP.A0_post) - parseFloat(OL[index].amount);
                         break;
                     case 'machine3':
-                        // WIP.C0_pre = parseFloat(WIP.C0_pre) + parseFloat(OL[index].amount);
-                        // WIP.B0_post = parseFloat(WIP.B0_post) - parseFloat(OL[index].amount);
+                        WIP.C0_pre = parseFloat(WIP.C0_pre) + parseFloat(OL[index].amount);
+                        WIP.B0_post = parseFloat(WIP.B0_post) - parseFloat(OL[index].amount);
                         break;
                     case 'machine4':
                         if(OL[index].product == 'D0'){
-                            // WIP.D0_pre = parseFloat(WIP.D0_pre) + parseFloat(OL[index].amount);
+                            WIP.D0_pre = parseFloat(WIP.D0_pre) + parseFloat(OL[index].amount);
                         }else if(OL[index].product == 'D1'){
-                            // WIP.D1_pre = parseFloat(WIP.D1_pre) + parseFloat(OL[index].amount);
+                            WIP.D1_pre = parseFloat(WIP.D1_pre) + parseFloat(OL[index].amount);
                         }
-                        // WIP.C0_post = parseFloat(WIP.C0_post) - parseFloat(OL[index].amount);
+                        WIP.C0_post = parseFloat(WIP.C0_post) - parseFloat(OL[index].amount);
                         break;
                     case 'machine5':
                         if(OL[index].product == 'E0'){
-                            // WIP.E0_pre = parseFloat(WIP.E0_pre) + parseFloat(OL[index].amount);
-                            // WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
+                            WIP.E0_pre = parseFloat(WIP.E0_pre) + parseFloat(OL[index].amount);
+                            WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
                         }else if(OL[index].product == 'E1'){
-                            // WIP.E1_pre = parseFloat(WIP.E1_pre) + parseFloat(OL[index].amount);
-                            // WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
+                            WIP.E1_pre = parseFloat(WIP.E1_pre) + parseFloat(OL[index].amount);
+                            WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
                         }else if(OL[index].product == 'E2'){
-                            // WIP.E2_pre = parseFloat(WIP.E2_pre) + parseFloat(OL[index].amount);
-                            // WIP.D1_post = parseFloat(WIP.D1_post) - parseFloat(OL[index].amount);
+                            WIP.E2_pre = parseFloat(WIP.E2_pre) + parseFloat(OL[index].amount);
+                            WIP.D1_post = parseFloat(WIP.D1_post) - parseFloat(OL[index].amount);
                         }
                         break;
                     default:
@@ -492,12 +492,20 @@ io.sockets.on('connection', function (socket) {
             //This compares the CustomerList Time with the Timer Time
             ////Implement Waiting List!!!
             console.log("Cl time is: "+CL[CLindex].time);
+
+            //ESX6
+            for(var k in WIP){
+                totalWIP = parseFloat(totalWIP) + parseFloat(WIP[k]);
+                console.log("k = " + k);
+            }
+
             if(CL[CLindex].time == timerStart){
                 console.log("Cl time inside is: "+CL[CLindex].time);
                 tot_withdrawls++;
                 if(CL[CLindex].product == 'E0'){
                     if(FGI.E0 >= CL[CLindex].amount){
                         FGI.E0 = parseFloat(FGI.E0) - parseFloat(CL[CLindex].amount);
+                        totalWIP = parseFloat(totalWIP) - parseFloat(CL[CLindex].amount)
                         pos_withdrawls++;
                     }else{
                         queue.push(CL[CLindex]);
@@ -506,6 +514,7 @@ io.sockets.on('connection', function (socket) {
                 }else if(CL[CLindex].product == 'E1') {
                     if (FGI.E1 >= CL[CLindex].amount) {
                         FGI.E1 = parseFloat(FGI.E1) - parseFloat(CL[CLindex].amount);
+                        totalWIP = parseFloat(totalWIP) - parseFloat(CL[CLindex].amount)
                         pos_withdrawls++;
                     } else {
                         queue.push(CL[CLindex]);
@@ -514,6 +523,7 @@ io.sockets.on('connection', function (socket) {
                 }else if(CL[CLindex].product == 'E2') {
                     if (FGI.E2 >= CL[CLindex].amount) {
                         FGI.E2 = parseFloat(FGI.E2) - parseFloat(CL[CLindex].amount)
+                        totalWIP = parseFloat(totalWIP) - parseFloat(CL[CLindex].amount)
                         pos_withdrawls++;
                     } else {
                         queue.push(CL[CLindex]);
@@ -530,18 +540,13 @@ io.sockets.on('connection', function (socket) {
             }
 
             // totalWIP = 0
-            // console.log("Total WIP beofre: " + totalWIP);
-            // //ESX6
-            // for(var k in WIP){
-            //     totalWIP = parseFloat(totalWIP) + parseFloat(WIP[k]);
-            //     console.log("k = " + k);
-            // }
-            // console.log("WIP: " + totalWIP);
+
+            console.log("WIP: " + totalWIP);
 
             // totalWIP = parseFloat(WIP.A0_post) + parseFloat(WIP.B0_post) + parseFloat(WIP.C0_post) + parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
-            //totalWIP = parseFloat(totalWIP) + parseFloat(WIP.B0_post);
-            //totalWIP += parseFloat(WIP.C0_post);
-            //totalWIP += parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
+            // totalWIP = parseFloat(totalWIP) + parseFloat(WIP.B0_post);
+            // totalWIP += parseFloat(WIP.C0_post);
+            // totalWIP += parseFloat(WIP.D0_post) + parseFloat(WIP.D1_post);
             // totalWIP += parseFloat(WIP.E0_while) + parseFloat(WIP.E0_pre) + parseFloat(WIP.E1_while) + parseFloat(WIP.E1_pre) + parseFloat(WIP.E2_while) + parseFloat(WIP.E2_pre)
 
             io.sockets.emit('graphData', {WIP: parseFloat(totalWIP), FGI:FGI, time:timerStart, servicelevel:serviceLevel})
