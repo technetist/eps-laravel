@@ -363,6 +363,7 @@ io.sockets.on('connection', function (socket) {
                 console.log("amount under A0 = "+amount);
                 break;
             case 'machine2':
+                WIP.A0_post = parseFloat(WIP.A0_post) - amount;
                 WIP.B0_while = parseFloat(WIP.B0_while) - amount;
                 WIP.B0_post = parseFloat(WIP.B0_post) + amount;
                 console.log('WIP.B0_post = '+WIP.B0_post)
@@ -371,6 +372,7 @@ io.sockets.on('connection', function (socket) {
             case 'machine3':
                 WIP.C0_while = parseFloat(WIP.C0_while) - amount;
                 WIP.C0_post = parseFloat(WIP.C0_post) + amount;
+                WIP.B0_post = parseFloat(WIP.B0_post) - amount;
                 console.log('WIP.C0_post = '+WIP.C0_post)
                 console.log("amount under C0 = "+ amount);
                 break;
@@ -386,6 +388,7 @@ io.sockets.on('connection', function (socket) {
                     console.log('WIP.D1_post = '+WIP.D1_post)
                     console.log("amount under D1 = "+ amount);
                 }
+                WIP.C0_post = parseFloat(WIP.C0_post) - amount;
                 break;
 
             case 'machine5':
@@ -453,11 +456,9 @@ io.sockets.on('connection', function (socket) {
                         break;
                     case 'machine2':
                         WIP.B0_pre = parseFloat(WIP.B0_pre) + parseFloat(OL[index].amount);
-                        WIP.A0_post = parseFloat(WIP.A0_post) - parseFloat(OL[index].amount);
                         break;
                     case 'machine3':
                         WIP.C0_pre = parseFloat(WIP.C0_pre) + parseFloat(OL[index].amount);
-                        WIP.B0_post = parseFloat(WIP.B0_post) - parseFloat(OL[index].amount);
                         break;
                     case 'machine4':
                         if(OL[index].product == 'D0'){
@@ -465,7 +466,6 @@ io.sockets.on('connection', function (socket) {
                         }else if(OL[index].product == 'D1'){
                             WIP.D1_pre = parseFloat(WIP.D1_pre) + parseFloat(OL[index].amount);
                         }
-                        WIP.C0_post = parseFloat(WIP.C0_post) - parseFloat(OL[index].amount);
                         break;
                     case 'machine5':
                         if(OL[index].product == 'E0'){
