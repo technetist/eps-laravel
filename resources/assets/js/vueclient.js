@@ -11,7 +11,7 @@ var E2_dataPoints = [];
 var ServiceLevel_datapoints = [];
 var inventory_chart;
 var servicelevel_chart;
-
+var choose_algorithm;
 
 socket.on('connect', function () {
     console.log('CONNECT')
@@ -19,23 +19,39 @@ socket.on('connect', function () {
     makeServiceLevelGraph();
     document.getElementById("stop").setAttribute("disabled", true)
     document.getElementById("start").addEventListener("click", function () {
+        choose_algorithm = false;
 
-        document.getElementById("stop").removeAttribute("disabled");
-        if(document.getElementById("mrp").checked){
-            planning_algorithm = "MRP";
+        if(!choose_algorithm){
+            if(document.getElementById("mrp").checked){
+                planning_algorithm = "MRP";
+                choose_algorithm = true;
+            }
+
+            if(document.getElementById("kanban").checked){
+                planning_algorithm = "Kanban";
+                choose_algorithm = true;
+            }
+
+            if(document.getElementById("conwip").checked){
+                planning_algorithm = "Conwip";
+                choose_algorithm = true;
+            }
+
+            if(!choose_algorithm){
+                $('#Remind_modal').modal('show');
+                setTimeout(function(){$('#Remind_modal').modal('hide')},2000);
+            }
+
+            console.log("choose algorithm: " + choose_algorithm);
+
         }
 
-        if(document.getElementById("kanban").checked){
-            planning_algorithm = "Kanban";
-        }
-
-        if(document.getElementById("conwip").checked){
-            planning_algorithm = "Conwip";
-        }
-
+        if(choose_algorithm){
+            document.getElementById("stop").removeAttribute("disabled");
             this.setAttribute("disabled", true)
             socket.emit("start")
             console.log("clicking!")
+        }
 
 
     })
@@ -83,12 +99,20 @@ socket.on('connect', function () {
     })
 
     document.getElementById("modal3_save").addEventListener("click", function (){
-        var session_name = document.getElementById('session_name');
-        socket.emit("gameEnd", {session_name: document.getElementById('session_name').innerText,
-            planning_algorithm: planning_algorithm});
-        $('#StopModal').modal('hide');
-        socket.emit("reset")
-        resetVariables();
+        var session_name = document.getElementById('session_name').value;
+        if(session_name === "" || session_name === null){
+            document.getElementById("error_text").innerHTML = "please enter a session name";
+        }
+
+        else{
+            socket.emit("gameEnd", {session_name: session_name, planning_algorithm: planning_algorithm});
+            console.log("session name: " + session_name);
+            $('#StopModal').modal('hide');
+            socket.emit("reset")
+            resetVariables();
+            document.getElementById("stop").setAttribute("disabled", true);
+        }
+
     })
 
     document.getElementById("modal3_resume").addEventListener("click", function (){
@@ -99,6 +123,7 @@ socket.on('connect', function () {
         $('#StopModal').modal('hide');
         socket.emit("reset")
         resetVariables();
+        document.getElementById("stop").setAttribute("disabled", true);
     })
 
     socket.on('messages.getStatus', function (data) {

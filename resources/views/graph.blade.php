@@ -18,7 +18,7 @@
             <input role="button" id="start" class="btn btn-sm" type="submit" value="Start session">
             <input role="button" id="stop" class="btn btn-sm" type="submit" value="Stop session">
             <input role="button" id="reset" class="btn btn-sm" type="submit" value="Reset">
-            <a href="{{ route('change_parameters', compact('session_id')) }}"><input role="button" id="change_par" class="btn btn-sm" type="submit" value="Change parameters"></a>
+            <a href="{{ route('change_parameters') }}"><input role="button" id="change_par" class="btn btn-sm" type="submit" value="Change parameters"></a>
         </div>
 
         <div class="col-lg-1">
@@ -34,7 +34,7 @@
 
             {{--</div>--}}
 
-            <div id="inventory_graph" style="margin-bottom: 10px"></div>
+            <div id="inventory_graph" style="width: 100%; margin-bottom: 10px"></div>
 
         </div>
 
@@ -44,7 +44,19 @@
             {{--<div id="app2">--}}
 
             {{--</div>--}}
-            <div id="servicelevel_graph" style="margin-bottom: 10px"></div>
+            <div id="servicelevel_graph" style="width: 100%; margin-bottom: 10px"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Remind_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Please select an algorithm</h3>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -83,7 +95,11 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="row">
+                    <div class="col-lg-11">
+                        If you press save changes, then all the machines have to produce the above inventory
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="modal1_savechanges">Save changes</button>
