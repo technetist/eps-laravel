@@ -20,7 +20,7 @@ socket.on('connect', function () {
     document.getElementById("stop").setAttribute("disabled", true)
     document.getElementById("start").addEventListener("click", function () {
 
-        document.getElementById("start").removeAttribute("disabled");
+        document.getElementById("stop").removeAttribute("disabled");
         if(document.getElementById("mrp").checked){
             planning_algorithm = "MRP";
         }
