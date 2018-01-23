@@ -9,18 +9,18 @@ var E0_dataPoints = [];
 var E1_dataPoints = [];
 var E2_dataPoints = [];
 var ServiceLevel_datapoints = [];
-
 var inventory_chart;
 var servicelevel_chart;
+
 
 socket.on('connect', function () {
     console.log('CONNECT')
     makeInventoryGraph();
     makeServiceLevelGraph();
+    document.getElementById("stop").setAttribute("disabled", true)
     document.getElementById("start").addEventListener("click", function () {
 
-        this.setAttribute("disabled", true)
-
+        document.getElementById("start").removeAttribute("disabled");
         if(document.getElementById("mrp").checked){
             planning_algorithm = "MRP";
         }
@@ -33,8 +33,11 @@ socket.on('connect', function () {
             planning_algorithm = "Conwip";
         }
 
-        socket.emit("start")
-        console.log("clicking!")
+            this.setAttribute("disabled", true)
+            socket.emit("start")
+            console.log("clicking!")
+
+
     })
 
     socket.on('ready', function (data) {
@@ -50,6 +53,7 @@ socket.on('connect', function () {
         document.getElementById("modal1_savechanges").disabled = true;
         setTimeout(function(){document.getElementById("modal1_savechanges").disabled = false;},2000);
     })
+
 
     document.getElementById("modal1_savechanges").addEventListener("click", function () {
         $('#Modal1').modal('hide');
@@ -83,6 +87,8 @@ socket.on('connect', function () {
         socket.emit("gameEnd", {session_name: document.getElementById('session_name'),
             planning_algorithm: planning_algorithm});
         $('#StopModal').modal('hide');
+        socket.emit("reset")
+        resetVariables();
     })
 
     document.getElementById("modal3_resume").addEventListener("click", function (){
