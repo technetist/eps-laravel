@@ -251,6 +251,7 @@ io.sockets.on('connection', function (socket) {
         }else{
             m4 = true;
         }
+        preproduction.E0 = 2;
         if(preproduction.E0 > 0 || preproduction.E1 > 0 || preproduction.E2 > 0){
             console.log("m5 working");
 
@@ -271,6 +272,8 @@ io.sockets.on('connection', function (socket) {
         }else{
             m5 = true;
         }
+
+        io.sockets.emit("set");
 
     })
 
