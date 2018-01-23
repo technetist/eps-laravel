@@ -47,16 +47,6 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <span class="navbar-text">Welcome, (name of user)</span>
-                </li>
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#help">
-                        <span class="text-primary">Help</span>
-                    </a>
-                </li>
-            </ul>
         </nav>
     </div>
 </div>
