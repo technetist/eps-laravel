@@ -393,12 +393,15 @@ io.sockets.on('connection', function (socket) {
 
             case 'machine5':
                 if (data.product == 'E0') {
+                    WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
                     WIP.E0_while = parseFloat(WIP.E0_while) - parseFloat(data.amount);
                     FGI.E0 = parseFloat(FGI.E0) + parseFloat(data.amount);
                 } else if (data.product == 'E1') {
+                    WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
                     WIP.E1_while = parseFloat(WIP.E1_while) - parseFloat(data.amount);
                     FGI.E1 = parseFloat(FGI.E1) + parseFloat(data.amount);
                 } else if (data.product == 'E2') {
+                    WIP.D1_post = parseFloat(WIP.D1_post) - parseFloat(OL[index].amount);
                     WIP.E2_while = parseFloat(WIP.E2_while) - parseFloat(data.amount);
                     FGI.E2 = parseFloat(FGI.E2) + parseFloat(data.amount);
                 }
@@ -470,13 +473,10 @@ io.sockets.on('connection', function (socket) {
                     case 'machine5':
                         if(OL[index].product == 'E0'){
                             WIP.E0_pre = parseFloat(WIP.E0_pre) + parseFloat(OL[index].amount);
-                            WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
                         }else if(OL[index].product == 'E1'){
                             WIP.E1_pre = parseFloat(WIP.E1_pre) + parseFloat(OL[index].amount);
-                            WIP.D0_post = parseFloat(WIP.D0_post) - parseFloat(OL[index].amount);
                         }else if(OL[index].product == 'E2'){
                             WIP.E2_pre = parseFloat(WIP.E2_pre) + parseFloat(OL[index].amount);
-                            WIP.D1_post = parseFloat(WIP.D1_post) - parseFloat(OL[index].amount);
                         }
                         break;
                     default:
