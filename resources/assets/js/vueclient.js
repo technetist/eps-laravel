@@ -84,7 +84,7 @@ socket.on('connect', function () {
 
     document.getElementById("modal3_save").addEventListener("click", function (){
         var session_name = document.getElementById('session_name');
-        socket.emit("gameEnd", {session_name: document.getElementById('session_name'),
+        socket.emit("gameEnd", {session_name: document.getElementById('session_name').innerText,
             planning_algorithm: planning_algorithm});
         $('#StopModal').modal('hide');
         socket.emit("reset")
